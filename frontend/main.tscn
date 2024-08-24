@@ -1,0 +1,76 @@
+[gd_scene load_steps=2 format=3 uid="uid://8eosw1etvb4p"]
+
+[ext_resource type="Script" path="res://grid_container.gd" id="1_3bpos"]
+
+[node name="root" type="Node2D"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 1148.0
+offset_bottom = 648.0
+theme_override_constants/separation = 20
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1130, 500)
+layout_mode = 2
+columns = 5
+script = ExtResource("1_3bpos")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="team 1 name" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Team 1 name[/b]"
+fit_content = true
+
+[node name="team 1 score" type="Label" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="team 2 name" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Team 1 name[/b]"
+fit_content = true
+
+[node name="team 2 score" type="Label" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="team 3 name" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Team 1 name[/b]"
+fit_content = true
+
+[node name="team 3 score" type="Label" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
