@@ -13,7 +13,6 @@ var question_points = [ 100, 200, 300, 400, 500 ]
 func _ready() -> void:
 	update_team_names(data["teams"])
 	
-	#custom_minimum_size = get_window().size
 	add_categories()
 	add_question_buttons()
 	
@@ -24,7 +23,7 @@ func update_team_names(teams):
 	
 func add_categories():
 	var w = (size.x - 4*margin) / 5
-	var h = (size.y - 4*margin) / 6
+	var h = (size.y - 5*margin) / 6
 
 	for cat_i in len(categories):
 		var cat = categories[cat_i]
@@ -39,7 +38,7 @@ func add_categories():
 
 func add_question_buttons():
 	var w = (size.x - 4*margin) / 5
-	var h = (size.y - 4*margin) / 6
+	var h = (size.y - 5*margin) / 6
 	
 	for point_i in len(question_points):
 		buttons.append([])
