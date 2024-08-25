@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bi11vo3hhahvd"]
+[gd_scene load_steps=3 format=3 uid="uid://bi11vo3hhahvd"]
 
 [ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_5gg6g"]
-[ext_resource type="Script" path="res://main.gd" id="2_xss2p"]
 [ext_resource type="Script" path="res://button.gd" id="3_xgcb2"]
 
 [node name="SceneRoot" type="Node2D"]
@@ -9,7 +8,6 @@
 [node name="Jeopardy" type="Sprite2D" parent="."]
 position = Vector2(569, 370)
 texture = ExtResource("1_5gg6g")
-script = ExtResource("2_xss2p")
 
 [node name="Button" type="Button" parent="Jeopardy"]
 offset_right = 220.0
@@ -18,4 +16,4 @@ script = ExtResource("3_xgcb2")
 
 [node name="Node2D" type="Node2D" parent="Jeopardy/Button"]
 
-[connection signal="pressed" from="Jeopardy/Button" to="Jeopardy" method="_on_button_pressed"]
+[connection signal="pressed" from="Jeopardy/Button" to="Jeopardy/Button" method="_on_pressed"]
