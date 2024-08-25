@@ -14,17 +14,9 @@ var question_points = [ 100, 200, 300, 400, 500 ]
 var w = (size.x - 6*margin) / 5
 var h = (size.y - 7*margin) / 6
 
-
 func _ready() -> void:
-	update_team_names(data["teams"])
-	
 	add_categories()
 	add_question_buttons()
-	
-func update_team_names(teams):
-	get_node('../scoreboard/team 1 name').text = teams[0]
-	get_node('../scoreboard/team 2 name').text = teams[1]
-	get_node('../scoreboard/team 3 name').text = teams[2]
 	
 func add_categories():
 	var style_box = StyleBoxFlat.new()

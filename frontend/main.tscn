@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://8eosw1etvb4p"]
+[gd_scene load_steps=3 format=3 uid="uid://8eosw1etvb4p"]
 
 [ext_resource type="Script" path="res://aspect_ratio_container.gd" id="2_6kov2"]
+[ext_resource type="Script" path="res://scoreboard.gd" id="2_ng655"]
 
 [node name="root" type="Node2D"]
 
@@ -18,64 +19,83 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 190.0
-offset_top = 594.0
-offset_right = 960.0
+offset_left = 4.0
+offset_top = 550.0
+offset_right = 1147.0
 offset_bottom = 644.0
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
+script = ExtResource("2_ng655")
 
-[node name="team 1 name" type="RichTextLabel" parent="scoreboard"]
-custom_minimum_size = Vector2(200, 50)
+[node name="team 1" type="VBoxContainer" parent="scoreboard"]
 layout_mode = 2
-theme_override_font_sizes/bold_italics_font_size = 20
-theme_override_font_sizes/italics_font_size = 20
-theme_override_font_sizes/mono_font_size = 20
-theme_override_font_sizes/normal_font_size = 20
-theme_override_font_sizes/bold_font_size = 20
-bbcode_enabled = true
-text = "[b]Team 1 name[/b]"
-fit_content = true
+size_flags_horizontal = 3
 
-[node name="team 1 score" type="Label" parent="scoreboard"]
-custom_minimum_size = Vector2(50, 50)
+[node name="name" type="Label" parent="scoreboard/team 1"]
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
+text = "team"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 3
+
+[node name="score" type="Label" parent="scoreboard/team 1"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 3
 
-[node name="team 2 name" type="RichTextLabel" parent="scoreboard"]
-custom_minimum_size = Vector2(200, 50)
+[node name="team 2" type="VBoxContainer" parent="scoreboard"]
 layout_mode = 2
-theme_override_font_sizes/bold_italics_font_size = 20
-theme_override_font_sizes/italics_font_size = 20
-theme_override_font_sizes/mono_font_size = 20
-theme_override_font_sizes/normal_font_size = 20
-theme_override_font_sizes/bold_font_size = 20
-bbcode_enabled = true
-text = "[b]Team 1 name[/b]"
-fit_content = true
+size_flags_horizontal = 3
 
-[node name="team 2 score" type="Label" parent="scoreboard"]
-custom_minimum_size = Vector2(50, 50)
+[node name="name" type="Label" parent="scoreboard/team 2"]
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
+text = "team"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 3
+
+[node name="score" type="Label" parent="scoreboard/team 2"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 3
 
-[node name="team 3 name" type="RichTextLabel" parent="scoreboard"]
-custom_minimum_size = Vector2(200, 50)
+[node name="team 3" type="VBoxContainer" parent="scoreboard"]
 layout_mode = 2
-theme_override_font_sizes/bold_italics_font_size = 20
-theme_override_font_sizes/italics_font_size = 20
-theme_override_font_sizes/mono_font_size = 20
-theme_override_font_sizes/normal_font_size = 20
-theme_override_font_sizes/bold_font_size = 20
-bbcode_enabled = true
-text = "[b]Team 1 name[/b]"
-fit_content = true
+size_flags_horizontal = 3
 
-[node name="team 3 score" type="Label" parent="scoreboard"]
-custom_minimum_size = Vector2(50, 50)
+[node name="name" type="Label" parent="scoreboard/team 3"]
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
+text = "team"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 3
+
+[node name="score" type="Label" parent="scoreboard/team 3"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 3
