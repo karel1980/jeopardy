@@ -3,6 +3,7 @@ extends Control
 
 var scores = [ 0, 0, 0 ]
 var buttons = []
+var category_buttons = []
 
 var margin = 10
 
@@ -43,7 +44,7 @@ func add_categories():
 		btn.add_theme_stylebox_override("hover", style_box)
 		btn.add_theme_stylebox_override("pressed", style_box)
 
-
+		category_buttons.append(btn)
 		add_child(btn)
 
 func add_question_buttons():	
@@ -61,30 +62,29 @@ func add_question_buttons():
 			btn.position = Vector2(margin +  + cat_i * (w+margin), margin + (point_i + 1) * (h+margin))
 			btn.custom_minimum_size = Vector2(w, h)
 			btn.add_theme_font_size_override("font_size", 40)
-			
+			fixate_button_color(btn, Color(1,1,0))
 			btn.add_theme_stylebox_override("normal", style_box)
 			btn.add_theme_stylebox_override("hover", style_box)
 			btn.add_theme_stylebox_override("pressed", style_box)
 			btn.add_theme_stylebox_override("clicked", style_box)
-			btn.add_theme_color_override("font_color", Color(1,1,0))
-			btn.add_theme_color_override("font_hover_pressed_color", Color(1,1,0))
-			btn.add_theme_color_override("font_focus_color", Color(1,1,0))
-			btn.add_theme_color_override("font_hover_color", Color(1,1,0))
-			btn.add_theme_color_override("font_pressed_color", Color(1,1,0))
 
 			buttons[-1].append(btn)
 			add_child(btn)
+			
+func fixate_button_color(btn, color):
+	btn.add_theme_color_override("font_color", color)
+	btn.add_theme_color_override("font_hover_pressed_color", color)
+	btn.add_theme_color_override("font_focus_color", color)
+	btn.add_theme_color_override("font_hover_color", color)
+	btn.add_theme_color_override("font_pressed_color", color)
+
 
 func display_question(cat_idx, points_idx):
 	var orig_btn = buttons[points_idx][cat_idx]	
 	var btn = orig_btn.duplicate()
 	btn.autowrap_mode = TextServer.AUTOWRAP_WORD
 	btn.move_to_front()
-	btn.add_theme_color_override("font_color", Color(1,1,1))
-	btn.add_theme_color_override("font_hover_pressed_color", Color(1,1,1))
-	btn.add_theme_color_override("font_focus_color", Color(1,1,1))
-	btn.add_theme_color_override("font_hover_color", Color(1,1,1))
-	btn.add_theme_color_override("font_pressed_color", Color(1,1,1))
+	fixate_button_color(btn, Color(1,1,1))
 
 	btn.scale = Vector2(w / size.x, h / size.y)
 	btn.size = size
@@ -102,8 +102,20 @@ func display_question(cat_idx, points_idx):
 		if state[0] == 1:
 			btn.queue_free()
 			orig_btn.text = ""
+			clear_category_if_complete(cat_idx)
 		state[0] += 1
 	btn.pressed.connect(update_button)
+	
+func clear_category_if_complete(cat_idx):
+	var btn = category_buttons[cat_idx]
+	for row in buttons:
+		if row[cat_idx].text != "":
+			return
+	var tween = create_tween()
+	var scaler = func(font_color):
+		fixate_button_color(btn, font_color)
+	
+	tween.tween_method(scaler, Color(1,1,1), Color(.2,.2,1), 1)
 	
 func update_score(team_idx, score):
 	scores[team_idx] += score
