@@ -159,3 +159,6 @@ func clear_category_if_complete(cat_idx):
 func update_score(team_idx, score):
 	scores[team_idx] += score
 	get_node('scoreboard/team 1 score').text = "{score}".format({"score": scores[team_idx]})
+
+func select_random_team():
+	scoreboard.select_random_team()

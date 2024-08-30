@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://oqn6pb732n5a"]
+[gd_scene load_steps=3 format=3 uid="uid://oqn6pb732n5a"]
 
 [ext_resource type="Script" path="res://scoreboard.gd" id="1_7f0bc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4bp6"]
+bg_color = Color(0.790723, 0.64075, 0.972566, 1)
 
 [node name="scoreboard" type="HBoxContainer"]
 alignment = 1
@@ -15,6 +18,7 @@ custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_v4bp6")
 text = "team"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -41,6 +45,7 @@ custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_v4bp6")
 text = "team"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -67,6 +72,7 @@ custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_v4bp6")
 text = "team"
 horizontal_alignment = 1
 vertical_alignment = 1

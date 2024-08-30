@@ -63,9 +63,17 @@ text = "Reveal
 category
 5"
 
+[node name="random_team" type="Button" parent="."]
+offset_left = 47.0
+offset_top = 192.0
+offset_right = 140.0
+offset_bottom = 269.0
+text = "select random team"
+
 [connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="reveal_cat_0" to="." method="on_reveal_category_pressed" binds= [0]]
 [connection signal="pressed" from="reveal_cat_1" to="." method="on_reveal_category_pressed" binds= [1]]
 [connection signal="pressed" from="reveal_cat_2" to="." method="on_reveal_category_pressed" binds= [2]]
 [connection signal="pressed" from="reveal_cat_3" to="." method="on_reveal_category_pressed" binds= [3]]
 [connection signal="pressed" from="reveal_cat_4" to="." method="on_reveal_category_pressed" binds= [4]]
+[connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]

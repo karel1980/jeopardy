@@ -31,3 +31,7 @@ func _on_start_game_pressed() -> void:
 
 func on_reveal_category_pressed(cat_idx: int) -> void:
 	playerview.reveal_category(cat_idx)
+
+
+func on_random_team_pressed() -> void:
+	playerview.select_random_team()
