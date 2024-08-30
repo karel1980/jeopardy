@@ -1,34 +1,86 @@
-extends Control
+extends Node2D
 
+@onready var intro_screen = $VBoxContainer/intro_screen
+@onready var questionboard = $VBoxContainer/questionboard
+@onready var scoreboard = $VBoxContainer/scoreboard
+@onready var camera := $Camera2D
+
+var game
+var categories
 
 var scores = [ 0, 0, 0 ]
-var buttons = []
 var category_buttons = []
 
 var margin = 10
 
-var data = JSON.parse_string(FileAccess.open("../jeopardy.json", FileAccess.READ).get_as_text())
-var categories = data["categories"]
 var question_points = [ 100, 200, 300, 400, 500 ]
 
-var w = (size.x - 6*margin) / 5
-var h = (size.y - 7*margin) / 6
+var cat_tween = null
+var cat_tween2 = null
+var cat_button = null
 
 func _ready() -> void:
-	add_categories()
-	add_question_buttons()
+	intro_screen.show()
+	questionboard.hide()
+	scoreboard.hide()
 	
-func add_categories():
+func _process(delta: float) -> void:
+	pass
+
+func init_game(game_data):
+	
+	game = game_data
+	categories = game["categories"]
+	scoreboard.init_game(game_data)
+	
+	intro_screen.hide()
+	questionboard.show()
+	scoreboard.show()
+	
+	init_category_buttons()
+	init_question_buttons()
+	
+func reveal_category(cat_idx):
+	var sz = get_window().size
+
+	if cat_tween2:
+		# still cleaning up
+		return
+		
+	if cat_tween:
+		var cleanup = func():
+			cat_tween = null
+			cat_tween2 = null
+			cat_button.queue_free()
+		cat_tween2 = create_tween()
+		cat_tween2.tween_property(cat_button, "position", Vector2(-sz.x, 0), 0.7)
+		cat_tween2.tween_callback(cleanup)
+		return
+		
+	cat_button = get_category_button(cat_idx).duplicate()
+	cat_button.position = Vector2(sz.x, 0)
+	cat_button.text = categories[cat_idx].name
+	cat_button.size = sz
+	cat_button.add_theme_font_size_override("font_size",50)
+	
+	add_child(cat_button)
+	
+	var set_category_name = func():
+		get_category_button(cat_idx).text = categories[cat_idx].name
+		
+	cat_tween = create_tween()
+	cat_tween.tween_property(cat_button, "position", Vector2(0, 0), 0.7)
+	cat_tween.tween_callback(set_category_name)
+	
+func init_category_buttons():
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = Color(.2, .2, 1)
 
 	for cat_i in len(categories):
 		var cat = categories[cat_i]
 
-		var btn = Button.new()
-		btn.text = cat["name"]
-		btn.custom_minimum_size = Vector2(w, h)
-		btn.position = Vector2(margin + cat_i*(w + margin), margin)
+		var btn = get_category_button(cat_i)
+		btn.text = "???"
 		btn.add_theme_font_size_override("font_size", 20)
 		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		
@@ -37,22 +89,18 @@ func add_categories():
 		btn.add_theme_stylebox_override("pressed", style_box)
 
 		category_buttons.append(btn)
-		add_child(btn)
 
-func add_question_buttons():	
+func init_question_buttons():	
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = Color(.2, .2, 1)
 	
 	for point_i in len(question_points):
-		buttons.append([])
 		for cat_i in len(categories):
 			var handle_click = func _do_question_clicked():
 				display_question(cat_i, point_i)
-			var btn = Button.new()
+			var btn = get_question_button(cat_i, point_i)
 			btn.text = str(question_points[point_i])
 			btn.pressed.connect(handle_click)
-			btn.position = Vector2(margin +  + cat_i * (w+margin), margin + (point_i + 1) * (h+margin))
-			btn.custom_minimum_size = Vector2(w, h)
 			btn.add_theme_font_size_override("font_size", 40)
 			fixate_button_color(btn, Color(1,1,0))
 			btn.add_theme_stylebox_override("normal", style_box)
@@ -60,9 +108,12 @@ func add_question_buttons():
 			btn.add_theme_stylebox_override("pressed", style_box)
 			btn.add_theme_stylebox_override("clicked", style_box)
 
-			buttons[-1].append(btn)
-			add_child(btn)
-			
+func get_category_button(cat_idx) -> Label:
+	return questionboard.get_child(cat_idx).get_child(0)
+
+func get_question_button(cat_idx, question_idx):
+	return questionboard.get_child(cat_idx).get_child(question_idx + 1)
+
 func fixate_button_color(btn, color):
 	btn.add_theme_color_override("font_color", color)
 	btn.add_theme_color_override("font_hover_pressed_color", color)
@@ -70,18 +121,14 @@ func fixate_button_color(btn, color):
 	btn.add_theme_color_override("font_hover_color", color)
 	btn.add_theme_color_override("font_pressed_color", color)
 
-
 func display_question(cat_idx, points_idx):
-	var orig_btn = buttons[points_idx][cat_idx]	
+	var orig_btn = get_question_button(cat_idx, points_idx)
 	var btn = orig_btn.duplicate()
 	btn.autowrap_mode = TextServer.AUTOWRAP_WORD
 	btn.move_to_front()
 	fixate_button_color(btn, Color(1,1,1))
 
-	btn.scale = Vector2(w / size.x, h / size.y)
-	btn.size = size
-	btn.text = data["categories"][cat_idx]["questions"][points_idx]["q"]
-	add_child(btn)
+	btn.text = categories[cat_idx]["questions"][points_idx]["q"]
 	
 	var tween = create_tween()
 	tween.tween_property(btn, "position", Vector2(1,1), 0.7)
@@ -90,7 +137,7 @@ func display_question(cat_idx, points_idx):
 	var state = [0]
 	var update_button = func():
 		if state[0] == 0:
-			btn.text = data["categories"][cat_idx]["questions"][points_idx]["a"]
+			btn.text = categories[cat_idx]["questions"][points_idx]["a"]
 		if state[0] == 1:
 			btn.queue_free()
 			orig_btn.text = ""
@@ -100,8 +147,8 @@ func display_question(cat_idx, points_idx):
 	
 func clear_category_if_complete(cat_idx):
 	var btn = category_buttons[cat_idx]
-	for row in buttons:
-		if row[cat_idx].text != "":
+	for row in range(5):
+		if get_question_button(cat_idx, row).text != "":
 			return
 	var tween = create_tween()
 	var scaler = func(font_color):
@@ -112,6 +159,3 @@ func clear_category_if_complete(cat_idx):
 func update_score(team_idx, score):
 	scores[team_idx] += score
 	get_node('scoreboard/team 1 score').text = "{score}".format({"score": scores[team_idx]})
-	
-func _process(_delta: float) -> void:
-	pass

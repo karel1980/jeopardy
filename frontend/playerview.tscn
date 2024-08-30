@@ -1,0 +1,226 @@
+[gd_scene load_steps=4 format=3 uid="uid://8eosw1etvb4p"]
+
+[ext_resource type="Script" path="res://playerview.gd" id="1_5y4eo"]
+[ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_jhusk"]
+[ext_resource type="PackedScene" uid="uid://oqn6pb732n5a" path="res://scoreboard.tscn" id="3_bnwop"]
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_5y4eo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 1150.0
+offset_bottom = 644.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="intro_screen" type="TextureRect" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("1_jhusk")
+
+[node name="questionboard" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1150, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="cat5" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat5"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat5"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat5"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat5"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat5"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat5"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="cat6" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat6"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat6"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat6"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat6"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat6"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat6"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="cat7" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat7"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat7"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat7"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat7"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat7"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat7"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="cat8" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat8"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat8"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat8"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat8"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat8"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat8"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="cat9" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat9"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat9"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat9"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat9"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat9"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat9"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "button"
+
+[node name="scoreboard" parent="VBoxContainer" instance=ExtResource("3_bnwop")]
+layout_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+anchor_mode = 0

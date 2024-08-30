@@ -1,101 +1,71 @@
-[gd_scene load_steps=3 format=3 uid="uid://8eosw1etvb4p"]
+[gd_scene load_steps=2 format=3 uid="uid://bi11vo3hhahvd"]
 
-[ext_resource type="Script" path="res://aspect_ratio_container.gd" id="2_6kov2"]
-[ext_resource type="Script" path="res://scoreboard.gd" id="2_ng655"]
+[ext_resource type="Script" path="res://main.gd" id="1_t2hya"]
 
-[node name="root" type="Node2D"]
+[node name="SceneRoot" type="Node2D"]
+script = ExtResource("1_t2hya")
 
-[node name="AspectRatioContainer" type="Control" parent="."]
-custom_minimum_size = Vector2(1150, 500)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1150.0
-offset_bottom = 545.0
-script = ExtResource("2_6kov2")
+[node name="warning label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "This is the gamemaster view. Don't share this screen with the players"
 
-[node name="scoreboard" type="HBoxContainer" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 550.0
-offset_right = 1147.0
-offset_bottom = 644.0
-grow_horizontal = 2
-grow_vertical = 0
-alignment = 1
-script = ExtResource("2_ng655")
+[node name="start game" type="Button" parent="."]
+offset_left = 45.0
+offset_top = 46.0
+offset_right = 138.0
+offset_bottom = 77.0
+text = "Start game
+"
 
-[node name="team 1" type="VBoxContainer" parent="scoreboard"]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="reveal_cat_0" type="Button" parent="."]
+offset_left = 45.0
+offset_top = 94.0
+offset_right = 138.0
+offset_bottom = 125.0
+text = "Reveal
+category
+1"
 
-[node name="name" type="Label" parent="scoreboard/team 1"]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "team"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-text_overrun_behavior = 3
+[node name="reveal_cat_1" type="Button" parent="."]
+offset_left = 150.0
+offset_top = 94.0
+offset_right = 243.0
+offset_bottom = 171.0
+text = "Reveal
+category
+2"
 
-[node name="score" type="Label" parent="scoreboard/team 1"]
-custom_minimum_size = Vector2(50, 30)
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-text_overrun_behavior = 3
+[node name="reveal_cat_2" type="Button" parent="."]
+offset_left = 256.0
+offset_top = 92.0
+offset_right = 349.0
+offset_bottom = 169.0
+text = "Reveal
+category
+3"
 
-[node name="team 2" type="VBoxContainer" parent="scoreboard"]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="reveal_cat_3" type="Button" parent="."]
+offset_left = 362.0
+offset_top = 92.0
+offset_right = 455.0
+offset_bottom = 169.0
+text = "Reveal
+category
+4"
 
-[node name="name" type="Label" parent="scoreboard/team 2"]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "team"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-text_overrun_behavior = 3
+[node name="reveal_cat_4" type="Button" parent="."]
+offset_left = 475.0
+offset_top = 93.0
+offset_right = 568.0
+offset_bottom = 170.0
+text = "Reveal
+category
+5"
 
-[node name="score" type="Label" parent="scoreboard/team 2"]
-custom_minimum_size = Vector2(50, 30)
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-text_overrun_behavior = 3
-
-[node name="team 3" type="VBoxContainer" parent="scoreboard"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="name" type="Label" parent="scoreboard/team 3"]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "team"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-text_overrun_behavior = 3
-
-[node name="score" type="Label" parent="scoreboard/team 3"]
-custom_minimum_size = Vector2(50, 30)
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-text_overrun_behavior = 3
+[connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="reveal_cat_0" to="." method="on_reveal_category_pressed" binds= [0]]
+[connection signal="pressed" from="reveal_cat_1" to="." method="on_reveal_category_pressed" binds= [1]]
+[connection signal="pressed" from="reveal_cat_2" to="." method="on_reveal_category_pressed" binds= [2]]
+[connection signal="pressed" from="reveal_cat_3" to="." method="on_reveal_category_pressed" binds= [3]]
+[connection signal="pressed" from="reveal_cat_4" to="." method="on_reveal_category_pressed" binds= [4]]
