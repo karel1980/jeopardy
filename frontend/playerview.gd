@@ -11,6 +11,9 @@ var categories
 var scores = [ 0, 0, 0 ]
 var category_buttons = []
 
+var shown_question = []
+var question_btn
+
 var margin = 10
 
 var question_points = [ 100, 200, 300, 400, 500 ]
@@ -24,7 +27,7 @@ func _ready() -> void:
 	questionboard.hide()
 	scoreboard.hide()
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func init_game(game_data):
@@ -77,8 +80,6 @@ func init_category_buttons():
 	style_box.bg_color = Color(.2, .2, 1)
 
 	for cat_i in len(categories):
-		var cat = categories[cat_i]
-
 		var btn = get_category_button(cat_i)
 		btn.text = "???"
 		btn.add_theme_font_size_override("font_size", 20)
@@ -96,11 +97,8 @@ func init_question_buttons():
 	
 	for point_i in len(question_points):
 		for cat_i in len(categories):
-			var handle_click = func _do_question_clicked():
-				display_question(cat_i, point_i)
 			var btn = get_question_button(cat_i, point_i)
 			btn.text = str(question_points[point_i])
-			btn.pressed.connect(handle_click)
 			btn.add_theme_font_size_override("font_size", 40)
 			fixate_button_color(btn, Color(1,1,0))
 			btn.add_theme_stylebox_override("normal", style_box)
@@ -121,29 +119,41 @@ func fixate_button_color(btn, color):
 	btn.add_theme_color_override("font_hover_color", color)
 	btn.add_theme_color_override("font_pressed_color", color)
 
-func display_question(cat_idx, points_idx):
+func show_question(cat_idx, points_idx):
+	if shown_question:
+		question_btn.queue_free()
+		shown_question = []
+		return
+		
 	var orig_btn = get_question_button(cat_idx, points_idx)
 	var btn = orig_btn.duplicate()
+	# TODO: create a nice animation
+	question_btn = btn
+	shown_question = [cat_idx, points_idx]
 	btn.autowrap_mode = TextServer.AUTOWRAP_WORD
 	btn.move_to_front()
+	add_child(btn)
 	fixate_button_color(btn, Color(1,1,1))
+	var sz = get_window().size
 
 	btn.text = categories[cat_idx]["questions"][points_idx]["q"]
 	
+	btn.position = Vector2(1, 1)
+	btn.size = sz
+	
 	var tween = create_tween()
 	tween.tween_property(btn, "position", Vector2(1,1), 0.7)
-	tween.parallel().tween_property(btn, "scale", Vector2(1, 1), 0.7)
-	
-	var state = [0]
-	var update_button = func():
-		if state[0] == 0:
-			btn.text = categories[cat_idx]["questions"][points_idx]["a"]
-		if state[0] == 1:
-			btn.queue_free()
-			orig_btn.text = ""
-			clear_category_if_complete(cat_idx)
-		state[0] += 1
-	btn.pressed.connect(update_button)
+	#
+	#var state = [0]
+	#var update_button = func():
+		#if state[0] == 0:
+			#btn.text = categories[cat_idx]["questions"][points_idx]["a"]
+		#if state[0] == 1:
+			#btn.queue_free()
+			#orig_btn.text = ""
+			#clear_category_if_complete(cat_idx)
+		#state[0] += 1
+	#btn.pressed.connect(update_button)
 	
 func clear_category_if_complete(cat_idx):
 	var btn = category_buttons[cat_idx]

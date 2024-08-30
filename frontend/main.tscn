@@ -19,56 +19,63 @@ text = "Start game
 "
 
 [node name="reveal_cat_0" type="Button" parent="."]
-offset_left = 45.0
-offset_top = 94.0
-offset_right = 138.0
+offset_left = 171.0
+offset_top = 48.0
+offset_right = 264.0
 offset_bottom = 125.0
 text = "Reveal
 category
 1"
 
 [node name="reveal_cat_1" type="Button" parent="."]
-offset_left = 150.0
-offset_top = 94.0
-offset_right = 243.0
-offset_bottom = 171.0
+offset_left = 276.0
+offset_top = 48.0
+offset_right = 369.0
+offset_bottom = 125.0
 text = "Reveal
 category
 2"
 
 [node name="reveal_cat_2" type="Button" parent="."]
-offset_left = 256.0
-offset_top = 92.0
-offset_right = 349.0
-offset_bottom = 169.0
+offset_left = 382.0
+offset_top = 46.0
+offset_right = 475.0
+offset_bottom = 123.0
 text = "Reveal
 category
 3"
 
 [node name="reveal_cat_3" type="Button" parent="."]
-offset_left = 362.0
-offset_top = 92.0
-offset_right = 455.0
-offset_bottom = 169.0
+offset_left = 488.0
+offset_top = 46.0
+offset_right = 581.0
+offset_bottom = 123.0
 text = "Reveal
 category
 4"
 
 [node name="reveal_cat_4" type="Button" parent="."]
-offset_left = 475.0
-offset_top = 93.0
-offset_right = 568.0
-offset_bottom = 170.0
+offset_left = 601.0
+offset_top = 47.0
+offset_right = 694.0
+offset_bottom = 124.0
 text = "Reveal
 category
 5"
 
 [node name="random_team" type="Button" parent="."]
-offset_left = 47.0
-offset_top = 192.0
-offset_right = 140.0
-offset_bottom = 269.0
+offset_left = 813.0
+offset_top = 46.0
+offset_right = 976.0
+offset_bottom = 123.0
 text = "select random team"
+
+[node name="questions" type="GridContainer" parent="."]
+offset_left = 151.0
+offset_top = 157.0
+offset_right = 750.0
+offset_bottom = 541.0
+columns = 5
 
 [connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="reveal_cat_0" to="." method="on_reveal_category_pressed" binds= [0]]
