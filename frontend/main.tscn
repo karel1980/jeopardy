@@ -73,8 +73,8 @@ text = "select random team"
 [node name="questions" type="GridContainer" parent="."]
 offset_left = 45.0
 offset_top = 150.0
-offset_right = 644.0
-offset_bottom = 534.0
+offset_right = 569.0
+offset_bottom = 464.0
 columns = 5
 
 [node name="question_category" type="Label" parent="."]
@@ -110,10 +110,10 @@ text = "Note"
 autowrap_mode = 3
 
 [node name="GridContainer" type="GridContainer" parent="."]
-offset_left = 16.0
-offset_top = 568.0
-offset_right = 517.0
-offset_bottom = 634.0
+offset_left = 17.0
+offset_top = 496.0
+offset_right = 518.0
+offset_bottom = 632.0
 columns = 3
 
 [node name="team_1_correct" type="Button" parent="GridContainer"]
@@ -140,6 +140,37 @@ text = "Team two WRONG"
 layout_mode = 2
 text = "Team three WRONG"
 
+[node name="team_1_plus_100" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "+100"
+
+[node name="team_2_plus_100" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "+100"
+
+[node name="team_3_plus_100" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "+100"
+
+[node name="team_1_minus_100" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "-100"
+
+[node name="team_2_minus_100" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "-100"
+
+[node name="team_3_minus_100" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "-100"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 631.0
+offset_top = 189.0
+offset_right = 760.0
+offset_bottom = 220.0
+text = "Question DONE"
+
 [connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="reveal_cat_0" to="." method="on_reveal_category_pressed" binds= [0]]
 [connection signal="pressed" from="reveal_cat_1" to="." method="on_reveal_category_pressed" binds= [1]]
@@ -153,3 +184,10 @@ text = "Team three WRONG"
 [connection signal="pressed" from="GridContainer/team_1_wrong" to="." method="_on_team_wrong_pressed" binds= [0]]
 [connection signal="pressed" from="GridContainer/team_2_wrong" to="." method="_on_team_wrong_pressed" binds= [1]]
 [connection signal="pressed" from="GridContainer/team_3_wrong" to="." method="_on_team_wrong_pressed" binds= [2]]
+[connection signal="pressed" from="GridContainer/team_1_plus_100" to="." method="_on_manual_score_increase" binds= [0]]
+[connection signal="pressed" from="GridContainer/team_2_plus_100" to="." method="_on_manual_score_increase" binds= [1]]
+[connection signal="pressed" from="GridContainer/team_3_plus_100" to="." method="_on_manual_score_increase" binds= [2]]
+[connection signal="pressed" from="GridContainer/team_1_minus_100" to="." method="_on_manual_score_decrease" binds= [0]]
+[connection signal="pressed" from="GridContainer/team_2_minus_100" to="." method="_on_manual_score_decrease" binds= [1]]
+[connection signal="pressed" from="GridContainer/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
+[connection signal="pressed" from="Button" to="." method="mark_question_completed"]

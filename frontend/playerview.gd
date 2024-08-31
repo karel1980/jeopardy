@@ -23,6 +23,13 @@ var cat_tween2 = null
 var cat_button = null
 
 func _ready() -> void:
+	print("playerview ready")
+
+	init_category_buttons()
+	init_question_buttons()
+
+	scoreboard.init_game(game)
+
 	intro_screen.show()
 	questionboard.hide()
 	scoreboard.hide()
@@ -31,18 +38,15 @@ func _process(_delta: float) -> void:
 	pass
 
 func init_game(game_data):
-	
+	print("playerview init_game")
 	game = game_data
 	categories = game["categories"]
-	scoreboard.init_game(game_data)
 	
+func start_game():	
 	intro_screen.hide()
 	questionboard.show()
 	scoreboard.show()
-	
-	init_category_buttons()
-	init_question_buttons()
-	
+		
 func reveal_category(cat_idx):
 	var sz = get_window().size
 
@@ -90,7 +94,7 @@ func init_category_buttons():
 		btn.add_theme_stylebox_override("pressed", style_box)
 
 		category_buttons.append(btn)
-
+		
 func init_question_buttons():	
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = Color(.2, .2, 1)
@@ -143,7 +147,8 @@ func show_question(cat_idx, points_idx):
 	btn.text = categories[cat_idx]["questions"][points_idx]["q"]
 	
 	btn.position = Vector2(1, 1)
-	btn.size = sz
+	print(questionboard.size)
+	btn.size = questionboard.size
 	
 	var tween = create_tween()
 	tween.tween_property(btn, "position", Vector2(1,1), 0.7)
@@ -158,6 +163,9 @@ func show_question(cat_idx, points_idx):
 			#clear_category_if_complete(cat_idx)
 		#state[0] += 1
 	#btn.pressed.connect(update_button)
+	
+func mark_question_completed(cat_idx, question_idx):
+	get_question_button(cat_idx, question_idx).text = ""
 	
 func clear_category_if_complete(cat_idx):
 	var btn = category_buttons[cat_idx]
