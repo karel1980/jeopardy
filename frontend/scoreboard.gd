@@ -9,6 +9,7 @@ var highlight_none = Color(1, 1, 1, 1)
 var highlight_color = Color(1, 1, 0.5, 1)
 
 @onready var widgets = [ $"team 1/name", $"team 2/name", $"team 3/name" ]
+@onready var score_labels = [ $"team 1/score", $"team 2/score", $"team 3/score" ]
 
 func select_random_team():
 	current_team = randi_range(0, 2)
@@ -68,3 +69,10 @@ func set_current_team(team_idx):
 		current_team = team_idx
 		t.tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
 	
+func increase_score(team_idx, points):
+	scores[team_idx] += points
+	score_labels[team_idx].text = str(scores[team_idx])
+
+func decrease_score(team_idx, points):
+	scores[team_idx] -= points
+	score_labels[team_idx].text = str(scores[team_idx])

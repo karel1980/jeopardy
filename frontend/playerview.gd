@@ -119,11 +119,15 @@ func fixate_button_color(btn, color):
 	btn.add_theme_color_override("font_hover_color", color)
 	btn.add_theme_color_override("font_pressed_color", color)
 
-func show_question(cat_idx, points_idx):
-	if shown_question:
+func hide_question():
+	if question_btn:
 		question_btn.queue_free()
-		shown_question = []
-		return
+		question_btn = null
+		
+func show_question(cat_idx, points_idx):
+	if question_btn:
+		question_btn.queue_free()
+		question_btn = null
 		
 	var orig_btn = get_question_button(cat_idx, points_idx)
 	var btn = orig_btn.duplicate()
@@ -143,7 +147,7 @@ func show_question(cat_idx, points_idx):
 	
 	var tween = create_tween()
 	tween.tween_property(btn, "position", Vector2(1,1), 0.7)
-	#
+	
 	#var state = [0]
 	#var update_button = func():
 		#if state[0] == 0:

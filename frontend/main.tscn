@@ -71,11 +71,74 @@ offset_bottom = 123.0
 text = "select random team"
 
 [node name="questions" type="GridContainer" parent="."]
-offset_left = 151.0
-offset_top = 157.0
-offset_right = 750.0
-offset_bottom = 541.0
+offset_left = 45.0
+offset_top = 150.0
+offset_right = 644.0
+offset_bottom = 534.0
 columns = 5
+
+[node name="question_category" type="Label" parent="."]
+offset_left = 822.0
+offset_top = 159.0
+offset_right = 1129.0
+offset_bottom = 218.0
+text = "Question category"
+autowrap_mode = 3
+
+[node name="question_value" type="Label" parent="."]
+offset_left = 821.0
+offset_top = 227.0
+offset_right = 1128.0
+offset_bottom = 256.0
+text = "Question value"
+autowrap_mode = 3
+
+[node name="question" type="Label" parent="."]
+offset_left = 819.0
+offset_top = 270.0
+offset_right = 1127.0
+offset_bottom = 487.0
+text = "Question"
+autowrap_mode = 3
+
+[node name="note" type="Label" parent="."]
+offset_left = 823.0
+offset_top = 498.0
+offset_right = 1148.0
+offset_bottom = 643.0
+text = "Note"
+autowrap_mode = 3
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_left = 16.0
+offset_top = 568.0
+offset_right = 517.0
+offset_bottom = 634.0
+columns = 3
+
+[node name="team_1_correct" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Team one CORRECT"
+
+[node name="team_2_correct" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Team two CORRECT"
+
+[node name="team_3_correct" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Team three CORRECT"
+
+[node name="team_1_wrong" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Team one WRONG"
+
+[node name="team_2_wrong" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Team two WRONG"
+
+[node name="team_3_wrong" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Team three WRONG"
 
 [connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="reveal_cat_0" to="." method="on_reveal_category_pressed" binds= [0]]
@@ -84,3 +147,9 @@ columns = 5
 [connection signal="pressed" from="reveal_cat_3" to="." method="on_reveal_category_pressed" binds= [3]]
 [connection signal="pressed" from="reveal_cat_4" to="." method="on_reveal_category_pressed" binds= [4]]
 [connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
+[connection signal="pressed" from="GridContainer/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
+[connection signal="pressed" from="GridContainer/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]
+[connection signal="pressed" from="GridContainer/team_3_correct" to="." method="_on_team_correct_pressed" binds= [2]]
+[connection signal="pressed" from="GridContainer/team_1_wrong" to="." method="_on_team_wrong_pressed" binds= [0]]
+[connection signal="pressed" from="GridContainer/team_2_wrong" to="." method="_on_team_wrong_pressed" binds= [1]]
+[connection signal="pressed" from="GridContainer/team_3_wrong" to="." method="_on_team_wrong_pressed" binds= [2]]
