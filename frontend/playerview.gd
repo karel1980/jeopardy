@@ -7,6 +7,7 @@ extends Node2D
 
 var game
 var categories
+var current_category_slider_idx = -1
 
 var scores = [ 0, 0, 0 ]
 var category_buttons = []
@@ -36,6 +37,11 @@ func _ready() -> void:
 	questionboard.hide()
 	scoreboard.hide()
 	
+	get_viewport().connect("screen_resized", on_resize)
+	
+func on_resize():
+	print("yolo")
+	
 func _process(_delta: float) -> void:
 	pass
 	
@@ -53,8 +59,13 @@ func init_categories_slider():
 	for cat_idx in range(len(categories)):
 		$categories_slider.get_child(cat_idx).text = categories[cat_idx]["name"]
 
-	$categories_slider.position = Vector2(get_viewport().size.x, 0)
-	$categories_slider.size = Vector2(get_viewport().size.x * 5, get_viewport().size.y)
+	position_categories_slider(current_category_slider_idx)
+
+func position_categories_slider(cat_idx):
+	var sz = $VBoxContainer.get_rect().size
+	$categories_slider.position = Vector2(-current_category_slider_idx * sz.x, 0)
+	$categories_slider.size = Vector2(sz.x * 5, sz.y)
+
 	
 func start_game():	
 	intro_screen.hide()
@@ -67,13 +78,18 @@ func pause_game():
 	scoreboard.hide()
 		
 func reveal_category(cat_idx):
+	position_categories_slider(cat_idx)
+	current_category_slider_idx = cat_idx
 	$categories_slider.show()
 	var tween = create_tween()
-	tween.tween_property($categories_slider, "position", Vector2(get_viewport().size.x * (-cat_idx), 0), 0.3)	
+
+	var sz = $VBoxContainer.get_rect().size
+	tween.tween_property($categories_slider, "position", Vector2(sz.x * (-cat_idx), 0), 0.3)	
 
 func hide_categories_slider():
 	var tween = create_tween()
-	tween.tween_property($categories_slider, "position", Vector2(get_viewport().size.x * -6, 0), 0.3)	
+	var sz = $VBoxContainer.get_rect().size
+	tween.tween_property($categories_slider, "position", Vector2(sz.x * -6, 0), 0.3)	
 
 func show_category_names():
 	for cat_idx in range(len(categories)):
@@ -137,30 +153,53 @@ func show_question(cat_idx, points_idx):
 	if question_btn:
 		question_btn.queue_free()
 		question_btn = null
-		
+	
+	var question = categories[cat_idx]["questions"][points_idx]
 	var orig_btn = get_question_button(cat_idx, points_idx)
-	var btn = orig_btn.duplicate()
+	var btn
+	if "image" in question:
+		btn = TextureButton.new()
+		btn.ignore_texture_size = true
+		btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+		btn.size_flags_horizontal = Control.SIZE_EXPAND
+		btn.size_flags_vertical = Control.SIZE_EXPAND
+		btn.texture_normal = preload("res://gracehopper.jpeg")
+		
+		var color_rect = ColorRect.new()
+		color_rect.color = Color(1, 1, 1, .8)  # Set to your desired background color (e.g., red)
+		color_rect.size = questionboard.get_global_rect().size
+		color_rect.show_behind_parent = true
+		btn.add_child(color_rect)
+		
+		# Add the ColorRect as a child of the TextureButton
+		btn.add_child(color_rect)
+	else:
+		btn = orig_btn.duplicate()
+		btn.autowrap_mode = TextServer.AUTOWRAP_WORD
+		btn.text = str(question_points[points_idx])
+
 	# TODO: create a nice animation
 	question_btn = btn
 	orig_question_btn = orig_btn
 	shown_question = [cat_idx, points_idx]
-	btn.autowrap_mode = TextServer.AUTOWRAP_WORD
 	btn.move_to_front()
 	fixate_button_color(btn, Color(1,1,1))
 	btn.position = orig_btn.get_global_position()
 	btn.size = questionboard.size
 	btn.scale = Vector2(orig_btn.get_global_rect().size.x / btn.size.x, orig_btn.get_global_rect().size.y / btn.size.y)
 	
-	add_child(btn)
-	
 	var set_question_text = func():
-		btn.text = categories[cat_idx]["questions"][points_idx]["q"]	
+		if "image" not in question:
+			if btn:
+				btn.text = question["q"]
 
+	add_child(btn)
 	var tween = create_tween()
 	tween.tween_property(btn, "position", Vector2(1,1), 0.7)
 	tween.parallel().tween_property(btn, "scale", Vector2(1,1), 0.7)
+	tween.tween_interval(1)
 	tween.tween_callback(set_question_text)
-		
+
 func mark_question_completed(cat_idx, question_idx):
 	get_question_button(cat_idx, question_idx).text = ""
 	

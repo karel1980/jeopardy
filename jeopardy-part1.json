@@ -1,0 +1,137 @@
+{
+  "teams": [
+    "The Ubernerds",
+    "Hackermensch",
+    "The Woozy Bankers"
+  ],
+
+  "categories": [
+    { 
+      "name": "Bits and bytes",
+      "questions": [
+          {
+            "q": "The thing that precedes 'bar'",
+            "a": "What is foo?"
+          },
+          {
+            "q": "The thing that follows 'foo'",
+            "a": "What is bar?"
+          },
+          {
+            "q": "This is the term for a sequence of 4 bits, which can represent values from 0 to 15 in hexadecimal notation.",
+            "a": "What is a nibble?"
+          },
+          {
+            "q": "Java's magic word. Every class file starts with these 8 bytes.",
+            "a": "What is 0xCAFEBABE?"
+          },
+          {
+            "q": "The measure of the speed of data transmission in a communication channel. Specifically, it refers to the number of signal changes or symbols transmitted per second.",
+            "a": "What is baudrate?"
+          }
+      ]
+    },
+    { 
+      "name": "Celebrities",
+      "questions": [
+          {
+            "q": "This co-founder of Microsoft is known for his role in revolutionizing personal computing and is one of the wealthiest individuals in the world.",
+            "a": "Who is Bill Gates"
+          },
+          {
+            "q": "This influential figure in the world of programming is known for developing the Python programming language, which emphasizes code readability and simplicity.",
+            "a": "Who is Guido van Rossum?",
+            "n": "This is an example note. It's shown to the game host but not to the players"
+          },
+          {
+            "q": "Often referred to as the father of the computer, he designed the Analytical Engine, a mechanical general-purpose computer, in the 1830s.",
+            "a": "Who is Charles Babbage?"
+          },
+          {
+            "q": "This pioneering computer scientist and U.S. Navy rear admiral is known for her work on the development of COBOL, one of the first high-level programming languages.",
+            "a": "Who is Grace Hopper?"
+          },
+          {
+            "q": "This Belgian computer scientist collaborated with Tim Berners-Lee at CERN to help develop the World Wide Web and is known for advocating its accessibility and use.",
+            "a": "Who is Robert Cailliau?"
+          }
+      ]
+    },
+    { 
+      "name": "KYA (know your acronyms)",
+      "questions": [
+          {
+            "q": "A design principle for separating a computer program into distinct sections, each addressing a separate concern.",
+            "a": "What is SoC / separation of concerns?"
+          },
+          {
+            "q": "This acronym represents a set of five design principles in object-oriented programming aimed at making software designs more understandable, flexible, and maintainable.",
+            "a": "What is SOLID?"
+          },
+          {
+            "q": "The principle which states that a class should have only one reason to change",
+            "a": "What is SRP / single responsibility principle?"
+          },
+          {
+            "q": "A process of creating a design of software where the design matches the output",
+            "a": "What is WYSIWYG?"
+          },
+          {
+            "q": "A group of web development techniques to let you create asynchronous applications, specifically in the Browser",
+            "a": "What is AJAX?"
+          }
+      ]
+    },
+    { 
+      "name": "Programming Languages",
+      "questions": [
+          {
+            "q": "The programming language developed by Apple for iOS and macOS app development, introduced in 2014?",
+            "a": "What is Swift?"
+          },
+          {
+            "q": "This language, designed for statistical computing and graphics, is widely used among statisticians and data miners.",
+            "a": "What is R?"
+          },
+          {
+            "q": "This language, primarily used for system programming, is known for its performance and memory safety features, and was created by Mozilla.",
+            "a": "What is Rust?"
+          },
+          {
+            "q": "This programming language, developed in the early 1970s by Ken Thompson and Dennis Ritchie, served as a precursor to C and was designed for system programming and language implementation.",
+            "a": "What is B?"
+          },
+          {
+            "q": "Developed in the 1950s, this high-level programming language is known for its use in scientific and engineering applications and is one of the oldest programming languages still in use today.",
+            "a": "What is Fortran?"
+          }
+      ]
+    },
+    { 
+      "name": "RTFM",
+      "questions": [
+          {
+            "q": "This command is used to display the contents of a text file in the terminal, allowing you to read it one screen at a time.",
+            "a": "What is less / more?"
+          },
+          {
+            "q": "This humorous command, often used as a playful response to mistyping ls, displays an animation of a steam locomotive moving across the terminal screen.",
+            "a": "What is a sl?"
+          },
+          {
+            "q": "This command is used to display the contents of a file in reverse order, showing the last line first.",
+            "a": "What is tac?"
+          },
+          {
+            "q": "The rev utility copies the specified files to the standard output, reversing the order of characters in every line",
+            "a": "What is rev"
+          },
+          {
+            "q": "TODO",
+            "a": "TODO"
+          }
+      ]
+    }
+
+  ]
+}
