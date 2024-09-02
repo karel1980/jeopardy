@@ -13,6 +13,7 @@ var category_buttons = []
 
 var shown_question = []
 var question_btn
+var orig_question_btn
 
 var margin = 10
 
@@ -124,8 +125,13 @@ func fixate_button_color(btn, color):
 
 func hide_question():
 	if question_btn:
-		question_btn.queue_free()
-		question_btn = null
+		var free_when_done = func():
+			question_btn.queue_free()
+			question_btn = null
+		var t = create_tween()
+		t.tween_property(question_btn, "scale", Vector2(orig_question_btn.get_global_rect().size.x / question_btn.size.x, orig_question_btn.get_global_rect().size.y / question_btn.size.y), 0.7)
+		t.parallel().tween_property(question_btn, "position", orig_question_btn.get_global_position(), 0.7)
+		t.tween_callback(free_when_done)
 		
 func show_question(cat_idx, points_idx):
 	if question_btn:
@@ -136,33 +142,25 @@ func show_question(cat_idx, points_idx):
 	var btn = orig_btn.duplicate()
 	# TODO: create a nice animation
 	question_btn = btn
+	orig_question_btn = orig_btn
 	shown_question = [cat_idx, points_idx]
 	btn.autowrap_mode = TextServer.AUTOWRAP_WORD
 	btn.move_to_front()
-	add_child(btn)
 	fixate_button_color(btn, Color(1,1,1))
-	var sz = get_window().size
-
-	btn.text = categories[cat_idx]["questions"][points_idx]["q"]
-	
-	btn.position = Vector2(1, 1)
-	print(questionboard.size)
+	btn.position = orig_btn.get_global_position()
 	btn.size = questionboard.size
+	btn.scale = Vector2(orig_btn.get_global_rect().size.x / btn.size.x, orig_btn.get_global_rect().size.y / btn.size.y)
 	
+	add_child(btn)
+	
+	var set_question_text = func():
+		btn.text = categories[cat_idx]["questions"][points_idx]["q"]	
+
 	var tween = create_tween()
 	tween.tween_property(btn, "position", Vector2(1,1), 0.7)
-	
-	#var state = [0]
-	#var update_button = func():
-		#if state[0] == 0:
-			#btn.text = categories[cat_idx]["questions"][points_idx]["a"]
-		#if state[0] == 1:
-			#btn.queue_free()
-			#orig_btn.text = ""
-			#clear_category_if_complete(cat_idx)
-		#state[0] += 1
-	#btn.pressed.connect(update_button)
-	
+	tween.parallel().tween_property(btn, "scale", Vector2(1,1), 0.7)
+	tween.tween_callback(set_question_text)
+		
 func mark_question_completed(cat_idx, question_idx):
 	get_question_button(cat_idx, question_idx).text = ""
 	
