@@ -60,6 +60,11 @@ func start_game():
 	questionboard.show()
 	scoreboard.show()
 		
+func pause_game():	
+	intro_screen.show()
+	questionboard.hide()
+	scoreboard.hide()
+		
 func reveal_category(cat_idx):
 	$categories_slider.show()
 	var tween = create_tween()
@@ -69,6 +74,10 @@ func hide_categories_slider():
 	var tween = create_tween()
 	tween.tween_property($categories_slider, "position", Vector2(get_viewport().size.x * -6, 0), 0.3)	
 
+func show_category_names():
+	for cat_idx in range(len(categories)):
+		questionboard.get_child(cat_idx).get_child(0).text = categories[cat_idx]["name"]
+		
 func init_category_buttons():
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = Color(.2, .2, 1)

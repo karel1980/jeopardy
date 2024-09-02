@@ -1,21 +1,24 @@
 extends Node2D
 
+var game_paused = true
 var playerview_scene = preload('res://playerview.tscn')
 var playerview
 
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
 var current_question = []
 
+var current_revealed_category = -1
 var buzzers_enabled = false
 
 @onready var questions := $questions
 
-@onready var start_game := $"start game"
+@onready var toggle_intro_screen := $"toggle intro screen"
 @onready var question_category := $question_category
 @onready var question_value := $question_value
 @onready var question := $question
 @onready var reveal_category := $reveal_cat
 @onready var note := $note
+@onready var question_done := $question_done
 @onready var buzzer_toggle_btn := $buzzer_toggle_btn
 @onready var reveal_category_buttons := $reveal_category_buttons
 
@@ -57,9 +60,25 @@ func create_question_button(cat, q):
 	
 func show_question(cat_idx, question_idx):
 	if current_question:
+		# state
 		current_question = null
+		disable_buzzers()
+		buzzer_toggle_btn.disabled = true
+		
+		# ui
 		playerview.hide_question()
+		question_done.disabled = true
+		buzzer_toggle_btn.disabled = true
+		
+		question_category.text = "Question category"
+		question.text = "Question"
+		question_value.text = "---"
+		note.text = "---"
 	else:
+		question_done.disabled = false
+		disable_buzzers()
+		buzzer_toggle_btn.disabled = false
+
 		question_category.text = categories[cat_idx]["name"]
 		current_question = [cat_idx, question_idx]
 		question_value.text = str(points[question_idx])
@@ -73,33 +92,66 @@ func show_question(cat_idx, question_idx):
 func _process(_delta: float) -> void:
 	pass
 	
-func _on_start_game_pressed() -> void:
-	start_game.disabled = true
-	for btn in reveal_category_buttons.get_children():
-		btn.disabled = false
-	playerview.start_game()
-
-func on_reveal_category_pressed(cat_idx: int) -> void:
-	playerview.reveal_category(cat_idx)
-
-func on_hide_categories_slider_pressed() -> void:
-	playerview.hide_categories_slider()
-	for cat_idx in range(5):
-		for q_idx in range(5):
-			get_question_button(cat_idx, q_idx).disabled = false
+func on_toggle_intro_screen_pressed() -> void:
+	game_paused = !game_paused
+	if game_paused:
+		toggle_intro_screen.text = "Unpause game"
+		playerview.pause_game()
+		for btn in reveal_category_buttons.get_children():
+			btn.disabled = true
+		for btn in questions.get_children():
+			btn.disabled = true
 	
+	else:
+		toggle_intro_screen.text = "Pause game"
+		for btn in reveal_category_buttons.get_children():
+			btn.disabled = false
+		if all_categories_revealed():
+			for btn in questions.get_children():
+				btn.disabled = false
+		
+		playerview.start_game()
+		
+func all_categories_revealed():
+	return current_revealed_category == 5
+
+func on_reveal_next_category_pressed() -> void:
+	if current_revealed_category < 5:
+		current_revealed_category += 1
+		if current_revealed_category < 5:
+			playerview.reveal_category(current_revealed_category)
+		else:
+			playerview.hide_categories_slider()
+			playerview.show_category_names()
+			for btn in questions.get_children():
+				btn.disabled = false
+			
+	
+func on_reveal_previous_category_pressed() -> void:
+	if current_revealed_category >= 0:
+		current_revealed_category -= 1
+		if current_revealed_category >= 0:
+			playerview.reveal_category(current_revealed_category)
+		else:
+			playerview.hide_categories_slider()
+	for btn in questions.get_children():
+		btn.disabled = true
+		
 func on_random_team_pressed() -> void:
 	playerview.select_random_team()
 
 func _on_team_correct_pressed(team_idx: int) -> void:
-	print("correct pressed", current_question)
 	if current_question:
 		playerview.scoreboard.increase_score(team_idx, points[current_question[1]])
 		mark_question_completed()
 	current_question = null
+	disable_answer_grading_buttons()
+	question_done.disabled = true
+	buzzer_toggle_btn.disabled = true
+
+	
 	
 func mark_question_completed():
-	print("sig received")
 	if current_question:
 		var btn = get_question_button(current_question[0], current_question[1])
 		btn.text = "---"
@@ -148,7 +200,26 @@ func _input(event):
 func handle_buzzer(team_idx):
 	if not buzzers_enabled:
 		print("Team ", team_idx, " pressed buzzer early")
+		# TODO: penalize team by making their buzzer unavailable for .5 sec
 		return
-	buzzers_enabled = false
-	buzzer_toggle_btn.text = "Enable buzzers"
+		
+	disable_buzzers()
 	playerview.scoreboard.highlight_team(team_idx)
+	
+	enable_answer_grading_buttons()
+	
+func enable_answer_grading_buttons():
+	$GridContainer/team_1_correct.disabled = false
+	$GridContainer/team_2_correct.disabled = false
+	$GridContainer/team_3_correct.disabled = false
+	$GridContainer/team_1_wrong.disabled = false
+	$GridContainer/team_2_wrong.disabled = false
+	$GridContainer/team_3_wrong.disabled = false
+
+func disable_answer_grading_buttons():
+	$GridContainer/team_1_correct.disabled = true
+	$GridContainer/team_2_correct.disabled = true
+	$GridContainer/team_3_correct.disabled = true
+	$GridContainer/team_1_wrong.disabled = true
+	$GridContainer/team_2_wrong.disabled = true
+	$GridContainer/team_3_wrong.disabled = true

@@ -10,7 +10,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "This is the gamemaster view. Don't share this screen with the players"
 
-[node name="start game" type="Button" parent="."]
+[node name="toggle intro screen" type="Button" parent="."]
 offset_left = 45.0
 offset_top = 46.0
 offset_right = 138.0
@@ -104,32 +104,26 @@ text = "Team three WRONG"
 
 [node name="team_1_plus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
-disabled = true
 text = "+100"
 
 [node name="team_2_plus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
-disabled = true
 text = "+100"
 
 [node name="team_3_plus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
-disabled = true
 text = "+100"
 
 [node name="team_1_minus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
-disabled = true
 text = "-100"
 
 [node name="team_2_minus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
-disabled = true
 text = "-100"
 
 [node name="team_3_minus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
-disabled = true
 text = "-100"
 
 [node name="buzzer_toggle_btn" type="Button" parent="."]
@@ -154,47 +148,21 @@ offset_top = 32.0
 offset_right = 551.0
 offset_bottom = 109.0
 
-[node name="reveal_cat_0" type="Button" parent="reveal_category_buttons"]
+[node name="reveal_previous" type="Button" parent="reveal_category_buttons"]
 layout_mode = 2
 disabled = true
 text = "Reveal
-category
-1"
+previous
+category"
 
-[node name="reveal_cat_1" type="Button" parent="reveal_category_buttons"]
+[node name="reveal_next" type="Button" parent="reveal_category_buttons"]
 layout_mode = 2
 disabled = true
 text = "Reveal
-category
-2"
+next
+category"
 
-[node name="reveal_cat_2" type="Button" parent="reveal_category_buttons"]
-layout_mode = 2
-disabled = true
-text = "Reveal
-category
-3"
-
-[node name="reveal_cat_3" type="Button" parent="reveal_category_buttons"]
-layout_mode = 2
-disabled = true
-text = "Reveal
-category
-4"
-
-[node name="reveal_cat_4" type="Button" parent="reveal_category_buttons"]
-layout_mode = 2
-disabled = true
-text = "Reveal
-category
-5"
-
-[node name="hide_categories_slider" type="Button" parent="reveal_category_buttons"]
-layout_mode = 2
-disabled = true
-text = "hide categories slider"
-
-[connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="toggle intro screen" to="." method="on_toggle_intro_screen_pressed"]
 [connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
 [connection signal="pressed" from="GridContainer/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
 [connection signal="pressed" from="GridContainer/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]
@@ -210,9 +178,5 @@ text = "hide categories slider"
 [connection signal="pressed" from="GridContainer/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
 [connection signal="pressed" from="buzzer_toggle_btn" to="." method="toggle_buzzers"]
 [connection signal="pressed" from="question_done" to="." method="mark_question_completed"]
-[connection signal="pressed" from="reveal_category_buttons/reveal_cat_0" to="." method="on_reveal_category_pressed" binds= [0]]
-[connection signal="pressed" from="reveal_category_buttons/reveal_cat_1" to="." method="on_reveal_category_pressed" binds= [1]]
-[connection signal="pressed" from="reveal_category_buttons/reveal_cat_2" to="." method="on_reveal_category_pressed" binds= [2]]
-[connection signal="pressed" from="reveal_category_buttons/reveal_cat_3" to="." method="on_reveal_category_pressed" binds= [3]]
-[connection signal="pressed" from="reveal_category_buttons/reveal_cat_4" to="." method="on_reveal_category_pressed" binds= [4]]
-[connection signal="pressed" from="reveal_category_buttons/hide_categories_slider" to="." method="on_hide_categories_slider_pressed"]
+[connection signal="pressed" from="reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
+[connection signal="pressed" from="reveal_category_buttons/reveal_next" to="." method="on_reveal_next_category_pressed"]
