@@ -59,7 +59,22 @@ func select_random_team():
 		t.tween_property(widgets[1], "modulate", mod_color_none, 0.2)
 		t.parallel().tween_property(widgets[2], "modulate", highlight_color, 0.2)
 		
-		
+func highlight_team(team_idx):
+	var t = create_tween()
+
+	if current_team != -1 and current_team != team_idx:
+		t.tween_property(widgets[current_team], "modulate", mod_color_none, 0.2)
+		t.parallel().tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
+		current_team = team_idx
+	else:
+		t.tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
+
+func unselect_team():
+	current_team = -1
+	widgets[0].modulate = mod_color_none
+	widgets[1].modulate = mod_color_none
+	widgets[2].modulate = mod_color_none
+
 func init_game(game_data):
 	data = game_data
 	teams = data["teams"]

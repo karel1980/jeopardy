@@ -23,11 +23,11 @@ custom_minimum_size = Vector2(1150, 500)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="cat5" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+[node name="cat0" type="VBoxContainer" parent="VBoxContainer/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat5"]
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat0"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -37,36 +37,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat5"]
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat5"]
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat5"]
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat5"]
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat5"]
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="cat6" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+[node name="cat1" type="VBoxContainer" parent="VBoxContainer/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat6"]
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat1"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -76,36 +76,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat6"]
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat6"]
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat6"]
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat6"]
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat6"]
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="cat7" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+[node name="cat2" type="VBoxContainer" parent="VBoxContainer/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat7"]
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat2"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -115,36 +115,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat7"]
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat7"]
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat7"]
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat7"]
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat7"]
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="cat8" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+[node name="cat3" type="VBoxContainer" parent="VBoxContainer/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat8"]
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat3"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -154,36 +154,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat8"]
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat8"]
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat8"]
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat8"]
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat8"]
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="cat9" type="VBoxContainer" parent="VBoxContainer/questionboard"]
+[node name="cat4" type="VBoxContainer" parent="VBoxContainer/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat9"]
+[node name="Button" type="Label" parent="VBoxContainer/questionboard/cat4"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -193,27 +193,27 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat9"]
+[node name="Button1" type="Button" parent="VBoxContainer/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat9"]
+[node name="Button2" type="Button" parent="VBoxContainer/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat9"]
+[node name="Button3" type="Button" parent="VBoxContainer/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat9"]
+[node name="Button4" type="Button" parent="VBoxContainer/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat9"]
+[node name="Button5" type="Button" parent="VBoxContainer/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
@@ -224,3 +224,34 @@ layout_mode = 2
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(1e-05, 1e-05)
 anchor_mode = 0
+
+[node name="categories_slider" type="HBoxContainer" parent="."]
+offset_top = -1.0
+offset_right = 1150.0
+offset_bottom = 551.0
+theme_override_constants/separation = 0
+
+[node name="cat0" type="Button" parent="categories_slider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "cat 0"
+
+[node name="cat1" type="Button" parent="categories_slider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "cat 1"
+
+[node name="cat2" type="Button" parent="categories_slider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "cat 2"
+
+[node name="cat3" type="Button" parent="categories_slider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "cat 3"
+
+[node name="cat4" type="Button" parent="categories_slider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "cat 4"

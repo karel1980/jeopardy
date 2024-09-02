@@ -26,6 +26,7 @@ func _ready() -> void:
 	print("playerview ready")
 
 	init_category_buttons()
+	init_categories_slider()
 	init_question_buttons()
 
 	scoreboard.init_game(game)
@@ -36,11 +37,23 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	pass
-
+	
 func init_game(game_data):
-	print("playerview init_game")
 	game = game_data
 	categories = game["categories"]
+	
+func init_categories_slider():
+	for btn in $categories_slider.get_children():
+		var style_box = StyleBoxFlat.new()
+		style_box.bg_color = Color(.2, .2, 1)
+		btn.add_theme_stylebox_override("normal", style_box)
+		btn.add_theme_font_size_override("font_size", 40)
+	
+	for cat_idx in range(len(categories)):
+		$categories_slider.get_child(cat_idx).text = categories[cat_idx]["name"]
+
+	$categories_slider.position = Vector2(get_viewport().size.x, 0)
+	$categories_slider.size = Vector2(get_viewport().size.x * 5, get_viewport().size.y)
 	
 func start_game():	
 	intro_screen.hide()
@@ -48,37 +61,14 @@ func start_game():
 	scoreboard.show()
 		
 func reveal_category(cat_idx):
-	var sz = get_window().size
+	$categories_slider.show()
+	var tween = create_tween()
+	tween.tween_property($categories_slider, "position", Vector2(get_viewport().size.x * (-cat_idx), 0), 0.3)	
 
-	if cat_tween2:
-		# still cleaning up
-		return
-		
-	if cat_tween:
-		var cleanup = func():
-			cat_tween = null
-			cat_tween2 = null
-			cat_button.queue_free()
-		cat_tween2 = create_tween()
-		cat_tween2.tween_property(cat_button, "position", Vector2(-sz.x, 0), 0.7)
-		cat_tween2.tween_callback(cleanup)
-		return
-		
-	cat_button = get_category_button(cat_idx).duplicate()
-	cat_button.position = Vector2(sz.x, 0)
-	cat_button.text = categories[cat_idx].name
-	cat_button.size = sz
-	cat_button.add_theme_font_size_override("font_size",50)
-	
-	add_child(cat_button)
-	
-	var set_category_name = func():
-		get_category_button(cat_idx).text = categories[cat_idx].name
-		
-	cat_tween = create_tween()
-	cat_tween.tween_property(cat_button, "position", Vector2(0, 0), 0.7)
-	cat_tween.tween_callback(set_category_name)
-	
+func hide_categories_slider():
+	var tween = create_tween()
+	tween.tween_property($categories_slider, "position", Vector2(get_viewport().size.x * -6, 0), 0.3)	
+
 func init_category_buttons():
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = Color(.2, .2, 1)
@@ -95,7 +85,7 @@ func init_category_buttons():
 
 		category_buttons.append(btn)
 		
-func init_question_buttons():	
+func init_question_buttons():
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = Color(.2, .2, 1)
 	

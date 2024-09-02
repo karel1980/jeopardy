@@ -6,12 +6,18 @@ var playerview
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
 var current_question = []
 
+var buzzers_enabled = false
+
 @onready var questions := $questions
 
+@onready var start_game := $"start game"
 @onready var question_category := $question_category
 @onready var question_value := $question_value
 @onready var question := $question
+@onready var reveal_category := $reveal_cat
 @onready var note := $note
+@onready var buzzer_toggle_btn := $buzzer_toggle_btn
+@onready var reveal_category_buttons := $reveal_category_buttons
 
 var data = JSON.parse_string(FileAccess.open("../jeopardy.json", FileAccess.READ).get_as_text())
 var categories = data ["categories"]
@@ -46,7 +52,7 @@ func create_question_button(cat, q):
 	btn.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	btn.text = str(points[q])
 	btn.pressed.connect(Callable(self, "show_question").bind(cat, q))
-	#btn.pressed.connect(self.show_question)
+	btn.disabled = true
 	return btn
 	
 func show_question(cat_idx, question_idx):
@@ -68,11 +74,20 @@ func _process(_delta: float) -> void:
 	pass
 	
 func _on_start_game_pressed() -> void:
+	start_game.disabled = true
+	for btn in reveal_category_buttons.get_children():
+		btn.disabled = false
 	playerview.start_game()
 
 func on_reveal_category_pressed(cat_idx: int) -> void:
 	playerview.reveal_category(cat_idx)
 
+func on_hide_categories_slider_pressed() -> void:
+	playerview.hide_categories_slider()
+	for cat_idx in range(5):
+		for q_idx in range(5):
+			get_question_button(cat_idx, q_idx).disabled = false
+	
 func on_random_team_pressed() -> void:
 	playerview.select_random_team()
 
@@ -98,9 +113,42 @@ func get_question_button(cat_idx, question_idx):
 func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
 		playerview.scoreboard.decrease_score(team_idx, points[current_question[1]])
+		enable_buzzers()
 
 func _on_manual_score_increase(team_idx: int) -> void:
 	playerview.scoreboard.increase_score(team_idx, 100)
 
 func _on_manual_score_decrease(team_idx: int) -> void:
 	playerview.scoreboard.decrease_score(team_idx, 100)
+
+func toggle_buzzers() -> void:
+	if buzzers_enabled:
+		disable_buzzers()
+	else:
+		enable_buzzers()
+
+func enable_buzzers():
+	buzzers_enabled = true
+	buzzer_toggle_btn.text = "Disable buzzers"
+	playerview.scoreboard.unselect_team()
+
+func disable_buzzers():
+	buzzers_enabled = false
+	buzzer_toggle_btn.text = "Enable buzzers"
+
+func _input(event):
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_A:
+			handle_buzzer(0)
+		elif event.keycode == KEY_B:
+			handle_buzzer(1)
+		elif event.keycode == KEY_C:
+			handle_buzzer(2)
+
+func handle_buzzer(team_idx):
+	if not buzzers_enabled:
+		print("Team ", team_idx, " pressed buzzer early")
+		return
+	buzzers_enabled = false
+	buzzer_toggle_btn.text = "Enable buzzers"
+	playerview.scoreboard.highlight_team(team_idx)

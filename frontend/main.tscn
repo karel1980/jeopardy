@@ -18,56 +18,12 @@ offset_bottom = 77.0
 text = "Start game
 "
 
-[node name="reveal_cat_0" type="Button" parent="."]
-offset_left = 171.0
-offset_top = 48.0
-offset_right = 264.0
-offset_bottom = 125.0
-text = "Reveal
-category
-1"
-
-[node name="reveal_cat_1" type="Button" parent="."]
-offset_left = 276.0
-offset_top = 48.0
-offset_right = 369.0
-offset_bottom = 125.0
-text = "Reveal
-category
-2"
-
-[node name="reveal_cat_2" type="Button" parent="."]
-offset_left = 382.0
-offset_top = 46.0
-offset_right = 475.0
-offset_bottom = 123.0
-text = "Reveal
-category
-3"
-
-[node name="reveal_cat_3" type="Button" parent="."]
-offset_left = 488.0
-offset_top = 46.0
-offset_right = 581.0
-offset_bottom = 123.0
-text = "Reveal
-category
-4"
-
-[node name="reveal_cat_4" type="Button" parent="."]
-offset_left = 601.0
-offset_top = 47.0
-offset_right = 694.0
-offset_bottom = 124.0
-text = "Reveal
-category
-5"
-
 [node name="random_team" type="Button" parent="."]
 offset_left = 813.0
 offset_top = 46.0
 offset_right = 976.0
 offset_bottom = 123.0
+disabled = true
 text = "select random team"
 
 [node name="questions" type="GridContainer" parent="."]
@@ -118,65 +74,127 @@ columns = 3
 
 [node name="team_1_correct" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "Team one CORRECT"
 
 [node name="team_2_correct" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "Team two CORRECT"
 
 [node name="team_3_correct" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "Team three CORRECT"
 
 [node name="team_1_wrong" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "Team one WRONG"
 
 [node name="team_2_wrong" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "Team two WRONG"
 
 [node name="team_3_wrong" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "Team three WRONG"
 
 [node name="team_1_plus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "+100"
 
 [node name="team_2_plus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "+100"
 
 [node name="team_3_plus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "+100"
 
 [node name="team_1_minus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "-100"
 
 [node name="team_2_minus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "-100"
 
 [node name="team_3_minus_100" type="Button" parent="GridContainer"]
 layout_mode = 2
+disabled = true
 text = "-100"
 
-[node name="Button" type="Button" parent="."]
+[node name="buzzer_toggle_btn" type="Button" parent="."]
+offset_left = 621.0
+offset_top = 300.0
+offset_right = 781.0
+offset_bottom = 400.0
+disabled = true
+text = "Enable buzzers"
+
+[node name="question_done" type="Button" parent="."]
 offset_left = 631.0
 offset_top = 189.0
 offset_right = 760.0
-offset_bottom = 220.0
+offset_bottom = 272.0
+disabled = true
 text = "Question DONE"
 
+[node name="reveal_category_buttons" type="HBoxContainer" parent="."]
+offset_left = 160.0
+offset_top = 32.0
+offset_right = 551.0
+offset_bottom = 109.0
+
+[node name="reveal_cat_0" type="Button" parent="reveal_category_buttons"]
+layout_mode = 2
+disabled = true
+text = "Reveal
+category
+1"
+
+[node name="reveal_cat_1" type="Button" parent="reveal_category_buttons"]
+layout_mode = 2
+disabled = true
+text = "Reveal
+category
+2"
+
+[node name="reveal_cat_2" type="Button" parent="reveal_category_buttons"]
+layout_mode = 2
+disabled = true
+text = "Reveal
+category
+3"
+
+[node name="reveal_cat_3" type="Button" parent="reveal_category_buttons"]
+layout_mode = 2
+disabled = true
+text = "Reveal
+category
+4"
+
+[node name="reveal_cat_4" type="Button" parent="reveal_category_buttons"]
+layout_mode = 2
+disabled = true
+text = "Reveal
+category
+5"
+
+[node name="hide_categories_slider" type="Button" parent="reveal_category_buttons"]
+layout_mode = 2
+disabled = true
+text = "hide categories slider"
+
 [connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
-[connection signal="pressed" from="reveal_cat_0" to="." method="on_reveal_category_pressed" binds= [0]]
-[connection signal="pressed" from="reveal_cat_1" to="." method="on_reveal_category_pressed" binds= [1]]
-[connection signal="pressed" from="reveal_cat_2" to="." method="on_reveal_category_pressed" binds= [2]]
-[connection signal="pressed" from="reveal_cat_3" to="." method="on_reveal_category_pressed" binds= [3]]
-[connection signal="pressed" from="reveal_cat_4" to="." method="on_reveal_category_pressed" binds= [4]]
 [connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
 [connection signal="pressed" from="GridContainer/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
 [connection signal="pressed" from="GridContainer/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]
@@ -190,4 +208,11 @@ text = "Question DONE"
 [connection signal="pressed" from="GridContainer/team_1_minus_100" to="." method="_on_manual_score_decrease" binds= [0]]
 [connection signal="pressed" from="GridContainer/team_2_minus_100" to="." method="_on_manual_score_decrease" binds= [1]]
 [connection signal="pressed" from="GridContainer/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
-[connection signal="pressed" from="Button" to="." method="mark_question_completed"]
+[connection signal="pressed" from="buzzer_toggle_btn" to="." method="toggle_buzzers"]
+[connection signal="pressed" from="question_done" to="." method="mark_question_completed"]
+[connection signal="pressed" from="reveal_category_buttons/reveal_cat_0" to="." method="on_reveal_category_pressed" binds= [0]]
+[connection signal="pressed" from="reveal_category_buttons/reveal_cat_1" to="." method="on_reveal_category_pressed" binds= [1]]
+[connection signal="pressed" from="reveal_category_buttons/reveal_cat_2" to="." method="on_reveal_category_pressed" binds= [2]]
+[connection signal="pressed" from="reveal_category_buttons/reveal_cat_3" to="." method="on_reveal_category_pressed" binds= [3]]
+[connection signal="pressed" from="reveal_category_buttons/reveal_cat_4" to="." method="on_reveal_category_pressed" binds= [4]]
+[connection signal="pressed" from="reveal_category_buttons/hide_categories_slider" to="." method="on_hide_categories_slider_pressed"]
