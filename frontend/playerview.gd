@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var intro_screen = $intro_screen
+@onready var categories_slider := $categories_slider
 @onready var question_holder := $question_holder
 @onready var questionboard = $VBoxContainer/questionboard
 @onready var scoreboard = $VBoxContainer/scoreboard
@@ -49,46 +50,46 @@ func init_game(game_data):
 	categories = game["categories"]
 	
 func init_categories_slider():
-	for btn in $categories_slider.get_children():
+	for btn in categories_slider.get_children():
 		var style_box = StyleBoxFlat.new()
 		style_box.bg_color = Color(.2, .2, 1)
 		btn.add_theme_stylebox_override("normal", style_box)
 		btn.add_theme_font_size_override("font_size", 40)
 	
 	for cat_idx in range(len(categories)):
-		$categories_slider.get_child(cat_idx).text = categories[cat_idx]["name"]
+		categories_slider.get_child(cat_idx).text = categories[cat_idx]["name"]
 
 	position_categories_slider(current_category_slider_idx)
 
 func position_categories_slider(cat_idx):
 	var sz = $VBoxContainer.get_rect().size
-	$categories_slider.position = Vector2(-current_category_slider_idx * sz.x, 0)
-	$categories_slider.size = Vector2(sz.x * 5, sz.y)
+	categories_slider.position = Vector2(-current_category_slider_idx * sz.x, 0)
+	categories_slider.size = Vector2(sz.x * 5, sz.y)
 
 	
 func start_game():	
 	intro_screen.hide()
-	$VBoxContainer.show()
+	VBoxContainer.show()
 	question_holder.show()
 		
 func pause_game():	
 	intro_screen.show()
-	$VBoxContainer.hide()
+	VBoxContainer.hide()
 	question_holder.hide()
 		
 func reveal_category(cat_idx):
 	position_categories_slider(cat_idx)
 	current_category_slider_idx = cat_idx
-	$categories_slider.show()
+	categories_slider.show()
 	var tween = create_tween()
 
 	var sz = $VBoxContainer.get_rect().size
-	tween.tween_property($categories_slider, "position", Vector2(sz.x * (-cat_idx), 0), 0.3)	
+	tween.tween_property(categories_slider, "position", Vector2(sz.x * (-cat_idx), 0), 0.3)	
 
 func hide_categories_slider():
 	var tween = create_tween()
 	var sz = $VBoxContainer.get_rect().size
-	tween.tween_property($categories_slider, "position", Vector2(sz.x * -6, 0), 0.3)	
+	tween.tween_property(categories_slider, "position", Vector2(sz.x * -6, 0), 0.3)	
 
 func show_category_names():
 	for cat_idx in range(len(categories)):
