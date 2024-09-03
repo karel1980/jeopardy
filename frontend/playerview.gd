@@ -3,8 +3,9 @@ extends Node2D
 @onready var intro_screen = $intro_screen
 @onready var categories_slider := $categories_slider
 @onready var question_holder := $question_holder
-@onready var questionboard = $VBoxContainer/questionboard
-@onready var scoreboard = $VBoxContainer/scoreboard
+@onready var main_view := $main_view
+@onready var questionboard = $main_view/questionboard
+@onready var scoreboard = $main_view/scoreboard
 @onready var camera := $Camera2D
 
 var game
@@ -62,19 +63,19 @@ func init_categories_slider():
 	position_categories_slider(current_category_slider_idx)
 
 func position_categories_slider(cat_idx):
-	var sz = $VBoxContainer.get_rect().size
+	var sz = main_view.get_rect().size
 	categories_slider.position = Vector2(-current_category_slider_idx * sz.x, 0)
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
 
 	
 func start_game():	
 	intro_screen.hide()
-	VBoxContainer.show()
+	main_view.show()
 	question_holder.show()
 		
 func pause_game():	
 	intro_screen.show()
-	VBoxContainer.hide()
+	main_view.hide()
 	question_holder.hide()
 		
 func reveal_category(cat_idx):
@@ -83,12 +84,12 @@ func reveal_category(cat_idx):
 	categories_slider.show()
 	var tween = create_tween()
 
-	var sz = $VBoxContainer.get_rect().size
+	var sz = main_view.get_rect().size
 	tween.tween_property(categories_slider, "position", Vector2(sz.x * (-cat_idx), 0), 0.3)	
 
 func hide_categories_slider():
 	var tween = create_tween()
-	var sz = $VBoxContainer.get_rect().size
+	var sz = main_view.get_rect().size
 	tween.tween_property(categories_slider, "position", Vector2(sz.x * -6, 0), 0.3)	
 
 func show_category_names():
