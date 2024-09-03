@@ -48,9 +48,10 @@ func _process(_delta: float) -> void:
 	
 func init_game(game_data):
 	game = game_data
-	categories = game["categories"]
+	categories = game["rounds"][0]["categories"]
 	
 func init_categories_slider():
+	current_category_slider_idx = -1
 	for btn in categories_slider.get_children():
 		var style_box = StyleBoxFlat.new()
 		style_box.bg_color = Color(.2, .2, 1)
@@ -72,6 +73,13 @@ func start_game():
 	intro_screen.hide()
 	main_view.show()
 	question_holder.show()
+		
+func start_round(round_idx):
+	var round = game["rounds"][round_idx]
+	categories = round["categories"]
+	init_category_buttons()
+	init_categories_slider()
+	init_question_buttons()
 		
 func pause_game():	
 	intro_screen.show()
@@ -164,7 +172,7 @@ func show_question(cat_idx, points_idx):
 		btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 		btn.size_flags_horizontal = Control.SIZE_EXPAND
 		btn.size_flags_vertical = Control.SIZE_EXPAND
-		btn.texture_normal = preload("res://gracehopper.jpeg")
+		btn.texture_normal = ImageTexture.create_from_image(Image.load_from_file("../" + question["image"]))
 		
 		var color_rect = ColorRect.new()
 		color_rect.color = Color(1, 1, 1, .8)  # Set to your desired background color (e.g., red)

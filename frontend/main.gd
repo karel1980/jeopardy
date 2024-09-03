@@ -10,9 +10,11 @@ var current_question = []
 var current_revealed_category = -1
 var buzzers_enabled = false
 
+signal round_started
+
 @onready var questions := $questions
 
-@onready var toggle_intro_screen := $"toggle intro screen"
+@onready var toggle_intro_screen := $"general_controls/play_pause"
 @onready var question_category := $question_category
 @onready var question_value := $question_value
 @onready var question := $question
@@ -23,7 +25,7 @@ var buzzers_enabled = false
 @onready var reveal_category_buttons := $reveal_category_buttons
 
 var data = JSON.parse_string(FileAccess.open("../jeopardy.json", FileAccess.READ).get_as_text())
-var categories = data ["categories"]
+var categories = data["rounds"][0]["categories"]
 
 func _ready() -> void:
 	print("main ready")
@@ -34,9 +36,8 @@ func _ready() -> void:
 	playerwin.size = get_tree().root.size
 	playerview = playerview_scene.instantiate()
 	playerview.init_game(data)
+	round_started.connect(Callable(playerview, "start_round"))
 
-	playerwin.add_child(playerview)
-	add_child(playerwin)
 	
 	playerwin.content_scale_aspect = win.content_scale_aspect
 	playerwin.content_scale_mode = win.content_scale_mode
@@ -44,6 +45,10 @@ func _ready() -> void:
 	playerwin.size = win.size
 
 	playerwin.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
+	playerwin.add_child(playerview)
+	add_child(playerwin)
+
+	emit_signal("round_started", 0)
 
 	for q in range(5):
 		for cat in range(5):
@@ -223,3 +228,9 @@ func disable_answer_grading_buttons():
 	$GridContainer/team_1_wrong.disabled = true
 	$GridContainer/team_2_wrong.disabled = true
 	$GridContainer/team_3_wrong.disabled = true
+
+
+func start_round(round_idx: int) -> void:
+	current_revealed_category = -1
+	round_started.emit(round_idx)
+	categories = data["rounds"][round_idx]["categories"]

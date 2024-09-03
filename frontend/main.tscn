@@ -10,14 +10,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "This is the gamemaster view. Don't share this screen with the players"
 
-[node name="toggle intro screen" type="Button" parent="."]
-offset_left = 45.0
-offset_top = 46.0
-offset_right = 138.0
-offset_bottom = 77.0
-text = "Start game
-"
-
 [node name="random_team" type="Button" parent="."]
 offset_left = 813.0
 offset_top = 46.0
@@ -142,14 +134,35 @@ offset_bottom = 272.0
 disabled = true
 text = "Question DONE"
 
-[node name="reveal_category_buttons" type="HBoxContainer" parent="."]
-offset_left = 160.0
+[node name="general_controls" type="HBoxContainer" parent="."]
+offset_left = 64.0
 offset_top = 32.0
-offset_right = 551.0
+offset_right = 309.0
+offset_bottom = 109.0
+
+[node name="play_pause" type="Button" parent="general_controls"]
+layout_mode = 2
+text = "Start game
+"
+
+[node name="round 1" type="Button" parent="general_controls"]
+layout_mode = 2
+text = "Round 1"
+
+[node name="round 2" type="Button" parent="general_controls"]
+layout_mode = 2
+text = "Round 2"
+
+[node name="reveal_category_buttons" type="HBoxContainer" parent="."]
+offset_left = 380.0
+offset_top = 32.0
+offset_right = 600.0
 offset_bottom = 109.0
 
 [node name="reveal_previous" type="Button" parent="reveal_category_buttons"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
 disabled = true
 text = "Reveal
 previous
@@ -157,12 +170,13 @@ category"
 
 [node name="reveal_next" type="Button" parent="reveal_category_buttons"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
 disabled = true
 text = "Reveal
 next
 category"
 
-[connection signal="pressed" from="toggle intro screen" to="." method="on_toggle_intro_screen_pressed"]
 [connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
 [connection signal="pressed" from="GridContainer/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
 [connection signal="pressed" from="GridContainer/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]
@@ -178,5 +192,8 @@ category"
 [connection signal="pressed" from="GridContainer/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
 [connection signal="pressed" from="buzzer_toggle_btn" to="." method="toggle_buzzers"]
 [connection signal="pressed" from="question_done" to="." method="mark_question_completed"]
+[connection signal="pressed" from="general_controls/play_pause" to="." method="on_toggle_intro_screen_pressed"]
+[connection signal="pressed" from="general_controls/round 1" to="." method="start_round" binds= [0]]
+[connection signal="pressed" from="general_controls/round 2" to="." method="start_round" binds= [1]]
 [connection signal="pressed" from="reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
 [connection signal="pressed" from="reveal_category_buttons/reveal_next" to="." method="on_reveal_next_category_pressed"]
