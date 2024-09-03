@@ -20,6 +20,7 @@ signal round_started
 @onready var question := $question
 @onready var reveal_category := $reveal_cat
 @onready var note := $note
+@onready var answer := $answer
 @onready var question_done := $question_done
 @onready var buzzer_toggle_btn := $buzzer_toggle_btn
 @onready var reveal_category_buttons := $reveal_category_buttons
@@ -62,6 +63,13 @@ func create_question_button(cat, q):
 	btn.pressed.connect(Callable(self, "show_question").bind(cat, q))
 	btn.disabled = true
 	return btn
+	
+func reset_question_buttons():
+	for cat_idx in range(5):
+		for question_idx in range(5):
+			var btn = get_question_button(cat_idx, question_idx)
+			btn.text = str(points[question_idx])
+			btn.disabled = true
 	
 func show_question(cat_idx, question_idx):
 	if current_question:
@@ -233,4 +241,5 @@ func disable_answer_grading_buttons():
 func start_round(round_idx: int) -> void:
 	current_revealed_category = -1
 	round_started.emit(round_idx)
+	reset_question_buttons()
 	categories = data["rounds"][round_idx]["categories"]

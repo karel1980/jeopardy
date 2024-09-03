@@ -115,6 +115,7 @@ func init_category_buttons():
 		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		
 		btn.add_theme_stylebox_override("normal", style_box)
+		btn.add_theme_stylebox_override("focus", style_box)
 		btn.add_theme_stylebox_override("hover", style_box)
 		btn.add_theme_stylebox_override("pressed", style_box)
 

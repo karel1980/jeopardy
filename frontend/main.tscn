@@ -57,6 +57,14 @@ offset_bottom = 643.0
 text = "Note"
 autowrap_mode = 3
 
+[node name="answer" type="Label" parent="."]
+offset_left = 823.0
+offset_top = 418.0
+offset_right = 1148.0
+offset_bottom = 492.0
+text = "Answer"
+autowrap_mode = 3
+
 [node name="GridContainer" type="GridContainer" parent="."]
 offset_left = 17.0
 offset_top = 496.0
