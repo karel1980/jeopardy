@@ -13,11 +13,6 @@ offset_bottom = 644.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="intro_screen" type="TextureRect" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("1_jhusk")
-
 [node name="questionboard" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(1150, 500)
 layout_mode = 2
@@ -221,9 +216,7 @@ text = "button"
 [node name="scoreboard" parent="VBoxContainer" instance=ExtResource("3_bnwop")]
 layout_mode = 2
 
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(1e-05, 1e-05)
-anchor_mode = 0
+[node name="question_holder" type="Node2D" parent="."]
 
 [node name="categories_slider" type="HBoxContainer" parent="."]
 offset_top = -1.0
@@ -255,3 +248,14 @@ text = "cat 3"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "cat 4"
+
+[node name="intro_screen" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 768.0
+texture = ExtResource("1_jhusk")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+anchor_mode = 0

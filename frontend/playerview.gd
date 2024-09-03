@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var intro_screen = $VBoxContainer/intro_screen
+@onready var intro_screen = $intro_screen
+@onready var question_holder := $question_holder
 @onready var questionboard = $VBoxContainer/questionboard
 @onready var scoreboard = $VBoxContainer/scoreboard
 @onready var camera := $Camera2D
@@ -33,9 +34,7 @@ func _ready() -> void:
 
 	scoreboard.init_game(game)
 
-	intro_screen.show()
-	questionboard.hide()
-	scoreboard.hide()
+	pause_game()
 	
 	get_viewport().connect("screen_resized", on_resize)
 	
@@ -69,13 +68,13 @@ func position_categories_slider(cat_idx):
 	
 func start_game():	
 	intro_screen.hide()
-	questionboard.show()
-	scoreboard.show()
+	$VBoxContainer.show()
+	question_holder.show()
 		
 func pause_game():	
 	intro_screen.show()
-	questionboard.hide()
-	scoreboard.hide()
+	$VBoxContainer.hide()
+	question_holder.hide()
 		
 func reveal_category(cat_idx):
 	position_categories_slider(cat_idx)
@@ -170,19 +169,14 @@ func show_question(cat_idx, points_idx):
 		color_rect.size = questionboard.get_global_rect().size
 		color_rect.show_behind_parent = true
 		btn.add_child(color_rect)
-		
-		# Add the ColorRect as a child of the TextureButton
-		btn.add_child(color_rect)
 	else:
 		btn = orig_btn.duplicate()
 		btn.autowrap_mode = TextServer.AUTOWRAP_WORD
 		btn.text = str(question_points[points_idx])
 
-	# TODO: create a nice animation
 	question_btn = btn
 	orig_question_btn = orig_btn
 	shown_question = [cat_idx, points_idx]
-	btn.move_to_front()
 	fixate_button_color(btn, Color(1,1,1))
 	btn.position = orig_btn.get_global_position()
 	btn.size = questionboard.size
@@ -193,7 +187,8 @@ func show_question(cat_idx, points_idx):
 			if btn:
 				btn.text = question["q"]
 
-	add_child(btn)
+	question_holder.add_child(btn)
+	
 	var tween = create_tween()
 	tween.tween_property(btn, "position", Vector2(1,1), 0.7)
 	tween.parallel().tween_property(btn, "scale", Vector2(1,1), 0.7)
