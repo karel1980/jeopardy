@@ -17,120 +17,57 @@ offset_right = 569.0
 offset_bottom = 464.0
 columns = 5
 
-[node name="GridContainer" type="GridContainer" parent="."]
-offset_left = 17.0
-offset_top = 496.0
-offset_right = 518.0
-offset_bottom = 632.0
-columns = 3
-
-[node name="team_1_correct" type="Button" parent="GridContainer"]
-layout_mode = 2
-disabled = true
-text = "Team one CORRECT"
-
-[node name="team_2_correct" type="Button" parent="GridContainer"]
-layout_mode = 2
-disabled = true
-text = "Team two CORRECT"
-
-[node name="team_3_correct" type="Button" parent="GridContainer"]
-layout_mode = 2
-disabled = true
-text = "Team three CORRECT"
-
-[node name="team_1_wrong" type="Button" parent="GridContainer"]
-layout_mode = 2
-disabled = true
-text = "Team one WRONG"
-
-[node name="team_2_wrong" type="Button" parent="GridContainer"]
-layout_mode = 2
-disabled = true
-text = "Team two WRONG"
-
-[node name="team_3_wrong" type="Button" parent="GridContainer"]
-layout_mode = 2
-disabled = true
-text = "Team three WRONG"
-
-[node name="team_1_plus_100" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "+100"
-
-[node name="team_2_plus_100" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "+100"
-
-[node name="team_3_plus_100" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "+100"
-
-[node name="team_1_minus_100" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "-100"
-
-[node name="team_2_minus_100" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "-100"
-
-[node name="team_3_minus_100" type="Button" parent="GridContainer"]
-layout_mode = 2
-text = "-100"
-
-[node name="general_controls" type="HBoxContainer" parent="."]
-offset_left = 64.0
-offset_top = 32.0
-offset_right = 309.0
-offset_bottom = 109.0
-
-[node name="play_pause" type="Button" parent="general_controls"]
-layout_mode = 2
-text = "Start game
-"
-
-[node name="round 1" type="Button" parent="general_controls"]
-layout_mode = 2
-text = "Round 1"
-
-[node name="round 2" type="Button" parent="general_controls"]
-layout_mode = 2
-text = "Round 2"
-
-[node name="reveal_category_buttons" type="HBoxContainer" parent="."]
-offset_left = 380.0
-offset_top = 32.0
-offset_right = 600.0
-offset_bottom = 109.0
-
-[node name="reveal_previous" type="Button" parent="reveal_category_buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 5
-disabled = true
-text = "Reveal
-previous
-category"
-
-[node name="reveal_next" type="Button" parent="reveal_category_buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 5
-disabled = true
-text = "Reveal
-next
-category"
-
 [node name="random_team" type="Button" parent="."]
 offset_left = 813.0
 offset_top = 46.0
 offset_right = 976.0
 offset_bottom = 123.0
-disabled = true
 text = "select random team"
 
+[node name="score_adjustments" type="GridContainer" parent="."]
+offset_left = 17.0
+offset_top = 566.0
+offset_right = 521.0
+offset_bottom = 632.0
+columns = 3
+
+[node name="team_1_plus_100" type="Button" parent="score_adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "+100"
+
+[node name="team_2_plus_100" type="Button" parent="score_adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "+100"
+
+[node name="team_3_plus_100" type="Button" parent="score_adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "+100"
+
+[node name="team_1_minus_100" type="Button" parent="score_adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "-100"
+
+[node name="team_2_minus_100" type="Button" parent="score_adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "-100"
+
+[node name="team_3_minus_100" type="Button" parent="score_adjustments"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "-100"
+
 [node name="question_card" type="Node2D" parent="."]
-visible = false
 
 [node name="question_category" type="Label" parent="question_card"]
 offset_left = 822.0
@@ -152,7 +89,7 @@ autowrap_mode = 3
 offset_left = 819.0
 offset_top = 270.0
 offset_right = 1127.0
-offset_bottom = 487.0
+offset_bottom = 416.0
 text = "Question"
 autowrap_mode = 3
 
@@ -172,39 +109,144 @@ offset_bottom = 492.0
 text = "Answer"
 autowrap_mode = 3
 
-[node name="buzzer_toggle_btn" type="Button" parent="question_card"]
-offset_left = 621.0
-offset_top = 300.0
-offset_right = 781.0
-offset_bottom = 400.0
+[node name="hide_question" type="Button" parent="question_card"]
+offset_left = 619.0
+offset_top = 157.0
+offset_right = 748.0
+offset_bottom = 240.0
 disabled = true
-text = "Enable buzzers"
+text = "Hide question"
 
 [node name="question_done" type="Button" parent="question_card"]
-offset_left = 631.0
-offset_top = 189.0
-offset_right = 760.0
-offset_bottom = 272.0
+offset_left = 618.0
+offset_top = 261.0
+offset_right = 747.0
+offset_bottom = 344.0
 disabled = true
 text = "Question DONE"
 
-[connection signal="pressed" from="GridContainer/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
-[connection signal="pressed" from="GridContainer/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]
-[connection signal="pressed" from="GridContainer/team_3_correct" to="." method="_on_team_correct_pressed" binds= [2]]
-[connection signal="pressed" from="GridContainer/team_1_wrong" to="." method="_on_team_wrong_pressed" binds= [0]]
-[connection signal="pressed" from="GridContainer/team_2_wrong" to="." method="_on_team_wrong_pressed" binds= [1]]
-[connection signal="pressed" from="GridContainer/team_3_wrong" to="." method="_on_team_wrong_pressed" binds= [2]]
-[connection signal="pressed" from="GridContainer/team_1_plus_100" to="." method="_on_manual_score_increase" binds= [0]]
-[connection signal="pressed" from="GridContainer/team_2_plus_100" to="." method="_on_manual_score_increase" binds= [1]]
-[connection signal="pressed" from="GridContainer/team_3_plus_100" to="." method="_on_manual_score_increase" binds= [2]]
-[connection signal="pressed" from="GridContainer/team_1_minus_100" to="." method="_on_manual_score_decrease" binds= [0]]
-[connection signal="pressed" from="GridContainer/team_2_minus_100" to="." method="_on_manual_score_decrease" binds= [1]]
-[connection signal="pressed" from="GridContainer/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
-[connection signal="pressed" from="general_controls/play_pause" to="." method="on_toggle_intro_screen_pressed"]
-[connection signal="pressed" from="general_controls/round 1" to="." method="start_round" binds= [0]]
-[connection signal="pressed" from="general_controls/round 2" to="." method="start_round" binds= [1]]
-[connection signal="pressed" from="reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
-[connection signal="pressed" from="reveal_category_buttons/reveal_next" to="." method="on_reveal_next_category_pressed"]
+[node name="score_buttons" type="GridContainer" parent="question_card"]
+offset_left = 17.0
+offset_top = 488.0
+offset_right = 518.0
+offset_bottom = 556.0
+columns = 3
+
+[node name="team_1_correct" type="Button" parent="question_card/score_buttons"]
+layout_mode = 2
+disabled = true
+text = "Team one CORRECT"
+
+[node name="team_2_correct" type="Button" parent="question_card/score_buttons"]
+layout_mode = 2
+disabled = true
+text = "Team two CORRECT"
+
+[node name="team_3_correct" type="Button" parent="question_card/score_buttons"]
+layout_mode = 2
+disabled = true
+text = "Team three CORRECT"
+
+[node name="team_1_wrong" type="Button" parent="question_card/score_buttons"]
+layout_mode = 2
+disabled = true
+text = "Team one WRONG"
+
+[node name="team_2_wrong" type="Button" parent="question_card/score_buttons"]
+layout_mode = 2
+disabled = true
+text = "Team two WRONG"
+
+[node name="team_3_wrong" type="Button" parent="question_card/score_buttons"]
+layout_mode = 2
+disabled = true
+text = "Team three WRONG"
+
+[node name="buzzer_toggle" type="HBoxContainer" parent="question_card"]
+offset_left = 569.0
+offset_top = 365.0
+offset_right = 821.0
+offset_bottom = 457.0
+
+[node name="disable" type="Button" parent="question_card/buzzer_toggle"]
+layout_mode = 2
+disabled = true
+text = "Disable buzzers"
+
+[node name="enable" type="Button" parent="question_card/buzzer_toggle"]
+layout_mode = 2
+disabled = true
+text = "Enable buzzers"
+
+[node name="bottom_controls" type="HBoxContainer" parent="."]
+offset_left = 891.0
+offset_top = 530.0
+offset_right = 1118.0
+offset_bottom = 619.0
+
+[node name="round 1" type="Button" parent="bottom_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Round 1"
+
+[node name="round 2" type="Button" parent="bottom_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Round 2"
+
+[node name="top_controls" type="HBoxContainer" parent="."]
+offset_left = 32.0
+offset_top = 40.0
+offset_right = 388.0
+offset_bottom = 117.0
+
+[node name="play_pause" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start game
+"
+
+[node name="reveal_category_buttons" type="HBoxContainer" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="reveal_previous" type="Button" parent="top_controls/reveal_category_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+disabled = true
+text = "Reveal
+previous
+category"
+
+[node name="reveal_next" type="Button" parent="top_controls/reveal_category_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+disabled = true
+text = "Reveal
+next
+category"
+
 [connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
-[connection signal="pressed" from="question_card/buzzer_toggle_btn" to="." method="toggle_buzzers"]
+[connection signal="pressed" from="score_adjustments/team_1_plus_100" to="." method="_on_manual_score_increase" binds= [0]]
+[connection signal="pressed" from="score_adjustments/team_2_plus_100" to="." method="_on_manual_score_increase" binds= [1]]
+[connection signal="pressed" from="score_adjustments/team_3_plus_100" to="." method="_on_manual_score_increase" binds= [2]]
+[connection signal="pressed" from="score_adjustments/team_1_minus_100" to="." method="_on_manual_score_decrease" binds= [0]]
+[connection signal="pressed" from="score_adjustments/team_2_minus_100" to="." method="_on_manual_score_decrease" binds= [1]]
+[connection signal="pressed" from="score_adjustments/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
+[connection signal="pressed" from="question_card/hide_question" to="." method="mark_question_completed"]
 [connection signal="pressed" from="question_card/question_done" to="." method="mark_question_completed"]
+[connection signal="pressed" from="question_card/score_buttons/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
+[connection signal="pressed" from="question_card/score_buttons/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]
+[connection signal="pressed" from="question_card/score_buttons/team_3_correct" to="." method="_on_team_correct_pressed" binds= [2]]
+[connection signal="pressed" from="question_card/score_buttons/team_1_wrong" to="." method="_on_team_wrong_pressed" binds= [0]]
+[connection signal="pressed" from="question_card/score_buttons/team_2_wrong" to="." method="_on_team_wrong_pressed" binds= [1]]
+[connection signal="pressed" from="question_card/score_buttons/team_3_wrong" to="." method="_on_team_wrong_pressed" binds= [2]]
+[connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="disable_buzzers"]
+[connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="enable_buzzers"]
+[connection signal="pressed" from="bottom_controls/round 1" to="." method="start_round" binds= [0]]
+[connection signal="pressed" from="bottom_controls/round 2" to="." method="start_round" binds= [1]]
+[connection signal="pressed" from="top_controls/play_pause" to="." method="on_toggle_intro_screen_pressed"]
+[connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
+[connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_next" to="." method="on_reveal_next_category_pressed"]

@@ -16,9 +16,8 @@ signal question_selected
 
 @onready var questions := $questions
 
-@onready var toggle_intro_screen := $general_controls/play_pause
-@onready var reveal_category := $reveal_cat
-@onready var reveal_category_buttons := $reveal_category_buttons
+@onready var toggle_intro_screen := $top_controls/play_pause
+@onready var reveal_category_buttons := $top_controls/reveal_category_buttons
 
 @onready var question_card = $question_card
 @onready var question_category := $question_card/question_category
@@ -27,7 +26,8 @@ signal question_selected
 @onready var note := $question_card/note
 @onready var answer := $question_card/answer
 @onready var question_done := $question_card/question_done
-@onready var buzzer_toggle_btn := $question_card/buzzer_toggle_btn
+@onready var enable_buzzers_btn := $question_card/buzzer_toggle/enable
+@onready var disable_buzzers_btn := $question_card/buzzer_toggle/disable
 
 var data = JSON.parse_string(FileAccess.open("../jeopardy.json", FileAccess.READ).get_as_text())
 var categories = data["rounds"][0]["categories"]
@@ -35,6 +35,7 @@ var categories = data["rounds"][0]["categories"]
 func _ready() -> void:
 	var win = get_window()
 	win.gui_embed_subwindows = false
+	question_card.hide()
 	
 	var playerwin = Window.new()
 	playerwin.size = get_tree().root.size
@@ -77,24 +78,12 @@ func reset_question_buttons():
 	
 func show_question(cat_idx, question_idx):
 	if current_question:
-		# state
-		current_question = null
-		disable_buzzers()
-		buzzer_toggle_btn.disabled = true
-		
-		# ui
-		playerview.hide_question()
-		question_done.disabled = true
-		buzzer_toggle_btn.disabled = true
-		
-		question_card.hide()
-		
+		hide_question()
 	else:
 		emit_signal("question_selected", QuestionId.new(data, current_round_number, cat_idx, question_idx))
 		question_card.show()
 		disable_buzzers()
 		question_done.disabled = false
-		buzzer_toggle_btn.disabled = false
 		question_category.text = categories[cat_idx]["name"]
 		current_question = [cat_idx, question_idx]
 		question_value.text = str(points[question_idx])
@@ -104,6 +93,18 @@ func show_question(cat_idx, question_idx):
 		else:
 			note.text = "---"
 	
+func hide_question():
+	# state
+		current_question = null
+		disable_buzzers()
+		disable_answer_grading_buttons()
+
+		# ui
+		playerview.hide_question()
+		question_done.disabled = true
+		
+		question_card.hide()
+
 func _process(_delta: float) -> void:
 	pass
 	
@@ -159,12 +160,7 @@ func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
 		playerview.scoreboard.increase_score(team_idx, points[current_question[1]])
 		mark_question_completed()
-	current_question = null
-	disable_answer_grading_buttons()
-	question_done.disabled = true
-	buzzer_toggle_btn.disabled = true
-
-	
+	hide_question()
 	
 func mark_question_completed():
 	if current_question:
@@ -183,25 +179,23 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 		enable_buzzers()
 
 func _on_manual_score_increase(team_idx: int) -> void:
+	print("score should increase")
 	playerview.scoreboard.increase_score(team_idx, 100)
 
 func _on_manual_score_decrease(team_idx: int) -> void:
+	print("score should decrease")
 	playerview.scoreboard.decrease_score(team_idx, 100)
-
-func toggle_buzzers() -> void:
-	if buzzers_enabled:
-		disable_buzzers()
-	else:
-		enable_buzzers()
 
 func enable_buzzers():
 	buzzers_enabled = true
-	buzzer_toggle_btn.text = "Disable buzzers"
+	disable_buzzers_btn.disabled = false
+	enable_buzzers_btn.disabled = true
 	playerview.scoreboard.unselect_team()
 
 func disable_buzzers():
 	buzzers_enabled = false
-	buzzer_toggle_btn.text = "Enable buzzers"
+	disable_buzzers_btn.disabled = true
+	enable_buzzers_btn.disabled = false
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
@@ -224,21 +218,20 @@ func handle_buzzer(team_idx):
 	enable_answer_grading_buttons()
 	
 func enable_answer_grading_buttons():
-	$GridContainer/team_1_correct.disabled = false
-	$GridContainer/team_2_correct.disabled = false
-	$GridContainer/team_3_correct.disabled = false
-	$GridContainer/team_1_wrong.disabled = false
-	$GridContainer/team_2_wrong.disabled = false
-	$GridContainer/team_3_wrong.disabled = false
+	$question_card/score_buttons/team_1_correct.disabled = false
+	$question_card/score_buttons/team_2_correct.disabled = false
+	$question_card/score_buttons/team_3_correct.disabled = false
+	$question_card/score_buttons/team_1_wrong.disabled = false
+	$question_card/score_buttons/team_2_wrong.disabled = false
+	$question_card/score_buttons/team_3_wrong.disabled = false
 
 func disable_answer_grading_buttons():
-	$GridContainer/team_1_correct.disabled = true
-	$GridContainer/team_2_correct.disabled = true
-	$GridContainer/team_3_correct.disabled = true
-	$GridContainer/team_1_wrong.disabled = true
-	$GridContainer/team_2_wrong.disabled = true
-	$GridContainer/team_3_wrong.disabled = true
-
+	$question_card/score_buttons/team_1_correct.disabled = true
+	$question_card/score_buttons/team_2_correct.disabled = true
+	$question_card/score_buttons/team_3_correct.disabled = true
+	$question_card/score_buttons/team_1_wrong.disabled = true
+	$question_card/score_buttons/team_2_wrong.disabled = true
+	$question_card/score_buttons/team_3_wrong.disabled = true
 
 func start_round(round_number: int) -> void:
 	current_revealed_category = -1

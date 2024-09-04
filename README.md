@@ -2,6 +2,7 @@
 
 This software will allow you to become the host of a jeopardy game.
 
+- TODO: save and load state + controls to clear state
 - TODO: add 'halfway' screens (show 'final' winner)
 - TODO: show answer on host screen
 - TODO: show categories on host screen
