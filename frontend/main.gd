@@ -183,8 +183,7 @@ func mark_question_completed():
 		game_state.mark_question_complete(current_question)
 		var btn = get_question_button(current_question)
 		btn.text = "---"
-		# TODO: pass question_id
-		playerview.mark_question_completed(current_question.category, current_question.question)
+		playerview.mark_question_completed(current_question)
 		persist_state()
 		playerview.hide_question()
 		current_question = null

@@ -49,7 +49,7 @@ func _on_game_state_loaded():
 	for q in game_state.questions:
 		if q.round == game_state.current_round:
 			# TODO: QuestionId argument
-			get_question_button(q.category, q.question).text = ""
+			get_question_button(q).text = ""
 
 func init_categories_slider():
 	current_category_slider_idx = -1
@@ -63,9 +63,10 @@ func init_categories_slider():
 	for cat_idx in range(len(categories)):
 		categories_slider.get_child(cat_idx).text = categories[cat_idx]["name"]
 
-	position_categories_slider(current_category_slider_idx)
+	position_categories_slider()
 
-func position_categories_slider(cat_idx):
+# TODO: sliding left and right is a bit wonky. Passing from/to could make things easier here
+func position_categories_slider():
 	var sz = main_view.get_rect().size
 	categories_slider.position = Vector2(-current_category_slider_idx * sz.x, 0)
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
@@ -86,7 +87,7 @@ func start_round(round_idx):
 	# TODO: this filtered for loop is written many times. Create GameState.get_current_round_questions()
 	for q in game_state.questions:
 		if q.round == game_state.current_round:
-			get_question_button(q.category, q.question).text = ""
+			get_question_button(q).text = ""
 		
 func pause_game():	
 	intro_screen.show()
@@ -94,8 +95,8 @@ func pause_game():
 	question_holder.hide()
 		
 func reveal_category(cat_idx):
-	position_categories_slider(cat_idx)
 	current_category_slider_idx = cat_idx
+	position_categories_slider()
 	categories_slider.show()
 	var tween = create_tween()
 
@@ -138,7 +139,7 @@ func init_question_buttons():
 	var categories = game["rounds"][game_state.current_round]["categories"]
 	for point_i in len(question_points):
 		for cat_i in len(categories):
-			var btn = get_question_button(cat_i, point_i)
+			var btn = get_question_button(QuestionId.new(game_state.current_round, cat_i, point_i))
 			btn.text = str(question_points[point_i])
 			btn.add_theme_font_size_override("font_size", 40)
 			fixate_button_color(btn, Color(1,1,0))
@@ -150,8 +151,8 @@ func init_question_buttons():
 func get_category_button(cat_idx) -> Label:
 	return questionboard.get_child(cat_idx).get_child(0)
 
-func get_question_button(cat_idx, question_idx):
-	return questionboard.get_child(cat_idx).get_child(question_idx + 1)
+func get_question_button(question_id: QuestionId):
+	return questionboard.get_child(question_id.category).get_child(question_id.question + 1)
 
 func fixate_button_color(btn, color):
 	btn.add_theme_color_override("font_color", color)
@@ -180,7 +181,7 @@ func show_question(question_id: QuestionId):
 	var cat_idx = question_id.category
 	var categories = game["rounds"][game_state.current_round]["categories"]
 	var question = categories[cat_idx]["questions"][points_idx]
-	var orig_btn = get_question_button(cat_idx, points_idx)
+	var orig_btn = get_question_button(question_id)
 	var btn
 	if "image" in question:
 		btn = TextureButton.new()
@@ -221,13 +222,13 @@ func show_question(question_id: QuestionId):
 	tween.tween_interval(1)
 	tween.tween_callback(set_question_text)
 
-func mark_question_completed(cat_idx, question_idx):
-	get_question_button(cat_idx, question_idx).text = ""
+func mark_question_completed(question_id: QuestionId):
+	get_question_button(question_id).text = ""
 	
 func clear_category_if_complete(cat_idx):
 	var btn = category_buttons[cat_idx]
 	for row in range(5):
-		if get_question_button(cat_idx, row).text != "":
+		if get_question_button(QuestionId.new(game_state.current_round, cat_idx, row)).text != "":
 			return
 	var tween = create_tween()
 	var scaler = func(font_color):
