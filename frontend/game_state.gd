@@ -27,7 +27,10 @@ func mark_wrong(question_id: QuestionId, team_idx: int):
 	scores_updated.emit(scores)
 
 func mark_question_complete(question_id: QuestionId):
-	questions.append(question_id)
+	# TODO: this if isn't working. Check is_equal_approx. Is that even right?
+	# TODO: make questions a set?
+	if question_id not in questions:
+		questions.append(question_id)
 
 func increment_score(team_idx: int, score: int):
 	scores[team_idx] += score

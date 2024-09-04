@@ -7,7 +7,6 @@ var playerview
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
 var current_question: QuestionId = null
 
-var current_round_number = 0
 var current_revealed_category = -1
 var buzzers_enabled = false
 
@@ -57,9 +56,6 @@ func _ready() -> void:
 	playerwin.add_child(playerview)
 	add_child(playerwin)
 
-	current_round_number = 0
-	emit_signal("round_started", 0)
-
 	for q in range(5):
 		for cat in range(5):
 			questions.add_child(create_question_button(cat, q))
@@ -68,11 +64,10 @@ func _ready() -> void:
 	
 	if FileAccess.file_exists(state_file_location):
 		game_state.load(state_file_location)
+	emit_signal("round_started", game_state.current_round)
 
 func _on_game_state_loaded():
-	for q in game_state.questions:
-		if q.round == game_state.current_round:
-			get_question_button(q).text = "---"
+	reset_question_buttons()
 	
 func create_question_button(cat, q):
 	var btn = Button.new()
@@ -86,20 +81,26 @@ func create_question_button(cat, q):
 func reset_question_buttons():
 	for cat_idx in range(5):
 		for question_idx in range(5):
-			var btn = get_question_button(QuestionId.new(current_round_number, cat_idx, question_idx))
+			var btn = get_question_button(QuestionId.new(game_state.current_round, cat_idx, question_idx))
 			btn.text = str(points[question_idx])
 			btn.disabled = true
+			
+	# TODO: move this into the original for loop? Requires 'in questions' to work
+	# call reset_question_buttons when game_state is loaded instead of duplicated code
+	for q in game_state.questions:
+		if q.round == game_state.current_round:
+			get_question_button(q).text = "---"
 	
 func show_question(cat_idx, question_idx):
 	if current_question:
 		hide_question()
 	else:
-		emit_signal("question_selected", QuestionId.new(current_round_number, cat_idx, question_idx))
+		emit_signal("question_selected", QuestionId.new(game_state.current_round, cat_idx, question_idx))
 		question_card.show()
 		disable_buzzers()
 		question_done.disabled = false
 		question_category.text = categories[cat_idx]["name"]
-		current_question = QuestionId.new(current_round_number, cat_idx, question_idx)
+		current_question = QuestionId.new(game_state.current_round, cat_idx, question_idx)
 		question_value.text = str(points[question_idx])
 		question.text = categories[cat_idx]["questions"][question_idx]["q"]
 		if "n" in categories[cat_idx]["questions"][question_idx]:
@@ -173,8 +174,6 @@ func on_random_team_pressed() -> void:
 func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
 		game_state.mark_correct(current_question, team_idx)
-		# TODO: this should just be an event produced by game_state?
-		playerview.scoreboard.increase_score(team_idx, points[current_question.question])
 		mark_question_completed()
 		persist_state()
 	hide_question()
@@ -196,8 +195,6 @@ func get_question_button(question_id):
 func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
 		game_state.mark_wrong(current_question, team_idx)
-		#TODO: use update_score, better yet, use an event
-		playerview.scoreboard.decrease_score(team_idx, points[current_question.question])
 		enable_buzzers()
 		persist_state()
 
@@ -207,8 +204,6 @@ func _on_manual_score_increase(team_idx: int) -> void:
 
 func _on_manual_score_decrease(team_idx: int) -> void:
 	game_state.decrement_score(team_idx, 100)
-	# TODO: use an event
-	playerview.scoreboard.decrease_score(team_idx, 100)
 	persist_state()
 
 func persist_state():
@@ -261,11 +256,11 @@ func disable_answer_grading_buttons():
 	$question_card/score_buttons/team_2_wrong.disabled = true
 	$question_card/score_buttons/team_3_wrong.disabled = true
 
-# TODO: take game state into account
 func start_round(round_number: int) -> void:
 	current_revealed_category = -1
 	current_question = null
-	current_round_number = round_number
+	game_state.current_round = round_number
+	
 	round_started.emit(round_number)
 	reset_question_buttons()
 	question_card.hide()

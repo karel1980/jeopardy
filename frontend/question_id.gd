@@ -2,14 +2,18 @@ extends Object
 
 class_name QuestionId
 
+#TODO: rename me (round is abuilt in function
 var round: int
 var category: int
 var question: int
 
-func _init(round, category, question):
-	self.round = round
-	self.category = category
-	self.question = question
+func _init(_round, _category, _question):
+	round = _round
+	category = _category
+	question = _question
 
 func _to_string() -> String:
 	return "%d/%d/%d"%[round, category, question]
+
+func is_equal_approx(other) -> bool:
+	return round == other.round and category == other.category and question == other.question

@@ -10,7 +10,6 @@ extends Node2D
 
 var game
 var game_state
-var categories
 var current_category_slider_idx = -1
 
 var scores = [ 0, 0, 0 ]
@@ -40,16 +39,16 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 	
-func init_game(game_data, game_state):
-	self.game = game_data
-	self.game_state = game_state
-	categories = game["rounds"][0]["categories"]
+func init_game(game_data, _game_state):
+	game = game_data
+	game_state = _game_state
 	
 	game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
 	
 func _on_game_state_loaded():
 	for q in game_state.questions:
 		if q.round == game_state.current_round:
+			# TODO: QuestionId argument
 			get_question_button(q.category, q.question).text = ""
 
 func init_categories_slider():
@@ -60,6 +59,7 @@ func init_categories_slider():
 		btn.add_theme_stylebox_override("normal", style_box)
 		btn.add_theme_font_size_override("font_size", 40)
 	
+	var categories = game["rounds"][game_state.current_round]["categories"]
 	for cat_idx in range(len(categories)):
 		categories_slider.get_child(cat_idx).text = categories[cat_idx]["name"]
 
@@ -79,10 +79,14 @@ func start_game():
 func start_round(round_idx):
 	hide_question()
 	var round = game["rounds"][round_idx]
-	categories = round["categories"]
 	init_category_buttons()
 	init_categories_slider()
 	init_question_buttons()
+	
+	# TODO: this filtered for loop is written many times. Create GameState.get_current_round_questions()
+	for q in game_state.questions:
+		if q.round == game_state.current_round:
+			get_question_button(q.category, q.question).text = ""
 		
 func pause_game():	
 	intro_screen.show()
@@ -104,6 +108,7 @@ func hide_categories_slider():
 	tween.tween_property(categories_slider, "position", Vector2(sz.x * -6, 0), 0.3)	
 
 func show_category_names():
+	var categories = game["rounds"][game_state.current_round]["categories"]
 	for cat_idx in range(len(categories)):
 		questionboard.get_child(cat_idx).get_child(0).text = categories[cat_idx]["name"]
 		
@@ -111,6 +116,8 @@ func init_category_buttons():
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = Color(.2, .2, 1)
 
+	#TODO: Merge game and game_state? I'd like a get_current_round_categories()
+	var categories = game["rounds"][game_state.current_round]["categories"]
 	for cat_i in len(categories):
 		var btn = get_category_button(cat_i)
 		btn.text = "???"
@@ -128,6 +135,7 @@ func init_question_buttons():
 	var style_box = StyleBoxFlat.new()
 	style_box.bg_color = Color(.2, .2, 1)
 	
+	var categories = game["rounds"][game_state.current_round]["categories"]
 	for point_i in len(question_points):
 		for cat_i in len(categories):
 			var btn = get_question_button(cat_i, point_i)
@@ -170,6 +178,7 @@ func show_question(question_id: QuestionId):
 	
 	var points_idx = question_id.question
 	var cat_idx = question_id.category
+	var categories = game["rounds"][game_state.current_round]["categories"]
 	var question = categories[cat_idx]["questions"][points_idx]
 	var orig_btn = get_question_button(cat_idx, points_idx)
 	var btn

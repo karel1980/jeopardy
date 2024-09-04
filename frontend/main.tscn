@@ -18,10 +18,10 @@ offset_bottom = 464.0
 columns = 5
 
 [node name="random_team" type="Button" parent="."]
-offset_left = 813.0
-offset_top = 46.0
-offset_right = 976.0
-offset_bottom = 123.0
+offset_left = 969.0
+offset_top = 45.0
+offset_right = 1132.0
+offset_bottom = 122.0
 text = "select random team"
 
 [node name="score_adjustments" type="GridContainer" parent="."]
@@ -195,9 +195,9 @@ size_flags_horizontal = 3
 text = "Round 2"
 
 [node name="top_controls" type="HBoxContainer" parent="."]
-offset_left = 32.0
+offset_left = 600.0
 offset_top = 40.0
-offset_right = 388.0
+offset_right = 956.0
 offset_bottom = 117.0
 
 [node name="play_pause" type="Button" parent="top_controls"]
