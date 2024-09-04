@@ -1,7 +1,10 @@
 extends HBoxContainer
 
-var scores = [ 0, 0, 0 ]
+#TODO: rename to game
 var data
+var game_state: GameState
+
+#TODO: get team names from data?
 var teams
 var current_team = -1
 
@@ -19,7 +22,7 @@ func _ready() -> void:
 	score_neutral_style = score_labels[0].get_theme_stylebox("normal")
 	score_positive_style.bg_color = Color(0,1,0,1)
 	score_negative_style.bg_color = Color(1,.2,.2,1)
-
+	
 func _process(_delta: float) -> void:
 	pass
 
@@ -51,6 +54,8 @@ func select_random_team():
 	# after 10 iterations team 0 is highlighted
 	# we must modulate a bit more until we hit the selected team
 	
+	# TODO: for humorous effect, make the last transition after a longish delay
+	
 	if current_team > 0:
 		t.tween_property(widgets[0], "modulate", mod_color_none, 0.2)
 		t.parallel().tween_property(widgets[1], "modulate", highlight_color, 0.2)
@@ -77,14 +82,12 @@ func unselect_team():
 
 func init_game(game_data, game_state):
 	data = game_data
-	scores = game_state["scores"]
+	self.game_state = game_state
 	teams = data["teams"]
-
-	for i in range(3):
-		widgets[i].text = teams[i]
-		score_labels[i].text = str(scores[i])
-		update_score_color(i)
-
+	
+	# TODO: unsubscribe needed somewhere?
+	self.game_state.connect("scores_updated", Callable(self, "update_scores"))
+	
 func set_current_team(team_idx):
 	# TODO: add some code to avoid running 2 tweens in parallel (basically disable the button until done)
 	var t = create_tween()
@@ -93,21 +96,24 @@ func set_current_team(team_idx):
 		current_team = team_idx
 		t.tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
 	
+#TODO remove, using events now
 func increase_score(team_idx, points):
-	scores[team_idx] += points
-	score_labels[team_idx].text = str(scores[team_idx])
-	update_score_color(team_idx)
+	pass
 	
+#TODO remove, using events now
 func decrease_score(team_idx, points):
-	scores[team_idx] -= points
-	score_labels[team_idx].text = str(scores[team_idx])
-	update_score_color(team_idx)
+	pass
 
+func update_scores(scores):
+	for team_idx in range(len(scores)):
+		score_labels[team_idx].text = str(scores[team_idx])
+		update_score_color(team_idx)
+		
 func update_score_color(team_idx):
-	if scores[team_idx] == 0:
+	if game_state.scores[team_idx] == 0:
 		score_labels[team_idx].add_theme_stylebox_override("normal", score_neutral_style)
 		score_labels[team_idx].add_theme_color_override("font_color", Color(1,1,1,1))
-	elif scores[team_idx] < 0:
+	elif game_state.scores[team_idx] < 0:
 		score_labels[team_idx].add_theme_stylebox_override("normal", score_negative_style)
 		score_labels[team_idx].add_theme_color_override("font_color", Color(1,1,1,1))
 	else:

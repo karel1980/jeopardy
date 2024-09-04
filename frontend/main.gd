@@ -5,8 +5,7 @@ var playerview_scene = preload('res://playerview.tscn')
 var playerview
 
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
-#TODO this should be QuestionId instead of this dumb array
-var current_question = []
+var current_question: QuestionId = null
 
 var current_round_number = 0
 var current_revealed_category = -1
@@ -32,7 +31,7 @@ signal question_selected
 
 var game_location = "../jeopardy.json"
 var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())
-var game_state = { "scores": [0,0,0], "questions": [] }
+var game_state: GameState = GameState.new()
 var categories = game["rounds"][0]["categories"]
 
 func _ready() -> void:
@@ -42,11 +41,6 @@ func _ready() -> void:
 	
 	var state_file_location = game_location + ".state"
 	
-	if FileAccess.file_exists(state_file_location):
-		var game_state_file = FileAccess.open(state_file_location, FileAccess.READ)
-		game_state = JSON.parse_string(game_state_file.get_as_text())
-		game_state_file.close()
-
 	var playerwin = Window.new()
 	playerwin.size = get_tree().root.size
 	playerview = playerview_scene.instantiate()
@@ -69,6 +63,13 @@ func _ready() -> void:
 	for q in range(5):
 		for cat in range(5):
 			questions.add_child(create_question_button(cat, q))
+			
+	if FileAccess.file_exists(state_file_location):
+		game_state.load(state_file_location)
+		# bit hacky, there should be a difference between a real game event and just 'loading state'
+		game_state.emit_signal("scores_updated", game_state.scores)
+
+
 	
 func create_question_button(cat, q):
 	var btn = Button.new()
@@ -82,7 +83,7 @@ func create_question_button(cat, q):
 func reset_question_buttons():
 	for cat_idx in range(5):
 		for question_idx in range(5):
-			var btn = get_question_button(cat_idx, question_idx)
+			var btn = get_question_button(QuestionId.new(current_round_number, cat_idx, question_idx))
 			btn.text = str(points[question_idx])
 			btn.disabled = true
 	
@@ -95,7 +96,7 @@ func show_question(cat_idx, question_idx):
 		disable_buzzers()
 		question_done.disabled = false
 		question_category.text = categories[cat_idx]["name"]
-		current_question = [cat_idx, question_idx]
+		current_question = QuestionId.new(current_round_number, cat_idx, question_idx)
 		question_value.text = str(points[question_idx])
 		question.text = categories[cat_idx]["questions"][question_idx]["q"]
 		if "n" in categories[cat_idx]["questions"][question_idx]:
@@ -168,54 +169,47 @@ func on_random_team_pressed() -> void:
 
 func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
-		playerview.scoreboard.increase_score(team_idx, points[current_question[1]])
+		game_state.mark_correct(current_question, team_idx)
+		# TODO: this should just be an event produced by game_state?
+		playerview.scoreboard.increase_score(team_idx, points[current_question.question])
 		mark_question_completed()
 		persist_state()
 	hide_question()
 	
 func mark_question_completed():
 	if current_question:
-		game_state.questions.append(QuestionId.new(current_round_number, current_question[0], current_question[1]))
-		var btn = get_question_button(current_question[0], current_question[1])
+		game_state.mark_question_complete(current_question)
+		var btn = get_question_button(current_question)
 		btn.text = "---"
-		playerview.mark_question_completed(current_question[0], current_question[1])
+		# TODO: pass question_id
+		playerview.mark_question_completed(current_question.category, current_question.question)
 		persist_state()
 		playerview.hide_question()
 		current_question = null
 	
-func get_question_button(cat_idx, question_idx):
-	return questions.get_child(question_idx * 5 + cat_idx)
+func get_question_button(question_id):
+	return questions.get_child(question_id.question * 5 + question_id.category)
 	
 func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
-		playerview.scoreboard.decrease_score(team_idx, points[current_question[1]])
+		game_state.mark_wrong(current_question, team_idx)
+		#TODO: use update_score, better yet, use an event
+		playerview.scoreboard.decrease_score(team_idx, points[current_question.question])
 		enable_buzzers()
 		persist_state()
 
 func _on_manual_score_increase(team_idx: int) -> void:
-	print("score should increase")
-	playerview.scoreboard.increase_score(team_idx, 100)
+	game_state.increment_score(team_idx, 100)
 	persist_state()
 
 func _on_manual_score_decrease(team_idx: int) -> void:
-	print("score should decrease")
+	game_state.decrement_score(team_idx, 100)
+	# TODO: use an event
 	playerview.scoreboard.decrease_score(team_idx, 100)
 	persist_state()
 
 func persist_state():
-	var scores = playerview.scoreboard.scores
-	var round = current_round_number
-	var questions = []
-	for q_id in game_state.questions:
-		questions.append([q_id.round, q_id.category, q_id.question])
-	
-	var output = FileAccess.open(game_location + ".state", FileAccess.WRITE)
-	output.store_string(JSON.stringify({
-		"scores": scores,
-		"round": round,
-		"questions": questions
-	}))
-	output.close()
+	game_state.save(game_location + ".state")
 	
 func enable_buzzers():
 	buzzers_enabled = true
@@ -264,6 +258,7 @@ func disable_answer_grading_buttons():
 	$question_card/score_buttons/team_2_wrong.disabled = true
 	$question_card/score_buttons/team_3_wrong.disabled = true
 
+# TODO: take game state into account
 func start_round(round_number: int) -> void:
 	current_revealed_category = -1
 	current_question = null

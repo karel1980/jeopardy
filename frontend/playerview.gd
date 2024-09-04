@@ -33,9 +33,9 @@ func _ready() -> void:
 	init_categories_slider()
 	init_question_buttons()
 
-	scoreboard.init_game(game, game_state)
-
 	pause_game()
+	
+	scoreboard.init_game(game, game_state)
 	
 func _process(_delta: float) -> void:
 	pass
@@ -44,7 +44,7 @@ func init_game(game_data, game_state):
 	self.game = game_data
 	self.game_state = game_state
 	categories = game["rounds"][0]["categories"]
-	
+
 func init_categories_slider():
 	current_category_slider_idx = -1
 	for btn in categories_slider.get_children():
