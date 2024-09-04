@@ -2,13 +2,13 @@
 
 This software will allow you to become the host of a jeopardy game.
 
-- TODO: save and load state + controls to clear state
-- TODO: add 'halfway' screens (show 'final' winner)
 - TODO: show answer on host screen
+- TODO: add 'halfway' screens (show 'final' winner)
 - TODO: show categories on host screen
-- TODO: add 'halfway' screen (show 'current' winner)
-- TODO: clear visual indication when buzzers are enabled
-- TODO: improve host screen design: show question board as a standalone screen
+- TODO: add more stuff to state? e.g. selected question, current team, categories revealed, ...
+- TODO: add 'final' screen (show 'current' winner)
+- TODO: clearer visual indication when buzzers are enabled
+- TODO: improve host screen design: show question board as a standalone screen/popover
 
 - TODO: implement 'double jeopardy' questions? (i.e. only current contestant can play, wagers some amount, double or nothing)
 

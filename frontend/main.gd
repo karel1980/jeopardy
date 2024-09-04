@@ -85,7 +85,7 @@ func reset_question_buttons():
 			btn.text = str(points[question_idx])
 			btn.disabled = true
 			
-	# TODO: move this into the original for loop? Requires 'in questions' to work
+	# TODO: move this into the first for loop? Requires 'in questions' to work
 	# call reset_question_buttons when game_state is loaded instead of duplicated code
 	for q in game_state.questions:
 		if q.round == game_state.current_round:

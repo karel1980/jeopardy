@@ -48,7 +48,6 @@ func init_game(game_data, _game_state):
 func _on_game_state_loaded():
 	for q in game_state.questions:
 		if q.round == game_state.current_round:
-			# TODO: QuestionId argument
 			get_question_button(q).text = ""
 
 func init_categories_slider():
