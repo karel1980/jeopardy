@@ -75,12 +75,15 @@ func unselect_team():
 	widgets[1].modulate = mod_color_none
 	widgets[2].modulate = mod_color_none
 
-func init_game(game_data):
+func init_game(game_data, game_state):
 	data = game_data
+	scores = game_state["scores"]
 	teams = data["teams"]
 
 	for i in range(3):
 		widgets[i].text = teams[i]
+		score_labels[i].text = str(scores[i])
+		update_score_color(i)
 
 func set_current_team(team_idx):
 	# TODO: add some code to avoid running 2 tweens in parallel (basically disable the button until done)

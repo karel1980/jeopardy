@@ -29,18 +29,25 @@ signal question_selected
 @onready var enable_buzzers_btn := $question_card/buzzer_toggle/enable
 @onready var disable_buzzers_btn := $question_card/buzzer_toggle/disable
 
-var data = JSON.parse_string(FileAccess.open("../jeopardy.json", FileAccess.READ).get_as_text())
-var categories = data["rounds"][0]["categories"]
+var game_location = "../jeopardy.json"
+var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())
+var game_state = { "scores": [0,0,0], "questions": [] }
+var categories = game["rounds"][0]["categories"]
 
 func _ready() -> void:
 	var win = get_window()
 	win.gui_embed_subwindows = false
 	question_card.hide()
 	
+	var game_state_file = FileAccess.open(game_location + ".state", FileAccess.READ)
+	
+	if game_state_file:
+		game_state = JSON.parse_string(game_state_file.get_as_text())
+
 	var playerwin = Window.new()
 	playerwin.size = get_tree().root.size
 	playerview = playerview_scene.instantiate()
-	playerview.init_game(data)
+	playerview.init_game(game, game_state)
 	round_started.connect(Callable(playerview, "start_round"))
 	question_selected.connect(Callable(playerview, "show_question"))
 	
@@ -80,7 +87,7 @@ func show_question(cat_idx, question_idx):
 	if current_question:
 		hide_question()
 	else:
-		emit_signal("question_selected", QuestionId.new(data, current_round_number, cat_idx, question_idx))
+		emit_signal("question_selected", QuestionId.new(game, current_round_number, cat_idx, question_idx))
 		question_card.show()
 		disable_buzzers()
 		question_done.disabled = false
@@ -240,4 +247,4 @@ func start_round(round_number: int) -> void:
 	round_started.emit(round_number)
 	reset_question_buttons()
 	question_card.hide()
-	categories = data["rounds"][round_number]["categories"]
+	categories = game["rounds"][round_number]["categories"]
