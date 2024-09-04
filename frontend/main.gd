@@ -7,29 +7,32 @@ var playerview
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
 var current_question = []
 
+var current_round_number = 0
 var current_revealed_category = -1
 var buzzers_enabled = false
 
 signal round_started
+signal question_selected
 
 @onready var questions := $questions
 
-@onready var toggle_intro_screen := $"general_controls/play_pause"
-@onready var question_category := $question_category
-@onready var question_value := $question_value
-@onready var question := $question
+@onready var toggle_intro_screen := $general_controls/play_pause
 @onready var reveal_category := $reveal_cat
-@onready var note := $note
-@onready var answer := $answer
-@onready var question_done := $question_done
-@onready var buzzer_toggle_btn := $buzzer_toggle_btn
 @onready var reveal_category_buttons := $reveal_category_buttons
+
+@onready var question_card = $question_card
+@onready var question_category := $question_card/question_category
+@onready var question_value := $question_card/question_value
+@onready var question := $question_card/question
+@onready var note := $question_card/note
+@onready var answer := $question_card/answer
+@onready var question_done := $question_card/question_done
+@onready var buzzer_toggle_btn := $question_card/buzzer_toggle_btn
 
 var data = JSON.parse_string(FileAccess.open("../jeopardy.json", FileAccess.READ).get_as_text())
 var categories = data["rounds"][0]["categories"]
 
 func _ready() -> void:
-	print("main ready")
 	var win = get_window()
 	win.gui_embed_subwindows = false
 	
@@ -38,7 +41,7 @@ func _ready() -> void:
 	playerview = playerview_scene.instantiate()
 	playerview.init_game(data)
 	round_started.connect(Callable(playerview, "start_round"))
-
+	question_selected.connect(Callable(playerview, "show_question"))
 	
 	playerwin.content_scale_aspect = win.content_scale_aspect
 	playerwin.content_scale_mode = win.content_scale_mode
@@ -49,6 +52,7 @@ func _ready() -> void:
 	playerwin.add_child(playerview)
 	add_child(playerwin)
 
+	current_round_number = 0
 	emit_signal("round_started", 0)
 
 	for q in range(5):
@@ -83,15 +87,14 @@ func show_question(cat_idx, question_idx):
 		question_done.disabled = true
 		buzzer_toggle_btn.disabled = true
 		
-		question_category.text = "Question category"
-		question.text = "Question"
-		question_value.text = "---"
-		note.text = "---"
+		question_card.hide()
+		
 	else:
-		question_done.disabled = false
+		emit_signal("question_selected", QuestionId.new(data, current_round_number, cat_idx, question_idx))
+		question_card.show()
 		disable_buzzers()
+		question_done.disabled = false
 		buzzer_toggle_btn.disabled = false
-
 		question_category.text = categories[cat_idx]["name"]
 		current_question = [cat_idx, question_idx]
 		question_value.text = str(points[question_idx])
@@ -100,7 +103,6 @@ func show_question(cat_idx, question_idx):
 			note.text = categories[cat_idx]["questions"][question_idx]["n"]
 		else:
 			note.text = "---"
-		playerview.show_question(cat_idx, question_idx)
 	
 func _process(_delta: float) -> void:
 	pass
@@ -238,8 +240,11 @@ func disable_answer_grading_buttons():
 	$GridContainer/team_3_wrong.disabled = true
 
 
-func start_round(round_idx: int) -> void:
+func start_round(round_number: int) -> void:
 	current_revealed_category = -1
-	round_started.emit(round_idx)
+	current_question = null
+	current_round_number = round_number
+	round_started.emit(round_number)
 	reset_question_buttons()
-	categories = data["rounds"][round_idx]["categories"]
+	question_card.hide()
+	categories = data["rounds"][round_number]["categories"]

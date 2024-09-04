@@ -28,8 +28,6 @@ var cat_tween2 = null
 var cat_button = null
 
 func _ready() -> void:
-	print("playerview ready")
-
 	init_category_buttons()
 	init_categories_slider()
 	init_question_buttons()
@@ -37,11 +35,6 @@ func _ready() -> void:
 	scoreboard.init_game(game)
 
 	pause_game()
-	
-	get_viewport().connect("screen_resized", on_resize)
-	
-func on_resize():
-	print("yolo")
 	
 func _process(_delta: float) -> void:
 	pass
@@ -75,6 +68,7 @@ func start_game():
 	question_holder.show()
 		
 func start_round(round_idx):
+	hide_question()
 	var round = game["rounds"][round_idx]
 	categories = round["categories"]
 	init_category_buttons()
@@ -152,18 +146,21 @@ func fixate_button_color(btn, color):
 func hide_question():
 	if question_btn:
 		var free_when_done = func():
-			question_btn.queue_free()
-			question_btn = null
+			if question_btn:
+				question_btn.queue_free()
+				question_btn = null
 		var t = create_tween()
 		t.tween_property(question_btn, "scale", Vector2(orig_question_btn.get_global_rect().size.x / question_btn.size.x, orig_question_btn.get_global_rect().size.y / question_btn.size.y), 0.7)
 		t.parallel().tween_property(question_btn, "position", orig_question_btn.get_global_position(), 0.7)
 		t.tween_callback(free_when_done)
 		
-func show_question(cat_idx, points_idx):
+func show_question(question_id: QuestionId):
 	if question_btn:
-		question_btn.queue_free()
+		question_btn.free()
 		question_btn = null
 	
+	var points_idx = question_id.question
+	var cat_idx = question_id.category
 	var question = categories[cat_idx]["questions"][points_idx]
 	var orig_btn = get_question_button(cat_idx, points_idx)
 	var btn

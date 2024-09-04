@@ -10,60 +10,12 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "This is the gamemaster view. Don't share this screen with the players"
 
-[node name="random_team" type="Button" parent="."]
-offset_left = 813.0
-offset_top = 46.0
-offset_right = 976.0
-offset_bottom = 123.0
-disabled = true
-text = "select random team"
-
 [node name="questions" type="GridContainer" parent="."]
 offset_left = 45.0
 offset_top = 150.0
 offset_right = 569.0
 offset_bottom = 464.0
 columns = 5
-
-[node name="question_category" type="Label" parent="."]
-offset_left = 822.0
-offset_top = 159.0
-offset_right = 1129.0
-offset_bottom = 218.0
-text = "Question category"
-autowrap_mode = 3
-
-[node name="question_value" type="Label" parent="."]
-offset_left = 821.0
-offset_top = 227.0
-offset_right = 1128.0
-offset_bottom = 256.0
-text = "Question value"
-autowrap_mode = 3
-
-[node name="question" type="Label" parent="."]
-offset_left = 819.0
-offset_top = 270.0
-offset_right = 1127.0
-offset_bottom = 487.0
-text = "Question"
-autowrap_mode = 3
-
-[node name="note" type="Label" parent="."]
-offset_left = 823.0
-offset_top = 498.0
-offset_right = 1148.0
-offset_bottom = 643.0
-text = "Note"
-autowrap_mode = 3
-
-[node name="answer" type="Label" parent="."]
-offset_left = 823.0
-offset_top = 418.0
-offset_right = 1148.0
-offset_bottom = 492.0
-text = "Answer"
-autowrap_mode = 3
 
 [node name="GridContainer" type="GridContainer" parent="."]
 offset_left = 17.0
@@ -126,22 +78,6 @@ text = "-100"
 layout_mode = 2
 text = "-100"
 
-[node name="buzzer_toggle_btn" type="Button" parent="."]
-offset_left = 621.0
-offset_top = 300.0
-offset_right = 781.0
-offset_bottom = 400.0
-disabled = true
-text = "Enable buzzers"
-
-[node name="question_done" type="Button" parent="."]
-offset_left = 631.0
-offset_top = 189.0
-offset_right = 760.0
-offset_bottom = 272.0
-disabled = true
-text = "Question DONE"
-
 [node name="general_controls" type="HBoxContainer" parent="."]
 offset_left = 64.0
 offset_top = 32.0
@@ -185,7 +121,73 @@ text = "Reveal
 next
 category"
 
-[connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
+[node name="random_team" type="Button" parent="."]
+offset_left = 813.0
+offset_top = 46.0
+offset_right = 976.0
+offset_bottom = 123.0
+disabled = true
+text = "select random team"
+
+[node name="question_card" type="Node2D" parent="."]
+visible = false
+
+[node name="question_category" type="Label" parent="question_card"]
+offset_left = 822.0
+offset_top = 159.0
+offset_right = 1129.0
+offset_bottom = 218.0
+text = "Question category"
+autowrap_mode = 3
+
+[node name="question_value" type="Label" parent="question_card"]
+offset_left = 821.0
+offset_top = 227.0
+offset_right = 1128.0
+offset_bottom = 256.0
+text = "Question value"
+autowrap_mode = 3
+
+[node name="question" type="Label" parent="question_card"]
+offset_left = 819.0
+offset_top = 270.0
+offset_right = 1127.0
+offset_bottom = 487.0
+text = "Question"
+autowrap_mode = 3
+
+[node name="note" type="Label" parent="question_card"]
+offset_left = 823.0
+offset_top = 498.0
+offset_right = 1148.0
+offset_bottom = 643.0
+text = "Note"
+autowrap_mode = 3
+
+[node name="answer" type="Label" parent="question_card"]
+offset_left = 823.0
+offset_top = 418.0
+offset_right = 1148.0
+offset_bottom = 492.0
+text = "Answer"
+autowrap_mode = 3
+
+[node name="buzzer_toggle_btn" type="Button" parent="question_card"]
+offset_left = 621.0
+offset_top = 300.0
+offset_right = 781.0
+offset_bottom = 400.0
+disabled = true
+text = "Enable buzzers"
+
+[node name="question_done" type="Button" parent="question_card"]
+offset_left = 631.0
+offset_top = 189.0
+offset_right = 760.0
+offset_bottom = 272.0
+disabled = true
+text = "Question DONE"
+
 [connection signal="pressed" from="GridContainer/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
 [connection signal="pressed" from="GridContainer/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]
 [connection signal="pressed" from="GridContainer/team_3_correct" to="." method="_on_team_correct_pressed" binds= [2]]
@@ -198,10 +200,11 @@ category"
 [connection signal="pressed" from="GridContainer/team_1_minus_100" to="." method="_on_manual_score_decrease" binds= [0]]
 [connection signal="pressed" from="GridContainer/team_2_minus_100" to="." method="_on_manual_score_decrease" binds= [1]]
 [connection signal="pressed" from="GridContainer/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
-[connection signal="pressed" from="buzzer_toggle_btn" to="." method="toggle_buzzers"]
-[connection signal="pressed" from="question_done" to="." method="mark_question_completed"]
 [connection signal="pressed" from="general_controls/play_pause" to="." method="on_toggle_intro_screen_pressed"]
 [connection signal="pressed" from="general_controls/round 1" to="." method="start_round" binds= [0]]
 [connection signal="pressed" from="general_controls/round 2" to="." method="start_round" binds= [1]]
 [connection signal="pressed" from="reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
 [connection signal="pressed" from="reveal_category_buttons/reveal_next" to="." method="on_reveal_next_category_pressed"]
+[connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
+[connection signal="pressed" from="question_card/buzzer_toggle_btn" to="." method="toggle_buzzers"]
+[connection signal="pressed" from="question_card/question_done" to="." method="mark_question_completed"]
