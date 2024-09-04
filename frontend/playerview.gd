@@ -41,7 +41,6 @@ func _process(_delta: float) -> void:
 	pass
 	
 func init_game(game_data, game_state):
-	print("YOLO", game_state)
 	self.game = game_data
 	self.game_state = game_state
 	categories = game["rounds"][0]["categories"]

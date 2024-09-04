@@ -5,6 +5,7 @@ var playerview_scene = preload('res://playerview.tscn')
 var playerview
 
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
+#TODO this should be QuestionId instead of this dumb array
 var current_question = []
 
 var current_round_number = 0
@@ -39,10 +40,12 @@ func _ready() -> void:
 	win.gui_embed_subwindows = false
 	question_card.hide()
 	
-	var game_state_file = FileAccess.open(game_location + ".state", FileAccess.READ)
+	var state_file_location = game_location + ".state"
 	
-	if game_state_file:
+	if FileAccess.file_exists(state_file_location):
+		var game_state_file = FileAccess.open(state_file_location, FileAccess.READ)
 		game_state = JSON.parse_string(game_state_file.get_as_text())
+		game_state_file.close()
 
 	var playerwin = Window.new()
 	playerwin.size = get_tree().root.size
@@ -87,7 +90,7 @@ func show_question(cat_idx, question_idx):
 	if current_question:
 		hide_question()
 	else:
-		emit_signal("question_selected", QuestionId.new(game, current_round_number, cat_idx, question_idx))
+		emit_signal("question_selected", QuestionId.new(current_round_number, cat_idx, question_idx))
 		question_card.show()
 		disable_buzzers()
 		question_done.disabled = false
@@ -167,13 +170,16 @@ func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
 		playerview.scoreboard.increase_score(team_idx, points[current_question[1]])
 		mark_question_completed()
+		persist_state()
 	hide_question()
 	
 func mark_question_completed():
 	if current_question:
+		game_state.questions.append(QuestionId.new(current_round_number, current_question[0], current_question[1]))
 		var btn = get_question_button(current_question[0], current_question[1])
 		btn.text = "---"
 		playerview.mark_question_completed(current_question[0], current_question[1])
+		persist_state()
 		playerview.hide_question()
 		current_question = null
 	
@@ -184,15 +190,33 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
 		playerview.scoreboard.decrease_score(team_idx, points[current_question[1]])
 		enable_buzzers()
+		persist_state()
 
 func _on_manual_score_increase(team_idx: int) -> void:
 	print("score should increase")
 	playerview.scoreboard.increase_score(team_idx, 100)
+	persist_state()
 
 func _on_manual_score_decrease(team_idx: int) -> void:
 	print("score should decrease")
 	playerview.scoreboard.decrease_score(team_idx, 100)
+	persist_state()
 
+func persist_state():
+	var scores = playerview.scoreboard.scores
+	var round = current_round_number
+	var questions = []
+	for q_id in game_state.questions:
+		questions.append([q_id.round, q_id.category, q_id.question])
+	
+	var output = FileAccess.open(game_location + ".state", FileAccess.WRITE)
+	output.store_string(JSON.stringify({
+		"scores": scores,
+		"round": round,
+		"questions": questions
+	}))
+	output.close()
+	
 func enable_buzzers():
 	buzzers_enabled = true
 	disable_buzzers_btn.disabled = false
