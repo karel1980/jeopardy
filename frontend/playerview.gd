@@ -44,6 +44,13 @@ func init_game(game_data, game_state):
 	self.game = game_data
 	self.game_state = game_state
 	categories = game["rounds"][0]["categories"]
+	
+	game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
+	
+func _on_game_state_loaded():
+	for q in game_state.questions:
+		if q.round == game_state.current_round:
+			get_question_button(q.category, q.question).text = ""
 
 func init_categories_slider():
 	current_category_slider_idx = -1
