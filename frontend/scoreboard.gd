@@ -85,7 +85,7 @@ func init_game(game_data, game_state):
 	self.game_state = game_state
 	teams = data["teams"]
 	
-	# TODO: unsubscribe needed somewhere?
+	self.game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
 	self.game_state.connect("scores_updated", Callable(self, "update_scores"))
 	
 func set_current_team(team_idx):
@@ -104,6 +104,9 @@ func increase_score(team_idx, points):
 func decrease_score(team_idx, points):
 	pass
 
+func _on_game_state_loaded():
+	update_scores(game_state.scores)
+	
 func update_scores(scores):
 	for team_idx in range(len(scores)):
 		score_labels[team_idx].text = str(scores[team_idx])

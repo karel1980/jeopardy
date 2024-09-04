@@ -64,12 +64,15 @@ func _ready() -> void:
 		for cat in range(5):
 			questions.add_child(create_question_button(cat, q))
 			
+	game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
+	
 	if FileAccess.file_exists(state_file_location):
 		game_state.load(state_file_location)
-		# bit hacky, there should be a difference between a real game event and just 'loading state'
-		game_state.emit_signal("scores_updated", game_state.scores)
 
-
+func _on_game_state_loaded():
+	for q in game_state.questions:
+		if q.round == game_state.current_round:
+			get_question_button(q).text = "---"
 	
 func create_question_button(cat, q):
 	var btn = Button.new()
