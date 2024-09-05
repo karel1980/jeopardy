@@ -105,6 +105,9 @@ func decrease_score(team_idx, points):
 	pass
 
 func _on_game_state_loaded():
+	$"team 1/name".text = data["teams"][0]
+	$"team 2/name".text = data["teams"][1]
+	$"team 3/name".text = data["teams"][2]
 	update_scores(game_state.scores)
 	
 func update_scores(scores):
