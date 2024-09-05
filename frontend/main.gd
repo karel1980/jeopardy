@@ -29,7 +29,7 @@ signal question_deselected
 @onready var question_card = $question_card
 @onready var question_category := $question_card/question_category
 @onready var question_value := $question_card/question_value
-@onready var question := $question_card/question
+@onready var question_label := $question_card/question
 @onready var note := $question_card/note
 @onready var answer := $question_card/answer
 @onready var question_done := $question_card/question_done
@@ -109,10 +109,12 @@ func show_question(cat_idx, question_idx):
 		question_done.disabled = false
 		question_category.text = categories[cat_idx]["name"]
 		current_question = QuestionId.new(game_state.current_round, cat_idx, question_idx)
+		var question = categories[cat_idx]["questions"][question_idx]
 		question_value.text = str(points[question_idx])
-		question.text = categories[cat_idx]["questions"][question_idx]["q"]
+		question_label.text = question["q"]
+		answer.text = question["a"]
 		if "n" in categories[cat_idx]["questions"][question_idx]:
-			note.text = categories[cat_idx]["questions"][question_idx]["n"]
+			note.text = question["n"]
 		else:
 			note.text = "---"
 	
