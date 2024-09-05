@@ -10,7 +10,8 @@ extends Node2D
 
 var game
 var game_state
-var current_category_slider_idx = -1
+
+var current_round = 0
 
 var scores = [ 0, 0, 0 ]
 var category_buttons = []
@@ -36,6 +37,7 @@ func _ready() -> void:
 	
 	var hostview = get_tree().root.get_node("SceneRoot")
 	hostview.round_started.connect(Callable(self, "start_round"))
+	hostview.category_revealed.connect(Callable(self, "reveal_category"))
 	hostview.question_selected.connect(Callable(self, "show_question"))
 	hostview.game_started.connect(Callable(self, "start_game"))
 	hostview.game_paused.connect(Callable(self, "pause_game"))
@@ -57,7 +59,6 @@ func _on_game_state_loaded():
 			get_question_button(q).text = ""
 
 func init_categories_slider():
-	current_category_slider_idx = -1
 	for btn in categories_slider.get_children():
 		var style_box = StyleBoxFlat.new()
 		style_box.bg_color = Color(.2, .2, 1)
@@ -65,15 +66,15 @@ func init_categories_slider():
 		btn.add_theme_font_size_override("font_size", 40)
 	
 	var categories = game["rounds"][game_state.current_round]["categories"]
+	var sz = main_view.get_rect().size
+	categories_slider.size = Vector2(sz.x * 5, 0)
 	for cat_idx in range(len(categories)):
 		categories_slider.get_child(cat_idx).text = categories[cat_idx]["name"]
+	categories_slider.position = Vector2(sz.x, 0)
 
-	position_categories_slider()
-
-# TODO: sliding left and right is a bit wonky. Passing from/to could make things easier here
-func position_categories_slider():
+func position_categories_slider(category_idx):
 	var sz = main_view.get_rect().size
-	categories_slider.position = Vector2(-current_category_slider_idx * sz.x, 0)
+	categories_slider.position = Vector2(-category_idx * sz.x, 0)
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
 
 	
@@ -83,12 +84,13 @@ func start_game():
 	question_holder.show()
 		
 func start_round(round_idx):
+	current_round = round_idx
 	hide_question()
-	var round = game["rounds"][round_idx]
 	init_category_buttons()
 	init_categories_slider()
 	init_question_buttons()
 	
+	var round = game["rounds"][round_idx]
 	# TODO: this filtered for loop is written many times. Create GameState.get_current_round_questions()
 	for q in game_state.questions:
 		if q.round == game_state.current_round:
@@ -99,19 +101,14 @@ func pause_game():
 	main_view.hide()
 	question_holder.hide()
 		
-func reveal_category(cat_idx):
-	current_category_slider_idx = cat_idx
-	position_categories_slider()
+func reveal_category(previous_cat_idx, cat_idx):
+	if previous_cat_idx >= 0 and previous_cat_idx < 5:
+		get_category_button(previous_cat_idx).text = game["rounds"][current_round]["categories"][previous_cat_idx]["name"]
+	var sz = main_view.get_rect().size
+	position_categories_slider(previous_cat_idx)
 	categories_slider.show()
 	var tween = create_tween()
-
-	var sz = main_view.get_rect().size
-	tween.tween_property(categories_slider, "position", Vector2(sz.x * (-cat_idx), 0), 0.3)	
-
-func hide_categories_slider():
-	var tween = create_tween()
-	var sz = main_view.get_rect().size
-	tween.tween_property(categories_slider, "position", Vector2(sz.x * -6, 0), 0.3)	
+	tween.tween_property(categories_slider, "position", Vector2(sz.x * (-cat_idx), 0), 0.3)
 
 func show_category_names():
 	var categories = game["rounds"][game_state.current_round]["categories"]

@@ -13,8 +13,7 @@ var buzzers_enabled = false
 signal game_started
 signal game_paused
 signal round_started
-# TODO
-#signal category_revealed
+signal category_revealed
 # TODO
 #signal category_introduction_finished
 signal question_selected
@@ -158,22 +157,15 @@ func all_categories_revealed():
 func on_reveal_next_category_pressed() -> void:
 	if current_revealed_category < 5:
 		current_revealed_category += 1
-		if current_revealed_category < 5:
-			playerview.reveal_category(current_revealed_category)
-		else:
-			playerview.hide_categories_slider()
-			playerview.show_category_names()
+		category_revealed.emit(current_revealed_category - 1, current_revealed_category)
+		if current_revealed_category == 5:
 			for btn in questions.get_children():
 				btn.disabled = false
 			
 	
 func on_reveal_previous_category_pressed() -> void:
-	if current_revealed_category >= 0:
-		current_revealed_category -= 1
-		if current_revealed_category >= 0:
-			playerview.reveal_category(current_revealed_category)
-		else:
-			playerview.hide_categories_slider()
+	current_revealed_category -= 1
+	category_revealed.emit(current_revealed_category + 1, current_revealed_category)
 	for btn in questions.get_children():
 		btn.disabled = true
 		
