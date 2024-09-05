@@ -2,8 +2,9 @@
 
 This software will allow you to become the host of a jeopardy game.
 
-- TODO: add 'halfway' screens (show 'final' winner)
-- TODO: add 'final' screen (show 'current' winner)
+- TODO: fix team names in scoreboard (they're not set correctly)
+- TODO: add 'halfway' screens
+- TODO: add 'final' screen (show final winner)
 - TODO: show answer on player screen
 - TODO: show categories on host screen
 - TODO: add more stuff to state? e.g. selected question, current team, categories revealed, ...

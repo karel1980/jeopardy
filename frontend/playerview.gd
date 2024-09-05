@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var intro_screen = $intro_screen
+@onready var halfway_screen = $halfway_screen
 @onready var categories_slider := $categories_slider
 @onready var question_holder := $question_holder
 @onready var main_view := $main_view
@@ -32,17 +33,20 @@ func _ready() -> void:
 	init_category_buttons()
 	init_categories_slider()
 	init_question_buttons()
+	halfway_screen.hide()
 
 	pause_game()
 	
 	var hostview = get_tree().root.get_node("SceneRoot")
 	hostview.round_started.connect(Callable(self, "start_round"))
+	hostview.round_finished.connect(Callable(self, "show_halfway_screen"))
 	hostview.category_revealed.connect(Callable(self, "reveal_category"))
 	hostview.question_selected.connect(Callable(self, "show_question"))
 	hostview.game_started.connect(Callable(self, "start_game"))
 	hostview.game_paused.connect(Callable(self, "pause_game"))
 
 	scoreboard.init_game(game, game_state)
+	halfway_screen.init_game(game, game_state)
 	
 func _process(_delta: float) -> void:
 	pass
@@ -80,11 +84,20 @@ func position_categories_slider(category_idx):
 	
 func start_game():	
 	intro_screen.hide()
+	halfway_screen.hide()
 	main_view.show()
 	question_holder.show()
-		
+
+func show_halfway_screen():
+	intro_screen.hide()
+	halfway_screen.show()
+	main_view.hide()
+	question_holder.hide()
+	
 func start_round(round_idx):
 	current_round = round_idx
+	halfway_screen.hide()
+	main_view.show()
 	hide_question()
 	init_category_buttons()
 	init_categories_slider()
@@ -98,6 +111,7 @@ func start_round(round_idx):
 		
 func pause_game():	
 	intro_screen.show()
+	halfway_screen.hide()
 	main_view.hide()
 	question_holder.hide()
 		

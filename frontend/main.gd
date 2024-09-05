@@ -13,6 +13,7 @@ var buzzers_enabled = false
 signal game_started
 signal game_paused
 signal round_started
+signal round_finished
 signal category_revealed
 # TODO
 #signal category_introduction_finished
@@ -50,6 +51,7 @@ func _ready() -> void:
 	
 	var playerwin = Window.new()
 	playerwin.size = get_tree().root.size
+	
 	playerview = playerview_scene.instantiate()
 	playerview.name = "playerview"
 	# todo: signal
@@ -267,3 +269,8 @@ func start_round(round_number: int) -> void:
 	reset_question_buttons()
 	question_card.hide()
 	categories = game["rounds"][round_number]["categories"]
+
+
+func on_halfway_pressed() -> void:
+	print("emitting round_finished")
+	round_finished.emit()

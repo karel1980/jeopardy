@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://8eosw1etvb4p"]
+[gd_scene load_steps=5 format=3 uid="uid://8eosw1etvb4p"]
 
 [ext_resource type="Script" path="res://playerview.gd" id="1_5y4eo"]
 [ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_jhusk"]
 [ext_resource type="PackedScene" uid="uid://oqn6pb732n5a" path="res://scoreboard.tscn" id="3_bnwop"]
+[ext_resource type="PackedScene" uid="uid://dgrs28su17qwg" path="res://halfway.tscn" id="4_1lik4"]
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_5y4eo")
@@ -255,6 +256,8 @@ offset_bottom = 768.0
 texture = ExtResource("1_jhusk")
 expand_mode = 5
 stretch_mode = 4
+
+[node name="halfway_screen" parent="." instance=ExtResource("4_1lik4")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(1e-05, 1e-05)

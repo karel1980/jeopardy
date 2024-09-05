@@ -189,6 +189,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Round 1"
 
+[node name="show_halfway" type="Button" parent="bottom_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Show halfway"
+
 [node name="round 2" type="Button" parent="bottom_controls"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -246,6 +251,7 @@ category"
 [connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="disable_buzzers"]
 [connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="enable_buzzers"]
 [connection signal="pressed" from="bottom_controls/round 1" to="." method="start_round" binds= [0]]
+[connection signal="pressed" from="bottom_controls/show_halfway" to="." method="on_halfway_pressed"]
 [connection signal="pressed" from="bottom_controls/round 2" to="." method="start_round" binds= [1]]
 [connection signal="pressed" from="top_controls/play_pause" to="." method="on_toggle_intro_screen_pressed"]
 [connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
