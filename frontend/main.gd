@@ -1,6 +1,6 @@
 extends Node2D
 
-var game_paused = true
+var game_is_paused = true
 var playerview_scene = preload('res://playerview.tscn')
 var playerview
 
@@ -10,8 +10,17 @@ var current_question: QuestionId = null
 var current_revealed_category = -1
 var buzzers_enabled = false
 
+signal game_started
+signal game_paused
 signal round_started
+# TODO
+#signal category_revealed
+# TODO
+#signal category_introduction_finished
 signal question_selected
+signal question_deselected
+# TODO
+#signal question_completed
 
 @onready var questions := $questions
 
@@ -43,9 +52,9 @@ func _ready() -> void:
 	var playerwin = Window.new()
 	playerwin.size = get_tree().root.size
 	playerview = playerview_scene.instantiate()
+	playerview.name = "playerview"
+	# todo: signal
 	playerview.init_game(game, game_state)
-	round_started.connect(Callable(playerview, "start_round"))
-	question_selected.connect(Callable(playerview, "show_question"))
 	
 	playerwin.content_scale_aspect = win.content_scale_aspect
 	playerwin.content_scale_mode = win.content_scale_mode
@@ -110,28 +119,29 @@ func show_question(cat_idx, question_idx):
 	
 func hide_question():
 	# state
-		current_question = null
-		disable_buzzers()
-		disable_answer_grading_buttons()
+	current_question = null
+	disable_buzzers()
+	disable_answer_grading_buttons()
 
-		# ui
-		playerview.hide_question()
-		question_done.disabled = true
-		
-		question_card.hide()
+	# ui	
+	playerview.hide_question()
+	question_done.disabled = true
+	
+	question_card.hide()
+	question_deselected.emit()
 
 func _process(_delta: float) -> void:
 	pass
 	
 func on_toggle_intro_screen_pressed() -> void:
-	game_paused = !game_paused
-	if game_paused:
+	game_is_paused = !game_is_paused
+	if game_is_paused:
 		toggle_intro_screen.text = "Unpause game"
-		playerview.pause_game()
 		for btn in reveal_category_buttons.get_children():
 			btn.disabled = true
 		for btn in questions.get_children():
 			btn.disabled = true
+		game_paused.emit()
 	
 	else:
 		toggle_intro_screen.text = "Pause game"
@@ -140,8 +150,7 @@ func on_toggle_intro_screen_pressed() -> void:
 		if all_categories_revealed():
 			for btn in questions.get_children():
 				btn.disabled = false
-		
-		playerview.start_game()
+		game_started.emit()
 		
 func all_categories_revealed():
 	return current_revealed_category == 5
@@ -185,7 +194,7 @@ func mark_question_completed():
 		btn.text = "---"
 		playerview.mark_question_completed(current_question)
 		persist_state()
-		playerview.hide_question()
+		hide_question()
 		current_question = null
 	
 func get_question_button(question_id):

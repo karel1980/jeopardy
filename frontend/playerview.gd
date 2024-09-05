@@ -34,6 +34,12 @@ func _ready() -> void:
 
 	pause_game()
 	
+	var hostview = get_tree().root.get_node("SceneRoot")
+	hostview.round_started.connect(Callable(self, "start_round"))
+	hostview.question_selected.connect(Callable(self, "show_question"))
+	hostview.game_started.connect(Callable(self, "start_game"))
+	hostview.game_paused.connect(Callable(self, "pause_game"))
+
 	scoreboard.init_game(game, game_state)
 	
 func _process(_delta: float) -> void:
