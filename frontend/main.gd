@@ -168,6 +168,8 @@ func on_reveal_next_category_pressed() -> void:
 			
 	
 func on_reveal_previous_category_pressed() -> void:
+	if current_revealed_category <= -1:
+		return
 	current_revealed_category -= 1
 	category_revealed.emit(current_revealed_category + 1, current_revealed_category)
 	for btn in questions.get_children():

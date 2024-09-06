@@ -96,14 +96,6 @@ func set_current_team(team_idx):
 		current_team = team_idx
 		t.tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
 	
-#TODO remove, using events now
-func increase_score(team_idx, points):
-	pass
-	
-#TODO remove, using events now
-func decrease_score(team_idx, points):
-	pass
-
 func _on_game_state_loaded():
 	$"team 1/name".text = data["teams"][0]
 	$"team 2/name".text = data["teams"][1]
