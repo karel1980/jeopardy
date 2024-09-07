@@ -2,10 +2,9 @@
 
 This software will allow you to become the host of a jeopardy game.
 
-- TODO: show categories on host screen
-- TODO: add more stuff to state? e.g. selected question, current team, categories revealed, ...
+- TODO: lock out teams that buzzed too early for .5 seconds
 - TODO: clearer visual indication when buzzers are enabled
-- TODO: improve host screen design: show question board as a standalone screen/popover
+- TODO: only highlight the correct/wrong answer buttons for the team that has pressed
 
 - TODO: implement 'double jeopardy' questions? (i.e. only current contestant can play, wagers some amount, double or nothing)
 
@@ -13,8 +12,6 @@ This software will allow you to become the host of a jeopardy game.
 - TODO: do a dry run (family game questions)
 
 - TBD: on draws, either detect who reached score first OR use tie breaker?
-- TBD: should we show answer to players or just read it? (on TV they didn't show answers)
-- TBD: should we even do buzzer lockout?
 
 - WONTDO: final jeopardy (one question, everyone writes answer down beforehand)
 
