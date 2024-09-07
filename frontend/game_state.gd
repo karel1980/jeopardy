@@ -8,23 +8,24 @@ signal scores_updated
 static var question_values = [ 100, 200, 300, 400, 500 ]
 
 var scores: Array[int] = [ 0, 0, 0 ]
+var score_times: Array[int] = [ 0, 0, 0]
+
 var questions: Array[QuestionId] = []
 var current_round: int = 0
 
 func _init(scores: Array[int] = [0,0,0], questions: Array[QuestionId] = [], current_round: int = 0):
 	self.scores = scores
+	self.score_times = [0,0,0]
 	self.questions = questions
 	self.current_round = current_round
 	
 # TODO: make team_id the first argument for consistency
 func mark_correct(question_id: QuestionId, team_idx: int):
-	scores[team_idx] += question_values[question_id.question]
-	scores_updated.emit(scores)
+	update_score(team_idx, question_values[question_id.question])
 
 # TODO: make team_id the first argument for consistency
 func mark_wrong(question_id: QuestionId, team_idx: int):
-	scores[team_idx] -= question_values[question_id.question]
-	scores_updated.emit(scores)
+	update_score(team_idx, -question_values[question_id.question])
 
 func mark_question_complete(question_id: QuestionId):
 	# TODO: this if isn't working. Check is_equal_approx. Is that even right?
@@ -33,18 +34,23 @@ func mark_question_complete(question_id: QuestionId):
 		questions.append(question_id)
 
 func increment_score(team_idx: int, score: int):
-	scores[team_idx] += score
-	scores_updated.emit(scores)
+	update_score(team_idx, score)
 	
 func decrement_score(team_idx: int, score: int):
-	scores[team_idx] -= score
-	scores_updated.emit(scores)
+	update_score(team_idx, -score)
+	
+func update_score(team_idx: int, score: int):
+	scores[team_idx] += score
+	score_times[team_idx] += score_times.max() + 1
+	scores_updated.emit(scores, score_times)
 	
 func load(path: String):
 	var game_state_file = FileAccess.open(path, FileAccess.READ)
 	var data = JSON.parse_string(game_state_file.get_as_text())
 	game_state_file.close()
 	scores.assign(data["scores"])
+	if "score_times" in data:
+		score_times.assign(data["score_times"])
 	questions.clear()
 	for d in data["questions"]:
 		questions.append(QuestionId.new(int(d[0]), int(d[1]), int(d[2])))
@@ -60,6 +66,7 @@ func save(path: String):
 	
 	game_state_file.store_string(JSON.stringify({
 		"scores": scores,
+		"score_times": score_times,
 		"questions": questions_serialized,
 		"round": current_round
 	}))

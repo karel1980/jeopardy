@@ -2,7 +2,6 @@ extends Object
 
 class_name QuestionId
 
-#TODO: rename me (round is abuilt in function
 var round: int
 var category: int
 var question: int
