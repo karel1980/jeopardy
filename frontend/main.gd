@@ -67,6 +67,9 @@ func _ready() -> void:
 	playerwin.add_child(playerview)
 	add_child(playerwin)
 
+	for cat in range(5):
+		questions.add_child(create_category_button(cat))
+
 	for q in range(5):
 		for cat in range(5):
 			questions.add_child(create_question_button(cat, q))
@@ -76,8 +79,20 @@ func _ready() -> void:
 	if FileAccess.file_exists(state_file_location):
 		game_state.load(state_file_location)
 
+func create_category_button(cat):
+	var btn = Button.new()
+	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	btn.text = str(game["rounds"][game_state.current_round]["categories"][cat]["name"])
+	btn.disabled = true
+	btn.size_flags_stretch_ratio = 2
+	return btn	
+	
 func _on_game_state_loaded():
 	reset_question_buttons()
+	
+func get_category_button(cat):
+	return questions.get_child(cat)
 	
 func create_question_button(cat, q):
 	var btn = Button.new()
@@ -186,7 +201,7 @@ func mark_question_completed():
 		current_question = null
 	
 func get_question_button(question_id):
-	return questions.get_child(question_id.question * 5 + question_id.category)
+	return questions.get_child((1 + question_id.question) * 5 + question_id.category)
 	
 func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
@@ -258,6 +273,9 @@ func start_round(round_number: int) -> void:
 	current_question = null
 	game_state.current_round = round_number
 	
+	for cat in range(5):
+		var btn = get_category_button(cat)
+		btn.text = str(game["rounds"][game_state.current_round]["categories"][cat]["name"])
 	print("starting round ", round_number)
 	round_started.emit(round_number)
 	enable_reveal_category_buttons()
