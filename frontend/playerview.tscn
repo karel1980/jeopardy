@@ -1,29 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://8eosw1etvb4p"]
+[gd_scene load_steps=6 format=3 uid="uid://8eosw1etvb4p"]
 
 [ext_resource type="Script" path="res://playerview.gd" id="1_5y4eo"]
 [ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_jhusk"]
 [ext_resource type="PackedScene" uid="uid://oqn6pb732n5a" path="res://scoreboard.tscn" id="3_bnwop"]
 [ext_resource type="PackedScene" uid="uid://dgrs28su17qwg" path="res://halfway.tscn" id="4_1lik4"]
+[ext_resource type="PackedScene" uid="uid://b0hsfsrmnuljl" path="res://gameover.tscn" id="5_itbf6"]
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_5y4eo")
 
-[node name="main_view" type="VBoxContainer" parent="."]
+[node name="round_screen" type="Node2D" parent="."]
+
+[node name="main_view" type="VBoxContainer" parent="round_screen"]
 offset_right = 1150.0
 offset_bottom = 644.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="questionboard" type="HBoxContainer" parent="main_view"]
+[node name="questionboard" type="HBoxContainer" parent="round_screen/main_view"]
 custom_minimum_size = Vector2(1150, 500)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="cat0" type="VBoxContainer" parent="main_view/questionboard"]
+[node name="cat0" type="VBoxContainer" parent="round_screen/main_view/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="main_view/questionboard/cat0"]
+[node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat0"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -33,36 +36,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="main_view/questionboard/cat0"]
+[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="main_view/questionboard/cat0"]
+[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="main_view/questionboard/cat0"]
+[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="main_view/questionboard/cat0"]
+[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="main_view/questionboard/cat0"]
+[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="cat1" type="VBoxContainer" parent="main_view/questionboard"]
+[node name="cat1" type="VBoxContainer" parent="round_screen/main_view/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="main_view/questionboard/cat1"]
+[node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat1"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -72,36 +75,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="main_view/questionboard/cat1"]
+[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="main_view/questionboard/cat1"]
+[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="main_view/questionboard/cat1"]
+[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="main_view/questionboard/cat1"]
+[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="main_view/questionboard/cat1"]
+[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="cat2" type="VBoxContainer" parent="main_view/questionboard"]
+[node name="cat2" type="VBoxContainer" parent="round_screen/main_view/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="main_view/questionboard/cat2"]
+[node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat2"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -111,36 +114,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="main_view/questionboard/cat2"]
+[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="main_view/questionboard/cat2"]
+[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="main_view/questionboard/cat2"]
+[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="main_view/questionboard/cat2"]
+[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="main_view/questionboard/cat2"]
+[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="cat3" type="VBoxContainer" parent="main_view/questionboard"]
+[node name="cat3" type="VBoxContainer" parent="round_screen/main_view/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="main_view/questionboard/cat3"]
+[node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat3"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -150,36 +153,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="main_view/questionboard/cat3"]
+[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="main_view/questionboard/cat3"]
+[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="main_view/questionboard/cat3"]
+[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="main_view/questionboard/cat3"]
+[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="main_view/questionboard/cat3"]
+[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="cat4" type="VBoxContainer" parent="main_view/questionboard"]
+[node name="cat4" type="VBoxContainer" parent="round_screen/main_view/questionboard"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Label" parent="main_view/questionboard/cat4"]
+[node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat4"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
@@ -189,63 +192,63 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="main_view/questionboard/cat4"]
+[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button2" type="Button" parent="main_view/questionboard/cat4"]
+[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button3" type="Button" parent="main_view/questionboard/cat4"]
+[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button4" type="Button" parent="main_view/questionboard/cat4"]
+[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="Button5" type="Button" parent="main_view/questionboard/cat4"]
+[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
-[node name="scoreboard" parent="main_view" instance=ExtResource("3_bnwop")]
+[node name="scoreboard" parent="round_screen/main_view" instance=ExtResource("3_bnwop")]
 layout_mode = 2
 
-[node name="question_holder" type="Node2D" parent="."]
+[node name="question_holder" type="Node2D" parent="round_screen"]
 
-[node name="categories_slider" type="HBoxContainer" parent="."]
+[node name="categories_slider" type="HBoxContainer" parent="round_screen"]
 offset_top = -1.0
 offset_right = 1150.0
 offset_bottom = 551.0
 theme_override_constants/separation = 0
 
-[node name="cat0" type="Button" parent="categories_slider"]
+[node name="cat0" type="Button" parent="round_screen/categories_slider"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "cat 0"
 
-[node name="cat1" type="Button" parent="categories_slider"]
+[node name="cat1" type="Button" parent="round_screen/categories_slider"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "cat 1"
 
-[node name="cat2" type="Button" parent="categories_slider"]
+[node name="cat2" type="Button" parent="round_screen/categories_slider"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "cat 2"
 
-[node name="cat3" type="Button" parent="categories_slider"]
+[node name="cat3" type="Button" parent="round_screen/categories_slider"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "cat 3"
 
-[node name="cat4" type="Button" parent="categories_slider"]
+[node name="cat4" type="Button" parent="round_screen/categories_slider"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "cat 4"
@@ -259,6 +262,4 @@ stretch_mode = 4
 
 [node name="halfway_screen" parent="." instance=ExtResource("4_1lik4")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(1e-05, 1e-05)
-anchor_mode = 0
+[node name="gameover_screen" parent="." instance=ExtResource("5_itbf6")]

@@ -10,13 +10,14 @@ var current_question: QuestionId = null
 var current_revealed_category = -1
 var buzzers_enabled = false
 
+#TODO: still used?
 signal game_started
+#TODO: still used?
 signal game_paused
+signal game_over
 signal round_started
 signal round_finished
 signal category_revealed
-# TODO
-#signal category_introduction_finished
 signal question_selected
 signal question_deselected
 # TODO
@@ -74,7 +75,6 @@ func _ready() -> void:
 	
 	if FileAccess.file_exists(state_file_location):
 		game_state.load(state_file_location)
-	emit_signal("round_started", game_state.current_round)
 
 func _on_game_state_loaded():
 	reset_question_buttons()
@@ -136,25 +136,12 @@ func hide_question():
 func _process(_delta: float) -> void:
 	pass
 	
-func on_toggle_intro_screen_pressed() -> void:
-	game_is_paused = !game_is_paused
-	if game_is_paused:
-		toggle_intro_screen.text = "Unpause game"
-		for btn in reveal_category_buttons.get_children():
-			btn.disabled = true
-		for btn in questions.get_children():
-			btn.disabled = true
-		game_paused.emit()
+func on_show_intro_pressed() -> void:
+	disable_reveal_category_buttons()
+	for btn in questions.get_children():
+		btn.disabled = true
+	game_paused.emit()
 	
-	else:
-		toggle_intro_screen.text = "Pause game"
-		for btn in reveal_category_buttons.get_children():
-			btn.disabled = false
-		if all_categories_revealed():
-			for btn in questions.get_children():
-				btn.disabled = false
-		game_started.emit()
-		
 func all_categories_revealed():
 	return current_revealed_category == 5
 
@@ -267,12 +254,26 @@ func start_round(round_number: int) -> void:
 	current_question = null
 	game_state.current_round = round_number
 	
+	print("starting round ", round_number)
 	round_started.emit(round_number)
+	enable_reveal_category_buttons()
 	reset_question_buttons()
 	question_card.hide()
 	categories = game["rounds"][round_number]["categories"]
 
 
+func enable_reveal_category_buttons():
+	for btn in reveal_category_buttons.get_children():
+			btn.disabled = false
+			
+func disable_reveal_category_buttons():
+	for btn in reveal_category_buttons.get_children():
+			btn.disabled = true
+
 func on_halfway_pressed() -> void:
 	print("emitting round_finished")
 	round_finished.emit()
+
+
+func on_gameover_pressed() -> void:
+	game_over.emit()

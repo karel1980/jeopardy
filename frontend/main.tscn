@@ -178,38 +178,21 @@ layout_mode = 2
 disabled = true
 text = "Enable buzzers"
 
-[node name="bottom_controls" type="HBoxContainer" parent="."]
-offset_left = 891.0
-offset_top = 530.0
-offset_right = 1118.0
-offset_bottom = 619.0
+[node name="top_controls" type="HBoxContainer" parent="."]
+offset_left = 48.0
+offset_top = 40.0
+offset_right = 404.0
+offset_bottom = 117.0
 
-[node name="round 1" type="Button" parent="bottom_controls"]
+[node name="show_intro" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Show intro screen"
+
+[node name="round 1" type="Button" parent="top_controls"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Round 1"
-
-[node name="show_halfway" type="Button" parent="bottom_controls"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Show halfway"
-
-[node name="round 2" type="Button" parent="bottom_controls"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Round 2"
-
-[node name="top_controls" type="HBoxContainer" parent="."]
-offset_left = 600.0
-offset_top = 40.0
-offset_right = 956.0
-offset_bottom = 117.0
-
-[node name="play_pause" type="Button" parent="top_controls"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Start game
-"
 
 [node name="reveal_category_buttons" type="HBoxContainer" parent="top_controls"]
 layout_mode = 2
@@ -233,6 +216,21 @@ text = "Reveal
 next
 category"
 
+[node name="show_halfway" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Show halfway"
+
+[node name="round 2" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Round 2"
+
+[node name="gameover" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Game over"
+
 [connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
 [connection signal="pressed" from="score_adjustments/team_1_plus_100" to="." method="_on_manual_score_increase" binds= [0]]
 [connection signal="pressed" from="score_adjustments/team_2_plus_100" to="." method="_on_manual_score_increase" binds= [1]]
@@ -250,9 +248,10 @@ category"
 [connection signal="pressed" from="question_card/score_buttons/team_3_wrong" to="." method="_on_team_wrong_pressed" binds= [2]]
 [connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="disable_buzzers"]
 [connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="enable_buzzers"]
-[connection signal="pressed" from="bottom_controls/round 1" to="." method="start_round" binds= [0]]
-[connection signal="pressed" from="bottom_controls/show_halfway" to="." method="on_halfway_pressed"]
-[connection signal="pressed" from="bottom_controls/round 2" to="." method="start_round" binds= [1]]
-[connection signal="pressed" from="top_controls/play_pause" to="." method="on_toggle_intro_screen_pressed"]
+[connection signal="pressed" from="top_controls/show_intro" to="." method="on_show_intro_pressed"]
+[connection signal="pressed" from="top_controls/round 1" to="." method="start_round" binds= [0]]
 [connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
 [connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_next" to="." method="on_reveal_next_category_pressed"]
+[connection signal="pressed" from="top_controls/show_halfway" to="." method="on_halfway_pressed"]
+[connection signal="pressed" from="top_controls/round 2" to="." method="start_round" binds= [1]]
+[connection signal="pressed" from="top_controls/gameover" to="." method="on_gameover_pressed"]

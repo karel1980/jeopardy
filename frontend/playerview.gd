@@ -2,12 +2,21 @@ extends Node2D
 
 @onready var intro_screen = $intro_screen
 @onready var halfway_screen = $halfway_screen
-@onready var categories_slider := $categories_slider
-@onready var question_holder := $question_holder
-@onready var main_view := $main_view
-@onready var questionboard = $main_view/questionboard
-@onready var scoreboard = $main_view/scoreboard
+@onready var round_screen = $round_screen
+@onready var gameover_screen = $gameover_screen
+@onready var categories_slider := $round_screen/categories_slider
+@onready var question_holder := $round_screen/question_holder
+@onready var main_view := $round_screen/main_view
+@onready var questionboard = $round_screen/main_view/questionboard
+@onready var scoreboard = $round_screen/main_view/scoreboard
 @onready var camera := $Camera2D
+
+@onready var views = {
+	"round_screen": round_screen,
+	"intro_screen": intro_screen,
+	"halfway_screen": halfway_screen,
+	"gameover_screen": gameover_screen
+}
 
 var game
 var game_state
@@ -33,23 +42,32 @@ func _ready() -> void:
 	init_category_buttons()
 	init_categories_slider()
 	init_question_buttons()
-	halfway_screen.hide()
+	show_view("intro_screen")
 
 	pause_game()
 	
 	var hostview = get_tree().root.get_node("SceneRoot")
 	hostview.round_started.connect(Callable(self, "start_round"))
-	hostview.round_finished.connect(Callable(self, "show_halfway_screen"))
+	hostview.round_finished.connect(Callable(self, "on_round_finished"))
 	hostview.category_revealed.connect(Callable(self, "reveal_category"))
 	hostview.question_selected.connect(Callable(self, "show_question"))
 	hostview.game_started.connect(Callable(self, "start_game"))
 	hostview.game_paused.connect(Callable(self, "pause_game"))
+	hostview.game_over.connect(Callable(self, "on_game_over"))
 
 	scoreboard.init_game(game, game_state)
 	halfway_screen.init_game(game, game_state)
+	gameover_screen.init_game(game, game_state)
 	
 func _process(_delta: float) -> void:
 	pass
+	
+func show_view(view_name: String):
+	print("showing ", view_name)
+	for view in views.values():
+		view.hide()
+		
+	views[view_name].show()
 	
 func init_game(game_data, _game_state):
 	game = game_data
@@ -82,26 +100,25 @@ func position_categories_slider(category_idx):
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
 
 	
-func start_game():	
-	intro_screen.hide()
-	halfway_screen.hide()
-	main_view.show()
-	question_holder.show()
+func start_game():
+	print("start game!")
+	show_view("round_screen")
 
-func show_halfway_screen():
-	intro_screen.hide()
-	halfway_screen.show()
-	main_view.hide()
+func on_round_finished():
+	# TODO: pass round number. if this was the last round, go to the final viww instead
+	show_view("halfway_screen")
 	question_holder.hide()
 	
 func start_round(round_idx):
-	current_round = round_idx
-	halfway_screen.hide()
-	main_view.show()
+	print("start round")
+	show_view("round_screen")
+	#TODO: hide question not needed?
 	hide_question()
 	init_category_buttons()
 	init_categories_slider()
 	init_question_buttons()
+	# why show question holder?
+	question_holder.show()
 	
 	var round = game["rounds"][round_idx]
 	# TODO: this filtered for loop is written many times. Create GameState.get_current_round_questions()
@@ -110,9 +127,8 @@ func start_round(round_idx):
 			get_question_button(q).text = ""
 		
 func pause_game():	
-	intro_screen.show()
-	halfway_screen.hide()
-	main_view.hide()
+	show_view("intro_screen")
+	# TODO: why this?
 	question_holder.hide()
 		
 func reveal_category(previous_cat_idx, cat_idx):
@@ -258,3 +274,6 @@ func update_score(team_idx, score):
 
 func select_random_team():
 	scoreboard.select_random_team()
+
+func on_game_over():
+	show_view("gameover_screen")
