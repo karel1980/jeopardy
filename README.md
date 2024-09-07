@@ -4,6 +4,7 @@ This software will allow you to become the host of a jeopardy game.
 
 - TODO: lock out teams that buzzed too early for .5 seconds
 - TODO: clearer visual indication when buzzers are enabled
+- TODO: suspenseful waiting music while buzzers are open
 - TODO: only highlight the correct/wrong answer buttons for the team that has pressed
 
 - TODO: implement 'double jeopardy' questions? (i.e. only current contestant can play, wagers some amount, double or nothing)

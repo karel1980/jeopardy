@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://gameover.gd" id="1_5yvyo"]
 
 [sub_resource type="Gradient" id="Gradient_ik85g"]
-offsets = PackedFloat32Array(0, 0.243976, 0.268072, 0.337349, 0.503012, 0.98494)
-colors = PackedColorArray(0.1825, 0.246375, 0.73, 1, 0.474293, 0.515053, 0.823666, 1, 0.338626, 0.389905, 0.77816, 1, 0.211439, 0.272579, 0.735499, 1, 0.355884, 0.403375, 0.762945, 1, 0.858434, 0.858434, 0.858434, 1)
+offsets = PackedFloat32Array(0, 0.222892, 0.25, 0.307229, 1)
+colors = PackedColorArray(0.0657, 0.0767718, 0.73, 1, 0.432394, 0.451337, 0.840598, 1, 0.80176, 0.820449, 0.961016, 1, 0.524322, 0.54548, 0.868008, 1, 0.0666667, 0.0784314, 0.729412, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_13pcy"]
 gradient = SubResource("Gradient_ik85g")

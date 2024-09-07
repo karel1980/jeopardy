@@ -263,3 +263,4 @@ stretch_mode = 4
 [node name="halfway_screen" parent="." instance=ExtResource("4_1lik4")]
 
 [node name="gameover_screen" parent="." instance=ExtResource("5_itbf6")]
+visible = false
