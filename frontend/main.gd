@@ -168,9 +168,12 @@ func on_random_team_pressed() -> void:
 func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
 		game_state.mark_correct(current_question, team_idx)
-		mark_question_completed()
+		playerview.show_answer(current_question)
+		
+		# mark question completed but don't hide it from playerview
+		var btn = get_question_button(current_question)
+		btn.text = "---"
 		persist_state()
-	hide_question()
 	
 func mark_question_completed():
 	if current_question:
@@ -192,6 +195,7 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 		persist_state()
 
 func _on_manual_score_increase(team_idx: int) -> void:
+	print("manually incrementing score for team ", team_idx)
 	game_state.increment_score(team_idx, 100)
 	persist_state()
 
@@ -277,3 +281,7 @@ func on_halfway_pressed() -> void:
 
 func on_gameover_pressed() -> void:
 	game_over.emit()
+
+
+func show_answer() -> void:
+	playerview.show_answer(current_question)

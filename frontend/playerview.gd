@@ -253,6 +253,17 @@ func show_question(question_id: QuestionId):
 	tween.parallel().tween_property(btn, "scale", Vector2(1,1), 0.7)
 	tween.tween_interval(1)
 	tween.tween_callback(set_question_text)
+	
+func show_answer(question_id: QuestionId):
+	if question_btn:
+		if question_btn is TextureButton:
+			question_btn.free()
+			question_btn = get_question_button(question_id).duplicate()
+			question_btn.position = Vector2(0, 0)
+			question_btn.size = questionboard.get_rect().size
+			question_holder.get_children().clear()
+			question_holder.add_child(question_btn)
+		question_btn.text = game.rounds[question_id.round]["categories"][question_id.category]["questions"][question_id.question]["a"]
 
 func mark_question_completed(question_id: QuestionId):
 	get_question_button(question_id).text = ""

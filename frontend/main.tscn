@@ -125,6 +125,13 @@ offset_bottom = 344.0
 disabled = true
 text = "Question DONE"
 
+[node name="show_answer" type="Button" parent="question_card"]
+offset_left = 626.0
+offset_top = 487.0
+offset_right = 755.0
+offset_bottom = 570.0
+text = "Show ANSWER"
+
 [node name="score_buttons" type="GridContainer" parent="question_card"]
 offset_left = 17.0
 offset_top = 488.0
@@ -240,6 +247,7 @@ text = "Game over"
 [connection signal="pressed" from="score_adjustments/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
 [connection signal="pressed" from="question_card/hide_question" to="." method="mark_question_completed"]
 [connection signal="pressed" from="question_card/question_done" to="." method="mark_question_completed"]
+[connection signal="pressed" from="question_card/show_answer" to="." method="show_answer"]
 [connection signal="pressed" from="question_card/score_buttons/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
 [connection signal="pressed" from="question_card/score_buttons/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]
 [connection signal="pressed" from="question_card/score_buttons/team_3_correct" to="." method="_on_team_correct_pressed" binds= [2]]

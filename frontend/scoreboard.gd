@@ -100,9 +100,9 @@ func _on_game_state_loaded():
 	$"team 1/name".text = data["teams"][0]
 	$"team 2/name".text = data["teams"][1]
 	$"team 3/name".text = data["teams"][2]
-	update_scores(game_state.scores)
+	update_scores(game_state.scores, game_state.score_times)
 	
-func update_scores(scores):
+func update_scores(scores, score_times):
 	for team_idx in range(len(scores)):
 		score_labels[team_idx].text = str(scores[team_idx])
 		update_score_color(team_idx)
