@@ -119,7 +119,6 @@ offset_left = 138.0
 offset_top = 157.0
 offset_right = 267.0
 offset_bottom = 240.0
-disabled = true
 text = "Hide question"
 
 [node name="question_done" type="Button" parent="question_card"]
@@ -250,7 +249,7 @@ text = "Game over"
 [connection signal="pressed" from="score_adjustments/team_1_minus_100" to="." method="_on_manual_score_decrease" binds= [0]]
 [connection signal="pressed" from="score_adjustments/team_2_minus_100" to="." method="_on_manual_score_decrease" binds= [1]]
 [connection signal="pressed" from="score_adjustments/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
-[connection signal="pressed" from="question_card/hide_question" to="." method="mark_question_completed"]
+[connection signal="pressed" from="question_card/hide_question" to="." method="hide_question"]
 [connection signal="pressed" from="question_card/question_done" to="." method="mark_question_completed"]
 [connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="disable_buzzers"]
 [connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="enable_buzzers"]

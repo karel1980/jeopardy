@@ -23,6 +23,18 @@ signal question_deselected
 # TODO
 #signal question_completed
 
+@onready var correct_buttons = [
+	$question_card/score_buttons/team_1_correct,
+	$question_card/score_buttons/team_2_correct,
+	$question_card/score_buttons/team_3_correct
+]
+
+@onready var wrong_buttons = [
+	$question_card/score_buttons/team_1_wrong,
+	$question_card/score_buttons/team_2_wrong,
+	$question_card/score_buttons/team_3_wrong
+]
+
 @onready var questions := $questions
 
 @onready var toggle_intro_screen := $top_controls/play_pause
@@ -183,11 +195,11 @@ func on_random_team_pressed() -> void:
 func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
 		game_state.mark_correct(current_question, team_idx)
-		playerview.show_answer(current_question)
-		
+		disable_answer_grading_buttons()
 		# mark question completed but don't hide it from playerview
 		var btn = get_question_button(current_question)
 		btn.text = "---"
+		show_answer()
 		persist_state()
 	
 func mark_question_completed():
@@ -206,6 +218,7 @@ func get_question_button(question_id):
 func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
 		game_state.mark_wrong(current_question, team_idx)
+		disable_answer_grading_buttons()
 		enable_buzzers()
 		persist_state()
 
@@ -226,11 +239,13 @@ func enable_buzzers():
 	disable_buzzers_btn.disabled = false
 	enable_buzzers_btn.disabled = true
 	playerview.scoreboard.unselect_team()
+	disable_answer_grading_buttons()
 
 func disable_buzzers():
 	buzzers_enabled = false
 	disable_buzzers_btn.disabled = true
 	enable_buzzers_btn.disabled = false
+	disable_answer_grading_buttons()
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
@@ -250,15 +265,11 @@ func handle_buzzer(team_idx):
 	disable_buzzers()
 	playerview.scoreboard.highlight_team(team_idx)
 	
-	enable_answer_grading_buttons()
+	enable_answer_grading_buttons(team_idx)
 	
-func enable_answer_grading_buttons():
-	$question_card/score_buttons/team_1_correct.disabled = false
-	$question_card/score_buttons/team_2_correct.disabled = false
-	$question_card/score_buttons/team_3_correct.disabled = false
-	$question_card/score_buttons/team_1_wrong.disabled = false
-	$question_card/score_buttons/team_2_wrong.disabled = false
-	$question_card/score_buttons/team_3_wrong.disabled = false
+func enable_answer_grading_buttons(team_idx: int):
+	correct_buttons[team_idx].disabled = false
+	wrong_buttons[team_idx].disabled = false
 
 func disable_answer_grading_buttons():
 	$question_card/score_buttons/team_1_correct.disabled = true
