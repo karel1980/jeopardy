@@ -179,7 +179,7 @@ func init_question_buttons():
 			btn.add_theme_stylebox_override("clicked", style_box)
 
 func get_category_button(cat_idx) -> Label:
-	return questionboard.get_child(cat_idx).get_child(0)
+	return questionboard.get_child(cat_idx).get_child(0).get_child(0)
 
 func get_question_button(question_id: QuestionId):
 	return questionboard.get_child(question_id.category).get_child(question_id.question + 1)

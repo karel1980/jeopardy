@@ -12,7 +12,7 @@ This software will allow you to become the host of a jeopardy game.
 - TODO: fallback mode in case buzzers don't work?
 - TODO: implement 'double jeopardy' questions? (i.e. only current contestant can play, wagers some amount, double or nothing)
 
-- TODO: prepare quiz questions
+- TODO: prepare quiz questions (in progress - see google drive)
 - TODO: do a dry run (family game questions)
 
 - TBD: on draws, either detect who reached score first OR use tie breaker?
