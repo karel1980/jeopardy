@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bi11vo3hhahvd"]
+[gd_scene load_steps=4 format=3 uid="uid://bi11vo3hhahvd"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_t2hya"]
+[ext_resource type="AudioStream" uid="uid://bv7x7eg3edq0l" path="res://audio/portal_waiting.ogg" id="2_gkayd"]
+[ext_resource type="AudioStream" uid="uid://dv02ptrd2bn4r" path="res://audio/beep1.ogg" id="3_442ie"]
 
 [node name="SceneRoot" type="Node2D"]
 script = ExtResource("1_t2hya")
@@ -241,6 +243,12 @@ text = "Round 2"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Game over"
+
+[node name="buzzer_wait_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gkayd")
+
+[node name="buzzer_beep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_442ie")
 
 [connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
 [connection signal="pressed" from="score_adjustments/team_1_plus_100" to="." method="_on_manual_score_increase" binds= [0]]

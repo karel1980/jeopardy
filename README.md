@@ -2,11 +2,14 @@
 
 This software will allow you to become the host of a jeopardy game.
 
-- TODO: fallback mode in case buzzers don't work?
-- TODO: lock out teams that buzzed too early for .5 seconds
-- TODO: clearer visual indication when buzzers are enabled
-- TODO: suspenseful waiting music while buzzers are open
+- IMPROVEMENT: always disable buzzers / stop waiting music when navigating away from question
+- IMPROVEMENT: when third team answered wrong, don't re-enable buzzers
+- IMPROVEMENT: lock out teams that already answered from next buzzer
+- TODO: more sound effects for buzzers (fixed sound per team or random collection)
+- TODO: sound effect for correct and wrong answers
+- TODO: lock out teams that buzzed too early for .5 seconds (+ sound effect?)
 
+- TODO: fallback mode in case buzzers don't work?
 - TODO: implement 'double jeopardy' questions? (i.e. only current contestant can play, wagers some amount, double or nothing)
 
 - TODO: prepare quiz questions

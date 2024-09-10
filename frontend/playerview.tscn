@@ -1,10 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://8eosw1etvb4p"]
+[gd_scene load_steps=9 format=3 uid="uid://8eosw1etvb4p"]
 
 [ext_resource type="Script" path="res://playerview.gd" id="1_5y4eo"]
 [ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_jhusk"]
 [ext_resource type="PackedScene" uid="uid://oqn6pb732n5a" path="res://scoreboard.tscn" id="3_bnwop"]
 [ext_resource type="PackedScene" uid="uid://dgrs28su17qwg" path="res://halfway.tscn" id="4_1lik4"]
 [ext_resource type="PackedScene" uid="uid://b0hsfsrmnuljl" path="res://gameover.tscn" id="5_itbf6"]
+
+[sub_resource type="Gradient" id="Gradient_giger"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_leqpr"]
+gradient = SubResource("Gradient_giger")
+fill_from = Vector2(0.891414, 0.815657)
+fill_to = Vector2(1, 0.020202)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4km54"]
+texture = SubResource("GradientTexture2D_leqpr")
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_5y4eo")
@@ -31,6 +41,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.5
+theme_override_styles/normal = SubResource("StyleBoxTexture_4km54")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -70,6 +81,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.5
+theme_override_styles/normal = SubResource("StyleBoxTexture_4km54")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -109,6 +121,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.5
+theme_override_styles/normal = SubResource("StyleBoxTexture_4km54")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -148,6 +161,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.5
+theme_override_styles/normal = SubResource("StyleBoxTexture_4km54")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -187,6 +201,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.5
+theme_override_styles/normal = SubResource("StyleBoxTexture_4km54")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1

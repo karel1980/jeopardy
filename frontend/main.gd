@@ -10,6 +10,8 @@ var current_question: QuestionId = null
 var current_revealed_category = -1
 var buzzers_enabled = false
 
+var waiting_audio_position = null
+
 #TODO: still used?
 signal game_started
 #TODO: still used?
@@ -219,7 +221,7 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
 		game_state.mark_wrong(current_question, team_idx)
 		disable_answer_grading_buttons()
-		enable_buzzers()
+		enable_buzzers_with_position(waiting_audio_position)
 		persist_state()
 
 func _on_manual_score_increase(team_idx: int) -> void:
@@ -235,17 +237,25 @@ func persist_state():
 	game_state.save(game_location + ".state")
 	
 func enable_buzzers():
+	enable_buzzers_with_position(null)
+
+func enable_buzzers_with_position(pos):
 	buzzers_enabled = true
 	disable_buzzers_btn.disabled = false
 	enable_buzzers_btn.disabled = true
 	playerview.scoreboard.unselect_team()
 	disable_answer_grading_buttons()
+	if pos:
+		$buzzer_wait_music.play(pos)
+	else:
+		$buzzer_wait_music.play()
 
 func disable_buzzers():
 	buzzers_enabled = false
 	disable_buzzers_btn.disabled = true
 	enable_buzzers_btn.disabled = false
 	disable_answer_grading_buttons()
+	$buzzer_wait_music.stop()
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
@@ -262,15 +272,16 @@ func handle_buzzer(team_idx):
 		# TODO: penalize team by making their buzzer unavailable for .5 sec
 		return
 		
+	waiting_audio_position = $buzzer_wait_music.get_playback_position()
 	disable_buzzers()
+	$buzzer_beep.play()
 	playerview.scoreboard.highlight_team(team_idx)
-	
 	enable_answer_grading_buttons(team_idx)
 	
 func enable_answer_grading_buttons(team_idx: int):
 	correct_buttons[team_idx].disabled = false
 	wrong_buttons[team_idx].disabled = false
-
+	
 func disable_answer_grading_buttons():
 	$question_card/score_buttons/team_1_correct.disabled = true
 	$question_card/score_buttons/team_2_correct.disabled = true
