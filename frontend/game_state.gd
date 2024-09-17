@@ -45,17 +45,19 @@ func update_score(team_idx: int, score: int):
 	scores_updated.emit(scores, score_times)
 	
 func load(path: String):
-	var game_state_file = FileAccess.open(path, FileAccess.READ)
-	var data = JSON.parse_string(game_state_file.get_as_text())
-	game_state_file.close()
-	scores.assign(data["scores"])
-	if "score_times" in data:
-		score_times.assign(data["score_times"])
-	questions.clear()
-	for d in data["questions"]:
-		questions.append(QuestionId.new(int(d[0]), int(d[1]), int(d[2])))
+	if FileAccess.file_exists(path):
+		var game_state_file = FileAccess.open(path, FileAccess.READ)
+		var data = JSON.parse_string(game_state_file.get_as_text())
+		game_state_file.close()
+		scores.assign(data["scores"])
+		if "score_times" in data:
+			score_times.assign(data["score_times"])
+		questions.clear()
+		for d in data["questions"]:
+			questions.append(QuestionId.new(int(d[0]), int(d[1]), int(d[2])))
 
-	current_round = int(data["round"])
+		current_round = int(data["round"])
+
 	game_state_loaded.emit()
 
 func save(path: String):

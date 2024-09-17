@@ -89,9 +89,7 @@ func _ready() -> void:
 			questions.add_child(create_question_button(cat, q))
 			
 	game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
-	
-	if FileAccess.file_exists(state_file_location):
-		game_state.load(state_file_location)
+	game_state.load(state_file_location)		
 
 func create_category_button(cat):
 	var btn = Button.new()

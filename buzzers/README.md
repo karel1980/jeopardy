@@ -1,19 +1,10 @@
 # Game show buzzers
 
-Use ESP-NOW to communicate with each other.
+Concept:
 
-There will be 4 ESP32 devices: 1 is the receiver, the 3 others are the buzzers.
+There is one 'buzzer' per team and one 'receiver' for the game show host
 
-The receiver has 2 responsibilities:
+The buzzers send button pressed events to the receiver via ESP NOW. Each buzzer's firmware should be flashed with its own unique player id.
 
-- receive buzzer signal
-- present itself as a BLE keyboard, and emit a keypress ('a', 'b' or 'c') depending on the sender.
-
-Hardware preparation:
-
-- flash one esp32 with receiver sketch. 
-- flash remaining esp32s with the buzzer sketch. Make sure to change the 'playerId' variable for each esp32 (0, 1, 2, ...)
-
-Turn on all devices, and on the host laptop, connect to the 'ESP32 Keyboard' bluetooth device.
-Open a text editor on the host laptop and start smashing buttons. Each button should produce a unique keypress (a,b,c,...)
-
+The receiver communicates with the game show host's laptop or pc by presenting it as a keyboard.
+There are 2 options: BLE keyboard or USB keyboard. For USB keyboard your esp32 must be usb hid capable (e.g. an ESP32-S2 or ESP32-S3).
