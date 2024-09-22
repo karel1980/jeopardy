@@ -1,14 +1,12 @@
 #include <esp_now.h>
 #include <WiFi.h>
 
+#include <ArduinoJson.h> // Library dependency: ArduinoJson 7.2.0
+
 #define PLAYER_ID 1
 
 uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 esp_now_peer_info_t peerInfo;
-
-typedef struct {
-  int playerId;
-} PlayerMessage;
 
 const int buttonPin = 26;
 
@@ -75,8 +73,18 @@ void loop() {
 }
 
 void send_message() {
-    Serial.println("sending message");
-    PlayerMessage data;
-    data.playerId = PLAYER_ID;
-    esp_now_send(broadcastAddress, (uint8_t *) &data, sizeof(data));
+    DynamicJsonDocument doc(512);
+    doc["buzzer"] = PLAYER_ID;
+    String jsonString;
+    serializeJson(doc, jsonString);
+    Serial.println("sending buzzer message over espnow");
+    Serial.println(jsonString);
+    sendStringOverESPNOW(jsonString);
+}
+
+void sendStringOverESPNOW(String data) {
+  uint8_t* dataPtr = (uint8_t*)data.c_str();
+  int dataLen = data.length();
+  
+  esp_now_send(broadcastAddress, dataPtr, dataLen);
 }
