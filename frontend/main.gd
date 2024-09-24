@@ -13,8 +13,6 @@ var buzzers_enabled = false
 
 var waiting_audio_position = null
 
-var DISABLE_ALL = enable_disable_message([], [-1])
-
 #TODO: still used?
 signal game_paused
 signal game_over
@@ -224,6 +222,7 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 		game_state.mark_wrong(current_question, team_idx)
 		disable_answer_grading_buttons()
 		enable_buzzers_with_position(waiting_audio_position)
+		send_enable_disable_message([-1], already_buzzed)
 		persist_state()
 
 func _on_manual_score_increase(team_idx: int) -> void:
@@ -237,9 +236,11 @@ func _on_manual_score_decrease(team_idx: int) -> void:
 
 func persist_state():
 	game_state.save(game_location + ".state")
-	
+
+# button press
 func enable_buzzers():
 	enable_buzzers_with_position(null)
+	send_enable_disable_message([-1], already_buzzed)
 
 func enable_buzzers_with_position(pos):
 	buzzers_enabled = true
@@ -247,7 +248,6 @@ func enable_buzzers_with_position(pos):
 	enable_buzzers_btn.disabled = true
 	playerview.scoreboard.unselect_team()
 	disable_answer_grading_buttons()
-	$SerialControl.sendLine(enable_disable_message([-1], already_buzzed))
 	if pos:
 		$buzzer_wait_music.play(pos)
 	else:
@@ -259,7 +259,7 @@ func disable_buzzers():
 	enable_buzzers_btn.disabled = false
 	disable_answer_grading_buttons()
 	$buzzer_wait_music.stop()
-	$SerialControl.sendLine(DISABLE_ALL)
+	send_enable_disable_message([], [-1])
 
 func _on_serial_received(line: String):
 	# TODO: error handling?
@@ -277,14 +277,18 @@ func _input(event):
 			handle_buzzer(2)
 
 func handle_buzzer(team_idx):
-	# TODO: only allow buzzers from teams that haven't already answered
+	if team_idx in already_buzzed:
+		print("Team ", team_idx, " already buzzed. Ignoring.")
+		return
+
 	if not buzzers_enabled:
 		print("Team ", team_idx, " pressed buzzer early")
 		# TODO: penalize team by making their buzzer unavailable for .5 sec
 		return
-		
+	
 	waiting_audio_position = $buzzer_wait_music.get_playback_position()
 	disable_buzzers()
+	send_enable_disable_message([team_idx], [0,1,2].filter(func(i):return i != team_idx))
 	$buzzer_beep.play()
 	playerview.scoreboard.highlight_team(team_idx)
 	enable_answer_grading_buttons(team_idx)
@@ -340,3 +344,6 @@ func enable_disable_message(enable, disable) -> String:
 	data["enable"] = enable
 	data["disable"] = disable
 	return JSON.stringify(data)
+	
+func send_enable_disable_message(enable, disable):
+	$SerialControl.sendLine(enable_disable_message(enable, disable))
