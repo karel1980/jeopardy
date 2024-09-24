@@ -3,7 +3,8 @@
 
 #include <ArduinoJson.h> // Library dependency : ArduinoJSON 7.2.0
 
-uint8_t broadcastMac[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+esp_now_peer_info_t peerInfo;
 
 typedef struct struct_message {
     int playerId;
@@ -23,7 +24,7 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   }
 
   // Send to serial
-  Serial.print("received ESPNOW json message - passing it to serial");
+  Serial.println("received ESPNOW json message - passing it to serial");
   Serial.println(maybeJson);
 }
  
@@ -41,9 +42,20 @@ void setup() {
   // Once ESPNow is successfully Init, we will register for recv CB to
   // get recv packer info
   esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
+  
+  // add peer
+  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+  peerInfo.channel = 0;  
+  peerInfo.encrypt = false;
+  if (esp_now_add_peer(&peerInfo) != ESP_OK){
+    Serial.println("Failed to add peer");
+    return;
+  }
+
 }
  
 unsigned long nextHeartBeat = 0;
+
 void loop() {
 	if (millis() > nextHeartBeat) {
     Serial.println("HEARTBEAT");
@@ -69,20 +81,6 @@ void handleSerialInput(String inputString) {
   Serial.println("forwarding message to espnow");
   uint8_t* dataPtr = (uint8_t*)inputString.c_str();
   int dataLen = inputString.length();
-  esp_now_send(broadcastMac, dataPtr, dataLen);
-
-  // example code for the buzzers
-  // if (doc.containsKey("enable")) {
-    // Serial.println("got enable command");
-    // Serial.println("its size is");
-    // Serial.println(doc["enable"].size());
-  //   for (int i = 0; i < doc["enable"].size(); i++) {
-  //     int playerId = doc["enable"][i];
-
-  //     Serial.print("enabling ");
-  //     Serial.println(playerId);
-      
-  //   }
-  // }
+  esp_now_send(broadcastAddress, dataPtr, dataLen);
 
 }

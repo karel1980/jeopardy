@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bi11vo3hhahvd"]
+[gd_scene load_steps=5 format=3 uid="uid://bi11vo3hhahvd"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_t2hya"]
 [ext_resource type="AudioStream" uid="uid://bv7x7eg3edq0l" path="res://audio/portal_waiting.ogg" id="2_gkayd"]
 [ext_resource type="AudioStream" uid="uid://dv02ptrd2bn4r" path="res://audio/beep1.ogg" id="3_442ie"]
+[ext_resource type="Script" path="res://SerialControl.cs" id="4_ae3m8"]
 
 [node name="SceneRoot" type="Node2D"]
 script = ExtResource("1_t2hya")
@@ -250,6 +251,43 @@ stream = ExtResource("2_gkayd")
 [node name="buzzer_beep" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_442ie")
 
+[node name="SerialControl" type="Node2D" parent="."]
+visible = false
+script = ExtResource("4_ae3m8")
+
+[node name="ColorRect" type="ColorRect" parent="SerialControl"]
+offset_left = 86.0
+offset_top = 50.0
+offset_right = 1056.0
+offset_bottom = 588.0
+
+[node name="Reconnect" type="Button" parent="SerialControl"]
+offset_left = 438.0
+offset_top = 77.0
+offset_right = 550.0
+offset_bottom = 147.0
+text = "Reconnect"
+
+[node name="Refresh" type="Button" parent="SerialControl"]
+offset_left = 139.0
+offset_top = 338.0
+offset_right = 214.0
+offset_bottom = 384.0
+text = "Refresh"
+
+[node name="FakeSerialEvent" type="Button" parent="SerialControl"]
+offset_left = 430.0
+offset_top = 345.0
+offset_right = 569.0
+offset_bottom = 391.0
+text = "Fake Serial Event"
+
+[node name="Serial" type="ItemList" parent="SerialControl"]
+offset_left = 137.0
+offset_top = 80.0
+offset_right = 353.0
+offset_bottom = 322.0
+
 [connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
 [connection signal="pressed" from="score_adjustments/team_1_plus_100" to="." method="_on_manual_score_increase" binds= [0]]
 [connection signal="pressed" from="score_adjustments/team_2_plus_100" to="." method="_on_manual_score_increase" binds= [1]]
@@ -275,3 +313,4 @@ stream = ExtResource("3_442ie")
 [connection signal="pressed" from="top_controls/show_halfway" to="." method="on_halfway_pressed"]
 [connection signal="pressed" from="top_controls/round 2" to="." method="start_round" binds= [1]]
 [connection signal="pressed" from="top_controls/gameover" to="." method="on_gameover_pressed"]
+[connection signal="pressed" from="SerialControl/FakeSerialEvent" to="SerialControl" method="_on_fake_serial_event_pressed"]

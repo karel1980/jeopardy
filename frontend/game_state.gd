@@ -13,10 +13,10 @@ var score_times: Array[int] = [ 0, 0, 0]
 var questions: Array[QuestionId] = []
 var current_round: int = 0
 
-func _init(scores: Array[int] = [0,0,0], questions: Array[QuestionId] = [], current_round: int = 0):
-	self.scores = scores
+func _init(_scores: Array[int] = [0,0,0], _questions: Array[QuestionId] = [], current_round: int = 0):
+	self.scores = _scores
 	self.score_times = [0,0,0]
-	self.questions = questions
+	self.questions = _questions
 	self.current_round = current_round
 	
 # TODO: make team_id the first argument for consistency

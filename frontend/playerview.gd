@@ -9,7 +9,6 @@ extends Node2D
 @onready var main_view := $round_screen/main_view
 @onready var questionboard = $round_screen/main_view/questionboard
 @onready var scoreboard = $round_screen/main_view/scoreboard
-@onready var camera := $Camera2D
 
 @onready var views = {
 	"round_screen": round_screen,

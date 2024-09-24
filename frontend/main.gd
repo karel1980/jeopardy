@@ -6,11 +6,14 @@ var playerview
 
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
 var current_question: QuestionId = null
+var already_buzzed = []
 
 var current_revealed_category = -1
 var buzzers_enabled = false
 
 var waiting_audio_position = null
+
+var DISABLE_ALL = enable_disable_message([], [-1])
 
 #TODO: still used?
 signal game_started
@@ -39,7 +42,7 @@ signal question_deselected
 
 @onready var questions := $questions
 
-@onready var toggle_intro_screen := $top_controls/play_pause
+@onready var toggle_intro_screen := $top_controls/show_intro
 @onready var reveal_category_buttons := $top_controls/reveal_category_buttons
 
 @onready var question_card = $question_card
@@ -80,6 +83,8 @@ func _ready() -> void:
 	playerwin.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 	playerwin.add_child(playerview)
 	add_child(playerwin)
+	
+	$SerialControl.SerialReceived.connect(_on_serial_received)
 
 	for cat in range(5):
 		questions.add_child(create_category_button(cat))
@@ -135,6 +140,7 @@ func show_question(cat_idx, question_idx):
 		emit_signal("question_selected", QuestionId.new(game_state.current_round, cat_idx, question_idx))
 		question_card.show()
 		disable_buzzers()
+		already_buzzed = []
 		question_done.disabled = false
 		question_category.text = categories[cat_idx]["name"]
 		current_question = QuestionId.new(game_state.current_round, cat_idx, question_idx)
@@ -217,6 +223,8 @@ func get_question_button(question_id):
 	
 func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
+		already_buzzed.append(team_idx)
+		print("already buzzed is now ", already_buzzed)
 		game_state.mark_wrong(current_question, team_idx)
 		disable_answer_grading_buttons()
 		enable_buzzers_with_position(waiting_audio_position)
@@ -243,6 +251,7 @@ func enable_buzzers_with_position(pos):
 	enable_buzzers_btn.disabled = true
 	playerview.scoreboard.unselect_team()
 	disable_answer_grading_buttons()
+	$SerialControl.sendLine(enable_disable_message([-1], already_buzzed))
 	if pos:
 		$buzzer_wait_music.play(pos)
 	else:
@@ -254,7 +263,14 @@ func disable_buzzers():
 	enable_buzzers_btn.disabled = false
 	disable_answer_grading_buttons()
 	$buzzer_wait_music.stop()
+	$SerialControl.sendLine(DISABLE_ALL)
 
+func _on_serial_received(line: String):
+	# TODO: error handling?
+	var json_data = JSON.parse_string(line)
+	if "buzzer" in json_data:
+		handle_buzzer(json_data["buzzer"])
+	
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_A:
@@ -265,6 +281,7 @@ func _input(event):
 			handle_buzzer(2)
 
 func handle_buzzer(team_idx):
+	# TODO: only allow buzzers from teams that haven't already answered
 	if not buzzers_enabled:
 		print("Team ", team_idx, " pressed buzzer early")
 		# TODO: penalize team by making their buzzer unavailable for .5 sec
@@ -316,10 +333,14 @@ func on_halfway_pressed() -> void:
 	print("emitting round_finished")
 	round_finished.emit()
 
-
 func on_gameover_pressed() -> void:
 	game_over.emit()
 
-
 func show_answer() -> void:
 	playerview.show_answer(current_question)
+
+func enable_disable_message(enable, disable) -> String:
+	var data = {}
+	data["enable"] = enable
+	data["disable"] = disable
+	return JSON.stringify(data)
