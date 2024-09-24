@@ -13,11 +13,11 @@ var score_times: Array[int] = [ 0, 0, 0]
 var questions: Array[QuestionId] = []
 var current_round: int = 0
 
-func _init(_scores: Array[int] = [0,0,0], _questions: Array[QuestionId] = [], current_round: int = 0):
+func _init(_scores: Array[int] = [0,0,0], _questions: Array[QuestionId] = [], _current_round: int = 0):
 	self.scores = _scores
 	self.score_times = [0,0,0]
 	self.questions = _questions
-	self.current_round = current_round
+	self.current_round = _current_round
 	
 # TODO: make team_id the first argument for consistency
 func mark_correct(question_id: QuestionId, team_idx: int):
@@ -73,3 +73,6 @@ func save(path: String):
 		"round": current_round
 	}))
 	game_state_file.close()
+
+func get_current_round_questions():
+	return questions.filter(func(q): return q.round == current_round)

@@ -16,8 +16,6 @@ var waiting_audio_position = null
 var DISABLE_ALL = enable_disable_message([], [-1])
 
 #TODO: still used?
-signal game_started
-#TODO: still used?
 signal game_paused
 signal game_over
 signal round_started
@@ -25,8 +23,6 @@ signal round_finished
 signal category_revealed
 signal question_selected
 signal question_deselected
-# TODO
-#signal question_completed
 
 @onready var correct_buttons = [
 	$question_card/score_buttons/team_1_correct,
@@ -137,7 +133,7 @@ func show_question(cat_idx, question_idx):
 	if current_question:
 		hide_question()
 	else:
-		emit_signal("question_selected", QuestionId.new(game_state.current_round, cat_idx, question_idx))
+		question_selected.emit(QuestionId.new(game_state.current_round, cat_idx, question_idx))
 		question_card.show()
 		disable_buzzers()
 		already_buzzed = []

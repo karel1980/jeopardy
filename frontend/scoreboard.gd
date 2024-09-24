@@ -80,9 +80,9 @@ func unselect_team():
 	widgets[1].modulate = mod_color_none
 	widgets[2].modulate = mod_color_none
 
-func init_game(game_data, game_state):
-	data = game_data
-	self.game_state = game_state
+func init_game(_game_data, _game_state):
+	data = _game_data
+	self.game_state = _game_state
 	teams = data["teams"]
 	
 	self.game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
@@ -102,7 +102,7 @@ func _on_game_state_loaded():
 	$"team 3/name".text = data["teams"][2]
 	update_scores(game_state.scores, game_state.score_times)
 	
-func update_scores(scores, score_times):
+func update_scores(scores, _score_times):
 	for team_idx in range(len(scores)):
 		score_labels[team_idx].text = str(scores[team_idx])
 		update_score_color(team_idx)

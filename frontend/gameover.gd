@@ -6,9 +6,9 @@ var game_state
 func _ready() -> void:
 	pass
 	
-func init_game(game, game_state):
-	self.game = game
-	self.game_state = game_state
+func init_game(_game, _game_state):
+	self.game = _game
+	self.game_state = _game_state
 	
 	self.game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
 	print("connecting shizzle")
@@ -17,7 +17,7 @@ func init_game(game, game_state):
 func _on_game_state_loaded():
 	update_winner()
 	
-func update_scores(scores, score_times):
+func update_scores(_scores, _score_times):
 	update_winner()
 	
 func update_winner():

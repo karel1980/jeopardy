@@ -48,7 +48,6 @@ func _ready() -> void:
 	hostview.round_finished.connect(Callable(self, "on_round_finished"))
 	hostview.category_revealed.connect(Callable(self, "reveal_category"))
 	hostview.question_selected.connect(Callable(self, "show_question"))
-	hostview.game_started.connect(Callable(self, "start_game"))
 	hostview.game_paused.connect(Callable(self, "pause_game"))
 	hostview.game_over.connect(Callable(self, "on_game_over"))
 
@@ -59,6 +58,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 	
+func on_resize():
+	print("yolo")
+
 func show_view(view_name: String):
 	print("showing ", view_name)
 	for view in views.values():
@@ -96,20 +98,14 @@ func position_categories_slider(category_idx):
 	categories_slider.position = Vector2(-category_idx * sz.x, 0)
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
 
-	
-func start_game():
-	print("start game!")
-	show_view("round_screen")
-
 func on_round_finished():
-	# TODO: pass round number. if this was the last round, go to the final viww instead
+	# TODO: pass round number. if this was the last round, go to the next viww (halfway or final)
 	show_view("halfway_screen")
 	question_holder.hide()
 	
 func start_round(round_idx):
 	print("start round")
 	show_view("round_screen")
-	#TODO: hide question not needed?
 	hide_question()
 	init_category_buttons()
 	init_categories_slider()
@@ -117,11 +113,11 @@ func start_round(round_idx):
 	# why show question holder?
 	question_holder.show()
 	
-	var round = game["rounds"][round_idx]
-	# TODO: this filtered for loop is written many times. Create GameState.get_current_round_questions()
-	for q in game_state.questions:
-		if q.round == game_state.current_round:
-			get_question_button(q).text = ""
+	# Clear all questions that are already completed
+	var qqq = game_state.get_current_round_questions()
+	print("XXX", len(qqq))
+	for q in qqq:
+		get_question_button(q).text = ""
 		
 func pause_game():	
 	show_view("intro_screen")
