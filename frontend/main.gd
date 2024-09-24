@@ -22,6 +22,7 @@ signal round_finished
 signal category_revealed
 signal question_selected
 signal question_deselected
+signal buzzer_accepted
 
 @onready var correct_buttons = [
 	$question_card/score_buttons/team_1_correct,
@@ -288,7 +289,7 @@ func _input(event):
 			handle_buzzer(1)
 		elif event.keycode == KEY_C:
 			handle_buzzer(2)
-
+			
 func handle_buzzer(team_idx):
 	if team_idx in already_buzzed:
 		print("Team ", team_idx, " already buzzed. Ignoring.")
@@ -305,6 +306,7 @@ func handle_buzzer(team_idx):
 		print("Team ", team_idx, " buzzer is still locked out")
 		return
 
+	buzzer_accepted.emit(team_idx)
 	waiting_audio_position = $buzzer_wait_music.get_playback_position()
 	disable_buzzers()
 	send_enable_disable_message([team_idx], [0,1,2].filter(func(i):return i != team_idx))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0hsfsrmnuljl"]
+[gd_scene load_steps=6 format=3 uid="uid://b0hsfsrmnuljl"]
 
 [ext_resource type="Script" path="res://gameover.gd" id="1_5yvyo"]
 
@@ -9,6 +9,10 @@ colors = PackedColorArray(0.0657, 0.0767718, 0.73, 1, 0.432394, 0.451337, 0.8405
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_13pcy"]
 gradient = SubResource("Gradient_ik85g")
 fill_from = Vector2(1, 1)
+
+[sub_resource type="Curve" id="Curve_54xh1"]
+_data = [Vector2(0.188482, 1), 0.0, 0.0, 0, 0, Vector2(0.989529, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_vuykt"]
 colors = PackedColorArray(0.95, 1, 0, 1, 1, 0.1, 0.1, 1)
@@ -46,7 +50,7 @@ speed_scale = 4.02
 explosiveness = 0.2
 lifetime_randomness = 0.5
 direction = Vector2(0.4, -1)
-spread = 15.0
+spread = 20.0
 gravity = Vector2(0, 90)
 initial_velocity_min = 200.0
 initial_velocity_max = 400.0
@@ -56,6 +60,7 @@ angle_min = -10.0
 angle_max = 10.0
 scale_amount_min = 20.0
 scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_54xh1")
 color_ramp = SubResource("Gradient_vuykt")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
@@ -68,7 +73,7 @@ speed_scale = 4.02
 explosiveness = 0.2
 lifetime_randomness = 0.5
 direction = Vector2(-0.4, -1)
-spread = 15.0
+spread = 20.0
 gravity = Vector2(0, 90)
 initial_velocity_min = 200.0
 initial_velocity_max = 400.0
@@ -78,6 +83,7 @@ angle_min = -10.0
 angle_max = 10.0
 scale_amount_min = 20.0
 scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_54xh1")
 color_ramp = SubResource("Gradient_vuykt")
 hue_variation_min = -1.0
 hue_variation_max = 1.0

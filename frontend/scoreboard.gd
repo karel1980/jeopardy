@@ -15,6 +15,7 @@ var score_negative_style := StyleBoxFlat.new()
 var highlight_color = Color(1, 1, 0.5, 1)
 var mod_color_none = Color(1,1,1,1)
 
+@onready var teams_ui = [ $"team 1", $"team 2", $"team 3"]
 @onready var widgets = [ $"team 1/name", $"team 2/name", $"team 3/name" ]
 @onready var score_labels = [ $"team 1/score", $"team 2/score", $"team 3/score" ]
 
@@ -23,9 +24,18 @@ func _ready() -> void:
 	score_positive_style.bg_color = Color(0,1,0,1)
 	score_negative_style.bg_color = Color(1,.2,.2,1)
 	
+	get_tree().get_current_scene().buzzer_accepted.connect(_buzzer_animation)
+	
 func _process(_delta: float) -> void:
 	pass
 
+func _buzzer_animation(idx):
+	var rect = teams_ui[idx].get_node("name").get_global_rect()
+	var splode = get_node("CanvasLayer/explosion")
+	splode.position = rect.get_center()
+	splode.emission_rect_extents = rect.size / 2
+	splode.emitting = true
+	
 func select_random_team():
 	current_team = randi_range(0, 2)
 	print("randomly chosen team: ", current_team)

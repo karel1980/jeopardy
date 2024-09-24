@@ -242,10 +242,10 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "button"
 
+[node name="question_holder" type="Node2D" parent="round_screen/main_view"]
+
 [node name="scoreboard" parent="round_screen/main_view" instance=ExtResource("3_bnwop")]
 layout_mode = 2
-
-[node name="question_holder" type="Node2D" parent="round_screen"]
 
 [node name="categories_slider" type="HBoxContainer" parent="round_screen"]
 visible = false

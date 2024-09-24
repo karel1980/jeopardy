@@ -5,7 +5,7 @@ extends Node2D
 @onready var round_screen = $round_screen
 @onready var gameover_screen = $gameover_screen
 @onready var categories_slider := $round_screen/categories_slider
-@onready var question_holder := $round_screen/question_holder
+@onready var question_holder := $round_screen/main_view/question_holder
 @onready var main_view := $round_screen/main_view
 @onready var questionboard = $round_screen/main_view/questionboard
 @onready var scoreboard = $round_screen/main_view/scoreboard
