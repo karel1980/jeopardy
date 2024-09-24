@@ -7,6 +7,7 @@ var playerview
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
 var current_question: QuestionId = null
 var already_buzzed = []
+var buzzer_locked_until = []
 
 var current_revealed_category = -1
 var buzzers_enabled = false
@@ -49,6 +50,14 @@ signal question_deselected
 @onready var enable_buzzers_btn := $question_card/buzzer_toggle/enable
 @onready var disable_buzzers_btn := $question_card/buzzer_toggle/disable
 
+@onready var sounds = [
+	preload("res://audio/sfx_buzzer_0.ogg"),
+	preload("res://audio/sfx_buzzer_1.ogg"),
+	preload("res://audio/sfx_buzzer_2.ogg"),
+	preload("res://audio/sfx_buzzer_3.ogg"),
+	preload("res://audio/sfx_buzzer_4.ogg"),
+	preload("res://audio/sfx_buzzer_5.ogg")
+]
 var game_location = "../jeopardy.json"
 var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())
 var game_state: GameState = GameState.new()
@@ -123,9 +132,8 @@ func reset_question_buttons():
 			
 	# TODO: move this into the first for loop? Requires 'in questions' to work
 	# call reset_question_buttons when game_state is loaded instead of duplicated code
-	for q in game_state.questions:
-		if q.round == game_state.current_round:
-			get_question_button(q).text = "---"
+	for q in game_state.get_current_round_questions():
+		get_question_button(q).text = "---"
 	
 func show_question(cat_idx, question_idx):
 	if current_question:
@@ -135,6 +143,7 @@ func show_question(cat_idx, question_idx):
 		question_card.show()
 		disable_buzzers()
 		already_buzzed = []
+		buzzer_locked_until = [0, 0, 0]
 		question_done.disabled = false
 		question_category.text = categories[cat_idx]["name"]
 		current_question = QuestionId.new(game_state.current_round, cat_idx, question_idx)
@@ -262,9 +271,8 @@ func disable_buzzers():
 	send_enable_disable_message([], [-1])
 
 func _on_serial_received(line: String):
-	# TODO: error handling?
 	var json_data = JSON.parse_string(line)
-	if "buzzer" in json_data:
+	if json_data and ("buzzer" in json_data):
 		handle_buzzer(json_data["buzzer"])
 	
 func _input(event):
@@ -282,13 +290,22 @@ func handle_buzzer(team_idx):
 		return
 
 	if not buzzers_enabled:
-		print("Team ", team_idx, " pressed buzzer early")
-		# TODO: penalize team by making their buzzer unavailable for .5 sec
+		print("Team ", team_idx, " pressed buzzer early. Disabling for .5 seconds")
+		# TODO: also turn off buzzer light?
+		# Needs a timer to re-enable the buzzer
+		buzzer_locked_until[team_idx] = Time.get_ticks_msec() + 500
 		return
 	
+	if Time.get_ticks_msec() < buzzer_locked_until[team_idx]:
+		print("Team ", team_idx, " buzzer is still locked out")
+		return
+
 	waiting_audio_position = $buzzer_wait_music.get_playback_position()
 	disable_buzzers()
 	send_enable_disable_message([team_idx], [0,1,2].filter(func(i):return i != team_idx))
+	
+	var rand_index:int = randi() % sounds.size()
+	$buzzer_beep.stream = sounds[rand_index]
 	$buzzer_beep.play()
 	playerview.scoreboard.highlight_team(team_idx)
 	enable_answer_grading_buttons(team_idx)
