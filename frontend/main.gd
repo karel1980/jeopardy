@@ -56,7 +56,12 @@ signal question_deselected
 	preload("res://audio/sfx_buzzer_2.ogg"),
 	preload("res://audio/sfx_buzzer_3.ogg"),
 	preload("res://audio/sfx_buzzer_4.ogg"),
-	preload("res://audio/sfx_buzzer_5.ogg")
+	preload("res://audio/sfx_buzzer_5.ogg"),
+	preload("res://audio/sfx_buzzer_6.ogg"),
+	preload("res://audio/sfx_buzzer_7.ogg"),
+	preload("res://audio/sfx_buzzer_8.ogg"),
+	preload("res://audio/sfx_buzzer_9.ogg"),
+	preload("res://audio/sfx_buzzer_10.ogg"),
 ]
 var game_location = "../jeopardy.json"
 var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())

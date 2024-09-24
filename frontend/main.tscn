@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://main.gd" id="1_t2hya"]
 [ext_resource type="AudioStream" uid="uid://bv7x7eg3edq0l" path="res://audio/portal_waiting.ogg" id="2_gkayd"]
-[ext_resource type="AudioStream" uid="uid://dv02ptrd2bn4r" path="res://audio/beep1.ogg" id="3_442ie"]
+[ext_resource type="AudioStream" path="res://audio/beep1.ogg" id="3_442ie"]
 [ext_resource type="Script" path="res://SerialControl.cs" id="4_ae3m8"]
 
 [node name="SceneRoot" type="Node2D"]
