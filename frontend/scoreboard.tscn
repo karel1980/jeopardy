@@ -1,13 +1,13 @@
 [gd_scene load_steps=7 format=3 uid="uid://oqn6pb732n5a"]
 
 [ext_resource type="Script" path="res://scoreboard.gd" id="1_7f0bc"]
+[ext_resource type="FontFile" uid="uid://kmhudoaqab3v" path="res://PressStart2P-Regular.ttf" id="2_5h0nq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4bp6"]
 bg_color = Color(0.790723, 0.64075, 0.972566, 1)
 
-[sub_resource type="Theme" id="Theme_mx8hg"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8nbg"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Curve" id="Curve_imcs0"]
 _data = [Vector2(0.00261781, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0128565), 0.0, 0.0, 0, 0]
@@ -42,7 +42,7 @@ text_overrun_behavior = 3
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 size_flags_vertical = 6
-theme = SubResource("Theme_mx8hg")
+theme_override_fonts/font = ExtResource("2_5h0nq")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_v8nbg")
 text = "0"
@@ -71,7 +71,7 @@ text_overrun_behavior = 3
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 size_flags_vertical = 6
-theme = SubResource("Theme_mx8hg")
+theme_override_fonts/font = ExtResource("2_5h0nq")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_v8nbg")
 text = "0"
@@ -100,7 +100,7 @@ text_overrun_behavior = 3
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 size_flags_vertical = 6
-theme = SubResource("Theme_mx8hg")
+theme_override_fonts/font = ExtResource("2_5h0nq")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_v8nbg")
 text = "0"

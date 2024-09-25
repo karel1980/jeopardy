@@ -17,6 +17,9 @@ extends Node2D
 	"gameover_screen": gameover_screen
 }
 
+
+var normal_font = load("res://LilitaOne-Regular.ttf")
+
 var game
 var game_state
 
@@ -77,7 +80,7 @@ func init_game(game_data, _game_state):
 func _on_game_state_loaded():
 	for q in game_state.questions:
 		if q.round == game_state.current_round:
-			get_question_button(q).text = ""
+			get_question_label(q).text = ""
 
 func init_categories_slider():
 	for btn in categories_slider.get_children():
@@ -115,9 +118,8 @@ func start_round(round_idx):
 	
 	# Clear all questions that are already completed
 	var qqq = game_state.get_current_round_questions()
-	print("XXX", len(qqq))
 	for q in qqq:
-		get_question_button(q).text = ""
+		get_question_label(q).text = ""
 		
 func pause_game():	
 	show_view("intro_screen")
@@ -139,44 +141,24 @@ func show_category_names():
 		questionboard.get_child(cat_idx).get_child(0).text = categories[cat_idx]["name"]
 		
 func init_category_buttons():
-	var style_box = StyleBoxFlat.new()
-	style_box.bg_color = Color(.2, .2, 1)
-
 	#TODO: Merge game and game_state? I'd like a get_current_round_categories()
 	var categories = game["rounds"][game_state.current_round]["categories"]
 	for cat_i in len(categories):
 		var btn = get_category_button(cat_i)
 		btn.text = "???"
-		btn.add_theme_font_size_override("font_size", 20)
-		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		
-		btn.add_theme_stylebox_override("normal", style_box)
-		btn.add_theme_stylebox_override("focus", style_box)
-		btn.add_theme_stylebox_override("hover", style_box)
-		btn.add_theme_stylebox_override("pressed", style_box)
-
 		category_buttons.append(btn)
 		
 func init_question_buttons():
-	var style_box = StyleBoxFlat.new()
-	style_box.bg_color = Color(.2, .2, 1)
-	
 	var categories = game["rounds"][game_state.current_round]["categories"]
 	for point_i in len(question_points):
 		for cat_i in len(categories):
-			var btn = get_question_button(QuestionId.new(game_state.current_round, cat_i, point_i))
+			var btn = get_question_label(QuestionId.new(game_state.current_round, cat_i, point_i))
 			btn.text = str(question_points[point_i])
-			btn.add_theme_font_size_override("font_size", 40)
-			fixate_button_color(btn, Color(1,1,0))
-			btn.add_theme_stylebox_override("normal", style_box)
-			btn.add_theme_stylebox_override("hover", style_box)
-			btn.add_theme_stylebox_override("pressed", style_box)
-			btn.add_theme_stylebox_override("clicked", style_box)
 
 func get_category_button(cat_idx) -> Label:
-	return questionboard.get_child(cat_idx).get_child(0).get_child(0)
+	return questionboard.get_child(cat_idx).get_node("MarginContainer/Button")
 
-func get_question_button(question_id: QuestionId):
+func get_question_label(question_id: QuestionId):
 	return questionboard.get_child(question_id.category).get_child(question_id.question + 1)
 
 func fixate_button_color(btn, color):
@@ -206,7 +188,7 @@ func show_question(question_id: QuestionId):
 	var cat_idx = question_id.category
 	var categories = game["rounds"][game_state.current_round]["categories"]
 	var question = categories[cat_idx]["questions"][points_idx]
-	var orig_btn = get_question_button(question_id)
+	var orig_btn = get_question_label(question_id)
 	var btn
 	if "image" in question:
 		btn = TextureButton.new()
@@ -225,6 +207,8 @@ func show_question(question_id: QuestionId):
 		btn = orig_btn.duplicate()
 		btn.autowrap_mode = TextServer.AUTOWRAP_WORD
 		btn.text = str(question_points[points_idx])
+		btn.label_settings = LabelSettings.new()
+		btn.label_settings.font_size = 52
 
 	question_btn = btn
 	orig_question_btn = orig_btn
@@ -238,6 +222,7 @@ func show_question(question_id: QuestionId):
 		if "image" not in question:
 			if btn:
 				btn.text = question["q"]
+				btn.label_settings.font = normal_font
 
 	question_holder.add_child(btn)
 	
@@ -251,7 +236,7 @@ func show_answer(question_id: QuestionId):
 	if question_btn:
 		if question_btn is TextureButton:
 			question_btn.free()
-			question_btn = get_question_button(question_id).duplicate()
+			question_btn = get_question_label(question_id).duplicate()
 			question_btn.position = Vector2(0, 0)
 			question_btn.size = questionboard.get_rect().size
 			question_holder.get_children().clear()
@@ -259,12 +244,12 @@ func show_answer(question_id: QuestionId):
 		question_btn.text = game.rounds[question_id.round]["categories"][question_id.category]["questions"][question_id.question]["a"]
 
 func mark_question_completed(question_id: QuestionId):
-	get_question_button(question_id).text = ""
+	get_question_label(question_id).text = ""
 	
 func clear_category_if_complete(cat_idx):
 	var btn = category_buttons[cat_idx]
 	for row in range(5):
-		if get_question_button(QuestionId.new(game_state.current_round, cat_idx, row)).text != "":
+		if get_question_label(QuestionId.new(game_state.current_round, cat_idx, row)).text != "":
 			return
 	var tween = create_tween()
 	var scaler = func(font_color):

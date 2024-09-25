@@ -22,3 +22,7 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="jeopardy"
+
+[gui]
+
+theme/custom_font="res://LilitaOne-Regular.ttf"

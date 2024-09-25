@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://8eosw1etvb4p"]
+[gd_scene load_steps=11 format=3 uid="uid://8eosw1etvb4p"]
 
 [ext_resource type="Script" path="res://playerview.gd" id="1_5y4eo"]
 [ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_jhusk"]
+[ext_resource type="FontFile" uid="uid://blxlusd64fl4c" path="res://LilitaOne-Regular.ttf" id="2_f8wc5"]
+[ext_resource type="StyleBox" uid="uid://beccef2ljkx4v" path="res://category_label_style.tres" id="2_unas3"]
 [ext_resource type="PackedScene" uid="uid://oqn6pb732n5a" path="res://scoreboard.tscn" id="3_bnwop"]
+[ext_resource type="FontFile" uid="uid://kmhudoaqab3v" path="res://PressStart2P-Regular.ttf" id="3_p0wwb"]
+[ext_resource type="StyleBox" uid="uid://bdj2ax7kcy7ge" path="res://question_label_style.tres" id="3_t5gkf"]
 [ext_resource type="PackedScene" uid="uid://dgrs28su17qwg" path="res://halfway.tscn" id="4_1lik4"]
 [ext_resource type="PackedScene" uid="uid://b0hsfsrmnuljl" path="res://gameover.tscn" id="5_itbf6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3qdc"]
+bg_color = Color(0, 0, 1, 1)
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_5y4eo")
@@ -29,42 +36,83 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat0/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
-text = "Category 1"
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_unas3")
+text = "Category"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat0"]
+[node name="Button1" type="Label" parent="round_screen/main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat0"]
+[node name="Button2" type="Label" parent="round_screen/main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat0"]
+[node name="Button3" type="Label" parent="round_screen/main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat0"]
+[node name="Button4" type="Label" parent="round_screen/main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat0"]
+[node name="Button5" type="Label" parent="round_screen/main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="cat1" type="VBoxContainer" parent="round_screen/main_view/questionboard"]
 layout_mode = 2
@@ -73,42 +121,83 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat1/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
-text = "Category 1"
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_unas3")
+text = "Category"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat1"]
+[node name="Button1" type="Label" parent="round_screen/main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat1"]
+[node name="Button2" type="Label" parent="round_screen/main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat1"]
+[node name="Button3" type="Label" parent="round_screen/main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat1"]
+[node name="Button4" type="Label" parent="round_screen/main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat1"]
+[node name="Button5" type="Label" parent="round_screen/main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="cat2" type="VBoxContainer" parent="round_screen/main_view/questionboard"]
 layout_mode = 2
@@ -117,42 +206,83 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat2/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
-text = "Category 1"
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_unas3")
+text = "Category"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat2"]
+[node name="Button1" type="Label" parent="round_screen/main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat2"]
+[node name="Button2" type="Label" parent="round_screen/main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat2"]
+[node name="Button3" type="Label" parent="round_screen/main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat2"]
+[node name="Button4" type="Label" parent="round_screen/main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat2"]
+[node name="Button5" type="Label" parent="round_screen/main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="cat3" type="VBoxContainer" parent="round_screen/main_view/questionboard"]
 layout_mode = 2
@@ -161,42 +291,83 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat3/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
-text = "Category 1"
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_unas3")
+text = "Category"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat3"]
+[node name="Button1" type="Label" parent="round_screen/main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat3"]
+[node name="Button2" type="Label" parent="round_screen/main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat3"]
+[node name="Button3" type="Label" parent="round_screen/main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat3"]
+[node name="Button4" type="Label" parent="round_screen/main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat3"]
+[node name="Button5" type="Label" parent="round_screen/main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="cat4" type="VBoxContainer" parent="round_screen/main_view/questionboard"]
 layout_mode = 2
@@ -205,42 +376,83 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat4/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
-text = "Category 1"
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_unas3")
+text = "Category"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="round_screen/main_view/questionboard/cat4"]
+[node name="Button1" type="Label" parent="round_screen/main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button2" type="Button" parent="round_screen/main_view/questionboard/cat4"]
+[node name="Button2" type="Label" parent="round_screen/main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button3" type="Button" parent="round_screen/main_view/questionboard/cat4"]
+[node name="Button3" type="Label" parent="round_screen/main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button4" type="Button" parent="round_screen/main_view/questionboard/cat4"]
+[node name="Button4" type="Label" parent="round_screen/main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Button5" type="Button" parent="round_screen/main_view/questionboard/cat4"]
+[node name="Button5" type="Label" parent="round_screen/main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_p0wwb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t5gkf")
 text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="question_holder" type="Node2D" parent="round_screen/main_view"]
 
@@ -254,30 +466,65 @@ offset_right = 1150.0
 offset_bottom = 551.0
 theme_override_constants/separation = 0
 
-[node name="cat0" type="Button" parent="round_screen/categories_slider"]
+[node name="cat0" type="Label" parent="round_screen/categories_slider"]
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_f8wc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="cat1" type="Button" parent="round_screen/categories_slider"]
+[node name="cat1" type="Label" parent="round_screen/categories_slider"]
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_f8wc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="cat2" type="Button" parent="round_screen/categories_slider"]
+[node name="cat2" type="Label" parent="round_screen/categories_slider"]
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_f8wc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="cat3" type="Button" parent="round_screen/categories_slider"]
+[node name="cat3" type="Label" parent="round_screen/categories_slider"]
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_f8wc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="cat4" type="Button" parent="round_screen/categories_slider"]
+[node name="cat4" type="Label" parent="round_screen/categories_slider"]
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_f8wc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="intro_screen" type="TextureRect" parent="."]
 visible = false
