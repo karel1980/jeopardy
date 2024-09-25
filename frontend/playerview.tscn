@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://8eosw1etvb4p"]
+[gd_scene load_steps=12 format=3 uid="uid://8eosw1etvb4p"]
 
 [ext_resource type="Script" path="res://playerview.gd" id="1_5y4eo"]
 [ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_jhusk"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://kmhudoaqab3v" path="res://PressStart2P-Regular.ttf" id="3_p0wwb"]
 [ext_resource type="StyleBox" uid="uid://bdj2ax7kcy7ge" path="res://question_label_style.tres" id="3_t5gkf"]
 [ext_resource type="PackedScene" uid="uid://dgrs28su17qwg" path="res://halfway.tscn" id="4_1lik4"]
+[ext_resource type="StyleBox" uid="uid://c1j57dsn8j80y" path="res://question_label_style_bottom.tres" id="5_ad4pb"]
 [ext_resource type="PackedScene" uid="uid://b0hsfsrmnuljl" path="res://gameover.tscn" id="5_itbf6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3qdc"]
@@ -108,7 +109,7 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
 theme_override_fonts/font = ExtResource("3_p0wwb")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = ExtResource("3_t5gkf")
+theme_override_styles/normal = ExtResource("5_ad4pb")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -193,7 +194,7 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
 theme_override_fonts/font = ExtResource("3_p0wwb")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = ExtResource("3_t5gkf")
+theme_override_styles/normal = ExtResource("5_ad4pb")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -278,7 +279,7 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
 theme_override_fonts/font = ExtResource("3_p0wwb")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = ExtResource("3_t5gkf")
+theme_override_styles/normal = ExtResource("5_ad4pb")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -363,7 +364,7 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
 theme_override_fonts/font = ExtResource("3_p0wwb")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = ExtResource("3_t5gkf")
+theme_override_styles/normal = ExtResource("5_ad4pb")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -448,7 +449,7 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
 theme_override_fonts/font = ExtResource("3_p0wwb")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = ExtResource("3_t5gkf")
+theme_override_styles/normal = ExtResource("5_ad4pb")
 text = "button"
 horizontal_alignment = 1
 vertical_alignment = 1

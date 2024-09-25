@@ -4,10 +4,14 @@
 [ext_resource type="FontFile" uid="uid://kmhudoaqab3v" path="res://PressStart2P-Regular.ttf" id="2_5h0nq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4bp6"]
-bg_color = Color(0.790723, 0.64075, 0.972566, 1)
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8nbg"]
 bg_color = Color(0, 0, 0, 1)
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="Curve" id="Curve_imcs0"]
 _data = [Vector2(0.00261781, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0128565), 0.0, 0.0, 0, 0]
@@ -30,6 +34,7 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_v4bp6")
 text = "team"
@@ -59,6 +64,7 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_v4bp6")
 text = "team"
@@ -88,6 +94,7 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_v4bp6")
 text = "team"
