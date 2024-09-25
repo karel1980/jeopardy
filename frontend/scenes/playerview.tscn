@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://8eosw1etvb4p"]
+[gd_scene load_steps=15 format=3 uid="uid://8eosw1etvb4p"]
 
 [ext_resource type="Script" path="res://playerview.gd" id="1_5y4eo"]
 [ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_jhusk"]
+[ext_resource type="Theme" uid="uid://ddioxswmi2st5" path="res://base_theme.tres" id="2_bpl67"]
 [ext_resource type="FontFile" uid="uid://blxlusd64fl4c" path="res://assets/fonts/LilitaOne-Regular.ttf" id="2_f8wc5"]
 [ext_resource type="StyleBox" uid="uid://beccef2ljkx4v" path="res://category_label_style.tres" id="2_unas3"]
 [ext_resource type="PackedScene" uid="uid://oqn6pb732n5a" path="res://scenes/scoreboard.tscn" id="3_bnwop"]
@@ -11,29 +12,36 @@
 [ext_resource type="StyleBox" uid="uid://c1j57dsn8j80y" path="res://question_label_style_bottom.tres" id="5_ad4pb"]
 [ext_resource type="PackedScene" uid="uid://b0hsfsrmnuljl" path="res://scenes/gameover.tscn" id="5_itbf6"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_038wa"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_setbx"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3qdc"]
 bg_color = Color(0, 0, 1, 1)
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
+border_width_left = 50
+border_width_top = 50
+border_width_right = 50
+border_width_bottom = 50
 border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
+corner_radius_top_left = 80
+corner_radius_top_right = 80
+corner_radius_bottom_right = 80
+corner_radius_bottom_left = 80
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_5y4eo")
 
 [node name="round_screen" type="Panel" parent="."]
+offset_right = 1500.0
+offset_bottom = 1200.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_038wa")
 
 [node name="main_view" type="VBoxContainer" parent="round_screen"]
+layout_mode = 0
 offset_right = 1150.0
-offset_bottom = 644.0
+offset_bottom = 614.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -49,12 +57,12 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat0"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat0/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
+theme = ExtResource("2_bpl67")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("2_unas3")
 text = "Category"
@@ -134,12 +142,12 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat1"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat1/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
+theme = ExtResource("2_bpl67")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("2_unas3")
 text = "Category"
@@ -219,12 +227,12 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat2"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat2/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
+theme = ExtResource("2_bpl67")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("2_unas3")
 text = "Category"
@@ -304,12 +312,12 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat3"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat3/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
+theme = ExtResource("2_bpl67")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("2_unas3")
 text = "Category"
@@ -389,12 +397,12 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="round_screen/main_view/questionboard/cat4"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Label" parent="round_screen/main_view/questionboard/cat4/MarginContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 1
+theme = ExtResource("2_bpl67")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("2_unas3")
 text = "Category"
@@ -473,6 +481,7 @@ autowrap_mode = 3
 layout_mode = 2
 
 [node name="categories_slider" type="Panel" parent="round_screen"]
+visible = false
 layout_mode = 2
 offset_right = 571.0
 offset_bottom = 160.0

@@ -1,7 +1,10 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ddioxswmi2st5"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://ddioxswmi2st5"]
+
+[ext_resource type="FontFile" uid="uid://blxlusd64fl4c" path="res://assets/fonts/LilitaOne-Regular.ttf" id="1_l444p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drxm6"]
-bg_color = Color(0.326575, 0.373041, 0.953881, 1)
+bg_color = Color(0.0429508, 0, 0.348383, 1)
 
 [resource]
+default_font = ExtResource("1_l444p")
 Panel/styles/panel = SubResource("StyleBoxFlat_drxm6")

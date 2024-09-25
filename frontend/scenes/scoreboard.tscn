@@ -10,6 +10,10 @@ corner_radius_top_right = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8nbg"]
 bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
@@ -29,6 +33,7 @@ script = ExtResource("1_7f0bc")
 [node name="team 1" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
 
 [node name="name" type="Label" parent="team 1"]
 custom_minimum_size = Vector2(200, 60)
@@ -44,7 +49,7 @@ autowrap_mode = 2
 text_overrun_behavior = 3
 
 [node name="score" type="Label" parent="team 1"]
-custom_minimum_size = Vector2(50, 30)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("2_5h0nq")
@@ -59,6 +64,7 @@ text_overrun_behavior = 3
 [node name="team 2" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
 
 [node name="name" type="Label" parent="team 2"]
 custom_minimum_size = Vector2(200, 60)
@@ -74,7 +80,7 @@ autowrap_mode = 2
 text_overrun_behavior = 3
 
 [node name="score" type="Label" parent="team 2"]
-custom_minimum_size = Vector2(50, 30)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("2_5h0nq")
@@ -89,6 +95,7 @@ text_overrun_behavior = 3
 [node name="team 3" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
 
 [node name="name" type="Label" parent="team 3"]
 custom_minimum_size = Vector2(200, 60)
@@ -104,7 +111,7 @@ autowrap_mode = 2
 text_overrun_behavior = 3
 
 [node name="score" type="Label" parent="team 3"]
-custom_minimum_size = Vector2(50, 30)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("2_5h0nq")
