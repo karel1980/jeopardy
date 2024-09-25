@@ -22,6 +22,8 @@ var normal_font = load("res://assets/fonts/LilitaOne-Regular.ttf")
 var game
 var game_state
 
+var next_view: String
+
 var scores = [ 0, 0, 0 ]
 var category_buttons = []
 
@@ -38,10 +40,14 @@ var cat_tween2 = null
 var cat_button = null
 
 func _ready() -> void:
+	$FadePanel.modulate = Color(1,1,1)
+	for v in views.values():
+		v.hide()
+	intro_screen.show()
+
 	init_category_buttons()
 	init_categories_slider()
 	init_question_buttons()
-	show_view("intro_screen")
 
 	pause_game()
 	
@@ -57,18 +63,23 @@ func _ready() -> void:
 	halfway_screen.init_game(game, game_state)
 	gameover_screen.init_game(game, game_state)
 	
+	$AnimationPlayer.animation_finished.connect(Callable(self, "on_animation_finished"))
+	
 func _process(_delta: float) -> void:
 	pass
 	
-func on_resize():
-	print("yolo")
+func on_animation_finished(anim_name):
+	if anim_name == "fade_out":
+		for view in views.values():
+			view.hide()		
+		views[next_view].show()
+		$AnimationPlayer.play("fade_in")
 
+#TODO: rename to fade_to_view or transition_to_view
 func show_view(view_name: String):
-	print("showing ", view_name)
-	for view in views.values():
-		view.hide()
-		
-	views[view_name].show()
+	print("starting fade out, preparing transition to", view_name)
+	next_view = view_name
+	$AnimationPlayer.play("fade_out")
 	
 func init_game(game_data, _game_state):
 	game = game_data

@@ -48,7 +48,7 @@ fit_content = true
 [node name="fireworks_left" type="CPUParticles2D" parent="."]
 position = Vector2(40, 620)
 amount = 100
-lifetime = 4.0
+lifetime = 5.0
 speed_scale = 4.02
 explosiveness = 0.08
 randomness = 1.0
@@ -72,7 +72,7 @@ hue_variation_max = 1.0
 [node name="fireworks_right" type="CPUParticles2D" parent="."]
 position = Vector2(1120, 620)
 amount = 100
-lifetime = 4.0
+lifetime = 5.0
 speed_scale = 4.02
 explosiveness = 0.08
 randomness = 0.5

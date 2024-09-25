@@ -11,7 +11,6 @@ func init_game(_game, _game_state):
 	self.game_state = _game_state
 	
 	self.game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
-	print("connecting shizzle")
 	self.game_state.connect("scores_updated", Callable(self, "update_scores"))
 
 func _on_game_state_loaded():
