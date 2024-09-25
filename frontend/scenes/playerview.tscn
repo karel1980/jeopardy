@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://playerview.gd" id="1_5y4eo"]
 [ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_jhusk"]
-[ext_resource type="FontFile" uid="uid://blxlusd64fl4c" path="res://LilitaOne-Regular.ttf" id="2_f8wc5"]
+[ext_resource type="FontFile" uid="uid://blxlusd64fl4c" path="res://assets/fonts/LilitaOne-Regular.ttf" id="2_f8wc5"]
 [ext_resource type="StyleBox" uid="uid://beccef2ljkx4v" path="res://category_label_style.tres" id="2_unas3"]
-[ext_resource type="PackedScene" uid="uid://oqn6pb732n5a" path="res://scoreboard.tscn" id="3_bnwop"]
-[ext_resource type="FontFile" uid="uid://kmhudoaqab3v" path="res://PressStart2P-Regular.ttf" id="3_p0wwb"]
+[ext_resource type="PackedScene" uid="uid://oqn6pb732n5a" path="res://scenes/scoreboard.tscn" id="3_bnwop"]
+[ext_resource type="FontFile" uid="uid://kmhudoaqab3v" path="res://assets/fonts/PressStart2P-Regular.ttf" id="3_p0wwb"]
 [ext_resource type="StyleBox" uid="uid://bdj2ax7kcy7ge" path="res://question_label_style.tres" id="3_t5gkf"]
-[ext_resource type="PackedScene" uid="uid://dgrs28su17qwg" path="res://halfway.tscn" id="4_1lik4"]
+[ext_resource type="PackedScene" uid="uid://dgrs28su17qwg" path="res://scenes/halfway.tscn" id="4_1lik4"]
 [ext_resource type="StyleBox" uid="uid://c1j57dsn8j80y" path="res://question_label_style_bottom.tres" id="5_ad4pb"]
-[ext_resource type="PackedScene" uid="uid://b0hsfsrmnuljl" path="res://gameover.tscn" id="5_itbf6"]
+[ext_resource type="PackedScene" uid="uid://b0hsfsrmnuljl" path="res://scenes/gameover.tscn" id="5_itbf6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3qdc"]
 bg_color = Color(0, 0, 1, 1)

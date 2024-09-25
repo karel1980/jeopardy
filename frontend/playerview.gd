@@ -18,7 +18,7 @@ extends Node2D
 }
 
 
-var normal_font = load("res://LilitaOne-Regular.ttf")
+var normal_font = load("res://assets/fonts/LilitaOne-Regular.ttf")
 
 var game
 var game_state
@@ -46,7 +46,7 @@ func _ready() -> void:
 
 	pause_game()
 	
-	var hostview = get_tree().root.get_node("SceneRoot")
+	var hostview = get_tree().root.get_child(0)
 	hostview.round_started.connect(Callable(self, "start_round"))
 	hostview.round_finished.connect(Callable(self, "on_round_finished"))
 	hostview.category_revealed.connect(Callable(self, "reveal_category"))

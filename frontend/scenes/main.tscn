@@ -1,80 +1,94 @@
-[gd_scene load_steps=4 format=3 uid="uid://bi11vo3hhahvd"]
+[gd_scene load_steps=5 format=3 uid="uid://bi11vo3hhahvd"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_t2hya"]
-[ext_resource type="AudioStream" uid="uid://bv7x7eg3edq0l" path="res://audio/portal_waiting.ogg" id="2_gkayd"]
-[ext_resource type="Script" path="res://SerialControl.cs" id="4_ae3m8"]
+[ext_resource type="Theme" uid="uid://ddioxswmi2st5" path="res://base_theme.tres" id="1_e6dyr"]
+[ext_resource type="Script" path="res://main.gd" id="2_c4q6c"]
+[ext_resource type="AudioStream" uid="uid://bv7x7eg3edq0l" path="res://assets/audio/portal_waiting.ogg" id="3_5h3xq"]
+[ext_resource type="Script" path="res://SerialControl.cs" id="4_7oq38"]
 
-[node name="SceneRoot" type="Node2D"]
-script = ExtResource("1_t2hya")
+[node name="hostview" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_e6dyr")
+script = ExtResource("2_c4q6c")
 
 [node name="warning label" type="Label" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "This is the gamemaster view. Don't share this screen with the players"
 
+[node name="top_controls" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 40.0
+offset_right = 721.0
+offset_bottom = 117.0
+
+[node name="show_intro" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Show intro screen"
+
+[node name="round 1" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Round 1"
+
+[node name="reveal_category_buttons" type="HBoxContainer" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="reveal_previous" type="Button" parent="top_controls/reveal_category_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+disabled = true
+text = "Reveal
+previous
+category"
+
+[node name="reveal_next" type="Button" parent="top_controls/reveal_category_buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+disabled = true
+text = "Reveal
+next
+category"
+
+[node name="random_team" type="Button" parent="top_controls"]
+layout_mode = 2
+text = "select random team"
+
+[node name="show_halfway" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Show halfway"
+
+[node name="round 2" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Round 2"
+
+[node name="gameover" type="Button" parent="top_controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Game over"
+
 [node name="questions" type="GridContainer" parent="."]
+layout_mode = 0
 offset_left = 45.0
 offset_top = 150.0
 offset_right = 569.0
 offset_bottom = 464.0
 columns = 5
 
-[node name="random_team" type="Button" parent="."]
-offset_left = 969.0
-offset_top = 45.0
-offset_right = 1132.0
-offset_bottom = 122.0
-text = "select random team"
-
-[node name="score_adjustments" type="GridContainer" parent="."]
-offset_left = 17.0
-offset_top = 566.0
-offset_right = 521.0
-offset_bottom = 632.0
-columns = 3
-
-[node name="team_1_plus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "+100"
-
-[node name="team_2_plus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "+100"
-
-[node name="team_3_plus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "+100"
-
-[node name="team_1_minus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "-100"
-
-[node name="team_2_minus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "-100"
-
-[node name="team_3_minus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "-100"
-
-[node name="question_card" type="Node2D" parent="."]
-
-[node name="background" type="ColorRect" parent="question_card"]
-offset_right = 1155.0
-offset_bottom = 647.0
-color = Color(0.279357, 0.279357, 0.279357, 1)
+[node name="question_card" type="Panel" parent="."]
+layout_mode = 0
+theme = ExtResource("1_e6dyr")
 
 [node name="question_category" type="Label" parent="question_card"]
 offset_left = 464.0
@@ -191,67 +205,58 @@ layout_mode = 2
 disabled = true
 text = "Team three WRONG"
 
-[node name="top_controls" type="HBoxContainer" parent="."]
-offset_left = 48.0
-offset_top = 40.0
-offset_right = 404.0
-offset_bottom = 117.0
+[node name="score_adjustments" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 566.0
+offset_right = 521.0
+offset_bottom = 632.0
+columns = 3
 
-[node name="show_intro" type="Button" parent="top_controls"]
+[node name="team_1_plus_100" type="Button" parent="score_adjustments"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Show intro screen"
+size_flags_vertical = 3
+text = "+100"
 
-[node name="round 1" type="Button" parent="top_controls"]
+[node name="team_2_plus_100" type="Button" parent="score_adjustments"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Round 1"
+size_flags_vertical = 3
+text = "+100"
 
-[node name="reveal_category_buttons" type="HBoxContainer" parent="top_controls"]
+[node name="team_3_plus_100" type="Button" parent="score_adjustments"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "+100"
 
-[node name="reveal_previous" type="Button" parent="top_controls/reveal_category_buttons"]
+[node name="team_1_minus_100" type="Button" parent="score_adjustments"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-disabled = true
-text = "Reveal
-previous
-category"
+size_flags_vertical = 3
+text = "-100"
 
-[node name="reveal_next" type="Button" parent="top_controls/reveal_category_buttons"]
+[node name="team_2_minus_100" type="Button" parent="score_adjustments"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
-disabled = true
-text = "Reveal
-next
-category"
+size_flags_vertical = 3
+text = "-100"
 
-[node name="show_halfway" type="Button" parent="top_controls"]
+[node name="team_3_minus_100" type="Button" parent="score_adjustments"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Show halfway"
-
-[node name="round 2" type="Button" parent="top_controls"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Round 2"
-
-[node name="gameover" type="Button" parent="top_controls"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Game over"
+size_flags_vertical = 3
+text = "-100"
 
 [node name="buzzer_wait_music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_gkayd")
+stream = ExtResource("3_5h3xq")
 
 [node name="buzzer_beep" type="AudioStreamPlayer" parent="."]
 
 [node name="SerialControl" type="Node2D" parent="."]
 visible = false
-script = ExtResource("4_ae3m8")
+script = ExtResource("4_7oq38")
 
 [node name="ColorRect" type="ColorRect" parent="SerialControl"]
 offset_left = 86.0
@@ -286,13 +291,14 @@ offset_top = 80.0
 offset_right = 353.0
 offset_bottom = 322.0
 
-[connection signal="pressed" from="random_team" to="." method="on_random_team_pressed"]
-[connection signal="pressed" from="score_adjustments/team_1_plus_100" to="." method="_on_manual_score_increase" binds= [0]]
-[connection signal="pressed" from="score_adjustments/team_2_plus_100" to="." method="_on_manual_score_increase" binds= [1]]
-[connection signal="pressed" from="score_adjustments/team_3_plus_100" to="." method="_on_manual_score_increase" binds= [2]]
-[connection signal="pressed" from="score_adjustments/team_1_minus_100" to="." method="_on_manual_score_decrease" binds= [0]]
-[connection signal="pressed" from="score_adjustments/team_2_minus_100" to="." method="_on_manual_score_decrease" binds= [1]]
-[connection signal="pressed" from="score_adjustments/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
+[connection signal="pressed" from="top_controls/show_intro" to="." method="on_show_intro_pressed"]
+[connection signal="pressed" from="top_controls/round 1" to="." method="start_round" binds= [0]]
+[connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
+[connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_next" to="." method="on_reveal_next_category_pressed"]
+[connection signal="pressed" from="top_controls/random_team" to="." method="on_random_team_pressed"]
+[connection signal="pressed" from="top_controls/show_halfway" to="." method="on_halfway_pressed"]
+[connection signal="pressed" from="top_controls/round 2" to="." method="start_round" binds= [1]]
+[connection signal="pressed" from="top_controls/gameover" to="." method="on_gameover_pressed"]
 [connection signal="pressed" from="question_card/hide_question" to="." method="hide_question"]
 [connection signal="pressed" from="question_card/question_done" to="." method="mark_question_completed"]
 [connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="disable_buzzers"]
@@ -304,11 +310,10 @@ offset_bottom = 322.0
 [connection signal="pressed" from="question_card/score_buttons/team_1_wrong" to="." method="_on_team_wrong_pressed" binds= [0]]
 [connection signal="pressed" from="question_card/score_buttons/team_2_wrong" to="." method="_on_team_wrong_pressed" binds= [1]]
 [connection signal="pressed" from="question_card/score_buttons/team_3_wrong" to="." method="_on_team_wrong_pressed" binds= [2]]
-[connection signal="pressed" from="top_controls/show_intro" to="." method="on_show_intro_pressed"]
-[connection signal="pressed" from="top_controls/round 1" to="." method="start_round" binds= [0]]
-[connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
-[connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_next" to="." method="on_reveal_next_category_pressed"]
-[connection signal="pressed" from="top_controls/show_halfway" to="." method="on_halfway_pressed"]
-[connection signal="pressed" from="top_controls/round 2" to="." method="start_round" binds= [1]]
-[connection signal="pressed" from="top_controls/gameover" to="." method="on_gameover_pressed"]
+[connection signal="pressed" from="score_adjustments/team_1_plus_100" to="." method="_on_manual_score_increase" binds= [0]]
+[connection signal="pressed" from="score_adjustments/team_2_plus_100" to="." method="_on_manual_score_increase" binds= [1]]
+[connection signal="pressed" from="score_adjustments/team_3_plus_100" to="." method="_on_manual_score_increase" binds= [2]]
+[connection signal="pressed" from="score_adjustments/team_1_minus_100" to="." method="_on_manual_score_decrease" binds= [0]]
+[connection signal="pressed" from="score_adjustments/team_2_minus_100" to="." method="_on_manual_score_decrease" binds= [1]]
+[connection signal="pressed" from="score_adjustments/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
 [connection signal="pressed" from="SerialControl/FakeSerialEvent" to="SerialControl" method="_on_fake_serial_event_pressed"]

@@ -1,7 +1,7 @@
-extends Node2D
+extends Panel
 
 var game_is_paused = true
-var playerview_scene = preload('res://playerview.tscn')
+var playerview_scene = preload('res://scenes/playerview.tscn')
 var playerview
 
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
@@ -17,7 +17,7 @@ var waiting_audio_position = null
 #TODO: still used?
 signal game_paused
 signal game_over
-signal round_started
+signal round_started(round_number)
 signal round_finished
 signal category_revealed
 signal question_selected
@@ -52,17 +52,17 @@ signal buzzer_accepted
 @onready var disable_buzzers_btn := $question_card/buzzer_toggle/disable
 
 @onready var sounds = [
-	preload("res://audio/sfx_buzzer_0.ogg"),
-	preload("res://audio/sfx_buzzer_1.ogg"),
-	preload("res://audio/sfx_buzzer_2.ogg"),
-	preload("res://audio/sfx_buzzer_3.ogg"),
-	preload("res://audio/sfx_buzzer_4.ogg"),
-	preload("res://audio/sfx_buzzer_5.ogg"),
-	preload("res://audio/sfx_buzzer_6.ogg"),
-	preload("res://audio/sfx_buzzer_7.ogg"),
-	preload("res://audio/sfx_buzzer_8.ogg"),
-	preload("res://audio/sfx_buzzer_9.ogg"),
-	preload("res://audio/sfx_buzzer_10.ogg"),
+	preload("res://assets/audio/sfx_buzzer_0.ogg"),
+	preload("res://assets/audio/sfx_buzzer_1.ogg"),
+	preload("res://assets/audio/sfx_buzzer_2.ogg"),
+	preload("res://assets/audio/sfx_buzzer_3.ogg"),
+	preload("res://assets/audio/sfx_buzzer_4.ogg"),
+	preload("res://assets/audio/sfx_buzzer_5.ogg"),
+	preload("res://assets/audio/sfx_buzzer_6.ogg"),
+	preload("res://assets/audio/sfx_buzzer_7.ogg"),
+	preload("res://assets/audio/sfx_buzzer_8.ogg"),
+	preload("res://assets/audio/sfx_buzzer_9.ogg"),
+	preload("res://assets/audio/sfx_buzzer_10.ogg"),
 ]
 var game_location = "../jeopardy.json"
 var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())
@@ -73,6 +73,7 @@ func _ready() -> void:
 	var win = get_window()
 	win.gui_embed_subwindows = false
 	question_card.hide()
+	questions.hide()
 	
 	var state_file_location = game_location + ".state"
 	
@@ -144,9 +145,11 @@ func reset_question_buttons():
 func show_question(cat_idx, question_idx):
 	if current_question:
 		hide_question()
+		questions.show()
 	else:
 		question_selected.emit(QuestionId.new(game_state.current_round, cat_idx, question_idx))
 		question_card.show()
+		questions.hide()
 		disable_buzzers()
 		already_buzzed = []
 		buzzer_locked_until = [0, 0, 0]
@@ -173,7 +176,8 @@ func hide_question():
 	question_done.disabled = true
 	
 	question_card.hide()
-	question_deselected.emit()
+	questions.show()
+	question_deselected.emit()	
 
 func _process(_delta: float) -> void:
 	pass
@@ -227,7 +231,7 @@ func mark_question_completed():
 		hide_question()
 		current_question = null
 	
-func get_question_button(question_id):
+func get_question_button(question_id: QuestionId):
 	return questions.get_child((1 + question_id.question) * 5 + question_id.category)
 	
 func _on_team_wrong_pressed(team_idx: int) -> void:
@@ -342,6 +346,7 @@ func start_round(round_number: int) -> void:
 	enable_reveal_category_buttons()
 	reset_question_buttons()
 	question_card.hide()
+	questions.show()
 	categories = game["rounds"][round_number]["categories"]
 
 
