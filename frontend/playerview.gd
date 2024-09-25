@@ -17,7 +17,6 @@ extends Node2D
 	"gameover_screen": gameover_screen
 }
 
-
 var normal_font = load("res://assets/fonts/LilitaOne-Regular.ttf")
 
 var game
@@ -83,17 +82,15 @@ func _on_game_state_loaded():
 			get_question_label(q).text = ""
 
 func init_categories_slider():
-	for btn in categories_slider.get_children():
-		var style_box = StyleBoxFlat.new()
-		style_box.bg_color = Color(.2, .2, 1)
-		btn.add_theme_stylebox_override("normal", style_box)
+	for btn in categories_slider.get_node("hbox").get_children():
 		btn.add_theme_font_size_override("font_size", 40)
 	
 	var categories = game["rounds"][game_state.current_round]["categories"]
-	var sz = main_view.get_rect().size
-	categories_slider.size = Vector2(sz.x * 5, 0)
+	var sz = get_viewport().get_size()
+	categories_slider.size = Vector2(sz.x * 5, sz.y)
+	categories_slider.get_node("hbox").size = Vector2(sz.x * 5, sz.y)
 	for cat_idx in range(len(categories)):
-		categories_slider.get_child(cat_idx).text = categories[cat_idx]["name"]
+		categories_slider.get_node("hbox").get_child(cat_idx).text = categories[cat_idx]["name"]
 	categories_slider.position = Vector2(sz.x, 0)
 
 func position_categories_slider(category_idx):
@@ -133,7 +130,7 @@ func reveal_category(previous_cat_idx, cat_idx):
 	position_categories_slider(previous_cat_idx)
 	categories_slider.show()
 	var tween = create_tween()
-	tween.tween_property(categories_slider, "position", Vector2(sz.x * (-cat_idx), 0), 0.3)
+	tween.tween_property(categories_slider, "position", Vector2(sz.x * (-cat_idx), 0), 0.5)
 
 func show_category_names():
 	var categories = game["rounds"][game_state.current_round]["categories"]
@@ -239,6 +236,9 @@ func show_answer(question_id: QuestionId):
 			question_btn = get_question_label(question_id).duplicate()
 			question_btn.position = Vector2(0, 0)
 			question_btn.size = questionboard.get_rect().size
+			question_btn.label_settings = LabelSettings.new()
+			question_btn.label_settings.font = normal_font
+			question_btn.label_settings.font_size = 52
 			question_holder.get_children().clear()
 			question_holder.add_child(question_btn)
 		question_btn.text = game.rounds[question_id.round]["categories"][question_id.category]["questions"][question_id.question]["a"]

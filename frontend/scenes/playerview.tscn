@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://8eosw1etvb4p"]
+[gd_scene load_steps=13 format=3 uid="uid://8eosw1etvb4p"]
 
 [ext_resource type="Script" path="res://playerview.gd" id="1_5y4eo"]
 [ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_jhusk"]
@@ -11,13 +11,25 @@
 [ext_resource type="StyleBox" uid="uid://c1j57dsn8j80y" path="res://question_label_style_bottom.tres" id="5_ad4pb"]
 [ext_resource type="PackedScene" uid="uid://b0hsfsrmnuljl" path="res://scenes/gameover.tscn" id="5_itbf6"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_setbx"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3qdc"]
 bg_color = Color(0, 0, 1, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_5y4eo")
 
-[node name="round_screen" type="Node2D" parent="."]
+[node name="round_screen" type="Panel" parent="."]
 
 [node name="main_view" type="VBoxContainer" parent="round_screen"]
 offset_right = 1150.0
@@ -460,18 +472,23 @@ autowrap_mode = 3
 [node name="scoreboard" parent="round_screen/main_view" instance=ExtResource("3_bnwop")]
 layout_mode = 2
 
-[node name="categories_slider" type="HBoxContainer" parent="round_screen"]
-visible = false
-offset_top = -1.0
-offset_right = 1150.0
-offset_bottom = 551.0
+[node name="categories_slider" type="Panel" parent="round_screen"]
+layout_mode = 2
+offset_right = 571.0
+offset_bottom = 160.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_setbx")
+
+[node name="hbox" type="HBoxContainer" parent="round_screen/categories_slider"]
+layout_mode = 0
+offset_right = 564.0
+offset_bottom = 154.0
 theme_override_constants/separation = 0
 
-[node name="cat0" type="Label" parent="round_screen/categories_slider"]
+[node name="cat0" type="Label" parent="round_screen/categories_slider/hbox"]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_f8wc5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 0"
@@ -479,11 +496,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="cat1" type="Label" parent="round_screen/categories_slider"]
+[node name="cat1" type="Label" parent="round_screen/categories_slider/hbox"]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_f8wc5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 1"
@@ -491,11 +508,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="cat2" type="Label" parent="round_screen/categories_slider"]
+[node name="cat2" type="Label" parent="round_screen/categories_slider/hbox"]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_f8wc5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 2"
@@ -503,11 +520,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="cat3" type="Label" parent="round_screen/categories_slider"]
+[node name="cat3" type="Label" parent="round_screen/categories_slider/hbox"]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_f8wc5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 3"
@@ -515,11 +532,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="cat4" type="Label" parent="round_screen/categories_slider"]
+[node name="cat4" type="Label" parent="round_screen/categories_slider/hbox"]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_f8wc5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
 text = "cat 4"

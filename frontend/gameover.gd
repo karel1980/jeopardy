@@ -36,7 +36,7 @@ func update_winner():
 				winner = team_idx
 				earliest = game_state.score_times[team_idx]
 	
-	var text = "[wave amp=50.0 freq=5.0 connected=1]%s[/wave]"%[game.teams[winner]]
+	var text = "[center][wave amp=50.0 freq=5.0 connected=1]%s[/wave][/center]"%[game.teams[winner]]
 	$winner/name.text = text
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

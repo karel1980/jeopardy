@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0hsfsrmnuljl"]
+[gd_scene load_steps=7 format=3 uid="uid://b0hsfsrmnuljl"]
 
 [ext_resource type="Script" path="res://gameover.gd" id="1_5yvyo"]
+[ext_resource type="FontFile" uid="uid://blxlusd64fl4c" path="res://assets/fonts/LilitaOne-Regular.ttf" id="2_pwygu"]
 
 [sub_resource type="Gradient" id="Gradient_ik85g"]
 offsets = PackedFloat32Array(0, 0.222892, 0.25, 0.307229, 1)
@@ -29,25 +30,28 @@ texture = SubResource("GradientTexture2D_13pcy")
 expand_mode = 1
 
 [node name="winner" type="CenterContainer" parent="."]
-offset_top = 310.0
-offset_right = 1138.0
-offset_bottom = 623.0
+offset_top = 317.0
+offset_right = 1147.0
+offset_bottom = 638.0
 
 [node name="name" type="RichTextLabel" parent="winner"]
-custom_minimum_size = Vector2(10, 0)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 60
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("2_pwygu")
+theme_override_font_sizes/normal_font_size = 96
 bbcode_enabled = true
-text = "[wave amp=50.0 freq=5.0 connected=1]team 1[/wave]"
+text = "[center][wave amp=50.0 freq=5.0 connected=1]team 1[/wave][/center]"
 fit_content = true
-autowrap_mode = 0
 
 [node name="fireworks_left" type="CPUParticles2D" parent="."]
 position = Vector2(40, 620)
 amount = 100
 lifetime = 4.0
 speed_scale = 4.02
-explosiveness = 0.2
+explosiveness = 0.08
+randomness = 1.0
 lifetime_randomness = 0.5
 direction = Vector2(0.4, -1)
 spread = 20.0
@@ -70,7 +74,8 @@ position = Vector2(1120, 620)
 amount = 100
 lifetime = 4.0
 speed_scale = 4.02
-explosiveness = 0.2
+explosiveness = 0.08
+randomness = 0.5
 lifetime_randomness = 0.5
 direction = Vector2(-0.4, -1)
 spread = 20.0
