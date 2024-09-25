@@ -88,8 +88,8 @@ func init_categories_slider():
 	var categories = game["rounds"][game_state.current_round]["categories"]
 	var sz = get_viewport().get_size()
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
-	categories_slider.get_node("hbox").size = Vector2(sz.x * 5, sz.y)
 	for cat_idx in range(len(categories)):
+		categories_slider.get_node("hbox").get_child(cat_idx).custom_minimum_size = sz
 		categories_slider.get_node("hbox").get_child(cat_idx).text = categories[cat_idx]["name"]
 	categories_slider.position = Vector2(sz.x, 0)
 
@@ -126,7 +126,7 @@ func pause_game():
 func reveal_category(previous_cat_idx, cat_idx):
 	if previous_cat_idx >= 0 and previous_cat_idx < 5:
 		get_category_button(previous_cat_idx).text = game["rounds"][game_state.current_round]["categories"][previous_cat_idx]["name"]
-	var sz = main_view.get_rect().size
+	var sz = get_viewport().get_size()
 	position_categories_slider(previous_cat_idx)
 	categories_slider.show()
 	var tween = create_tween()
