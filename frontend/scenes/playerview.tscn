@@ -539,7 +539,7 @@ offset_bottom = 154.0
 theme_override_constants/separation = 0
 
 [node name="cat0" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(100, 80)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -551,7 +551,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cat1" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(100, 80)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -563,7 +563,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cat2" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(100, 80)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -575,7 +575,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cat3" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(100, 80)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -587,7 +587,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cat4" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(100, 80)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
