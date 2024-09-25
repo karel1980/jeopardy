@@ -8,9 +8,12 @@ var game_state: GameState
 var teams
 var current_team = -1
 
-var score_positive_style := StyleBoxFlat.new()
-var score_neutral_style
-var score_negative_style := StyleBoxFlat.new()
+var current_scores = [0,0,0]
+var target_scores = [0,0,0]
+
+var score_positive_style: StyleBoxFlat
+var score_neutral_style: StyleBoxFlat
+var score_negative_style: StyleBoxFlat
 
 var highlight_color = Color(1, 1, 0.5, 1)
 var mod_color_none = Color(1,1,1,1)
@@ -21,13 +24,21 @@ var mod_color_none = Color(1,1,1,1)
 
 func _ready() -> void:
 	score_neutral_style = score_labels[0].get_theme_stylebox("normal")
-	score_positive_style.bg_color = Color(0,1,0,1)
-	score_negative_style.bg_color = Color(1,.2,.2,1)
+	score_positive_style = score_neutral_style.duplicate()
+	score_positive_style.border_color = Color(.5,1,.5)
+	score_negative_style = score_neutral_style.duplicate()
+	score_negative_style.border_color = Color(1,.2,.2)
 	
 	get_tree().get_current_scene().buzzer_accepted.connect(_buzzer_animation)
 	
 func _process(_delta: float) -> void:
-	pass
+	for team_idx in range(len(current_scores)):
+		var score_diff = target_scores[team_idx] - current_scores[team_idx]
+		if score_diff == 0:
+			continue
+		current_scores[team_idx] += sign(score_diff) * 2
+		score_labels[team_idx].text = str(current_scores[team_idx])
+		update_score_color(team_idx, current_scores[team_idx])
 
 func _buzzer_animation(idx):
 	var rect = teams_ui[idx].get_node("name").get_global_rect()
@@ -113,17 +124,15 @@ func _on_game_state_loaded():
 	update_scores(game_state.scores, game_state.score_times)
 	
 func update_scores(scores, _score_times):
-	for team_idx in range(len(scores)):
-		score_labels[team_idx].text = str(scores[team_idx])
-		update_score_color(team_idx)
+	target_scores = scores
 		
-func update_score_color(team_idx):
-	if game_state.scores[team_idx] == 0:
+func update_score_color(team_idx, value):
+	if value == 0:
 		score_labels[team_idx].add_theme_stylebox_override("normal", score_neutral_style)
 		score_labels[team_idx].add_theme_color_override("font_color", Color(1,1,1,1))
-	elif game_state.scores[team_idx] < 0:
+	elif value < 0:
 		score_labels[team_idx].add_theme_stylebox_override("normal", score_negative_style)
 		score_labels[team_idx].add_theme_color_override("font_color", Color(1,1,1,1))
 	else:
 		score_labels[team_idx].add_theme_stylebox_override("normal", score_positive_style)
-		score_labels[team_idx].add_theme_color_override("font_color", Color(0,0,0,1))
+		score_labels[team_idx].add_theme_color_override("font_color", Color(1,1,1,1))
