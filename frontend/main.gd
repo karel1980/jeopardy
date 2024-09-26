@@ -1,5 +1,7 @@
+
 extends Panel
 
+var game_is_paused = true
 var playerview_scene = preload('res://scenes/playerview.tscn')
 var playerview
 
@@ -262,6 +264,8 @@ func _on_serial_received(line: String):
 	var json_data = JSON.parse_string(line)
 	if json_data and ("buzzer" in json_data):
 		handle_buzzer(json_data["buzzer"])
+		return
+		
 	
 func _input(event):
 	if event is InputEventKey and event.pressed:
