@@ -91,6 +91,7 @@ layout_mode = 0
 theme = ExtResource("1_e6dyr")
 
 [node name="question_category" type="Label" parent="question_card"]
+layout_mode = 0
 offset_left = 464.0
 offset_top = 159.0
 offset_right = 1129.0
@@ -99,6 +100,7 @@ text = "Question category"
 autowrap_mode = 3
 
 [node name="question_value" type="Label" parent="question_card"]
+layout_mode = 0
 offset_left = 467.0
 offset_top = 227.0
 offset_right = 1128.0
@@ -107,6 +109,7 @@ text = "Question value"
 autowrap_mode = 3
 
 [node name="question" type="Label" parent="question_card"]
+layout_mode = 0
 offset_left = 468.0
 offset_top = 270.0
 offset_right = 1127.0
@@ -115,6 +118,7 @@ text = "Question"
 autowrap_mode = 3
 
 [node name="answer" type="Label" parent="question_card"]
+layout_mode = 0
 offset_left = 466.0
 offset_top = 418.0
 offset_right = 1148.0
@@ -123,6 +127,7 @@ text = "Answer"
 autowrap_mode = 3
 
 [node name="note" type="Label" parent="question_card"]
+layout_mode = 0
 offset_left = 544.0
 offset_top = 498.0
 offset_right = 1148.0
@@ -131,6 +136,7 @@ text = "Note"
 autowrap_mode = 3
 
 [node name="hide_question" type="Button" parent="question_card"]
+layout_mode = 0
 offset_left = 138.0
 offset_top = 157.0
 offset_right = 267.0
@@ -138,6 +144,7 @@ offset_bottom = 240.0
 text = "Hide question"
 
 [node name="question_done" type="Button" parent="question_card"]
+layout_mode = 0
 offset_left = 297.0
 offset_top = 157.0
 offset_right = 426.0
@@ -146,6 +153,7 @@ disabled = true
 text = "Question DONE"
 
 [node name="buzzer_toggle" type="HBoxContainer" parent="question_card"]
+layout_mode = 0
 offset_left = 136.0
 offset_top = 261.0
 offset_right = 393.0
@@ -162,6 +170,7 @@ disabled = true
 text = "Enable buzzers"
 
 [node name="show_answer" type="Button" parent="question_card"]
+layout_mode = 0
 offset_left = 137.0
 offset_top = 375.0
 offset_right = 266.0
@@ -169,6 +178,7 @@ offset_bottom = 458.0
 text = "Show ANSWER"
 
 [node name="score_buttons" type="GridContainer" parent="question_card"]
+layout_mode = 0
 offset_left = 17.0
 offset_top = 488.0
 offset_right = 518.0

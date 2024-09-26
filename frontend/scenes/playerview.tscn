@@ -79,8 +79,8 @@ _data = {
 script = ExtResource("1_5y4eo")
 
 [node name="round_screen" type="Panel" parent="."]
-offset_right = 1500.0
-offset_bottom = 1200.0
+offset_right = 1152.0
+offset_bottom = 619.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_038wa")
 
 [node name="main_view" type="VBoxContainer" parent="round_screen"]
@@ -526,20 +526,21 @@ autowrap_mode = 3
 layout_mode = 2
 
 [node name="categories_slider" type="Panel" parent="round_screen"]
-visible = false
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
-offset_right = 571.0
-offset_bottom = 160.0
+offset_top = -400.0
+offset_right = 839.0
+offset_bottom = -122.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_setbx")
 
 [node name="hbox" type="HBoxContainer" parent="round_screen/categories_slider"]
 layout_mode = 0
-offset_right = 564.0
-offset_bottom = 154.0
+offset_right = 942.0
+offset_bottom = 179.0
 theme_override_constants/separation = 0
 
 [node name="cat0" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -551,7 +552,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cat1" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -563,7 +564,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cat2" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -575,7 +576,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cat3" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -587,7 +588,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cat4" type="Label" parent="round_screen/categories_slider/hbox"]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -614,7 +615,7 @@ visible = false
 
 [node name="FadePanel" type="Panel" parent="."]
 modulate = Color(1, 1, 1, 0)
-offset_right = 1216.0
+offset_right = 1260.0
 offset_bottom = 701.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_62p32")
 

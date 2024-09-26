@@ -46,7 +46,6 @@ func _ready() -> void:
 	intro_screen.show()
 
 	init_category_buttons()
-	init_categories_slider()
 	init_question_buttons()
 
 	pause_game()
@@ -94,18 +93,20 @@ func _on_game_state_loaded():
 
 func init_categories_slider():
 	for btn in categories_slider.get_node("hbox").get_children():
+		print("setting font size for cat labels to 40")
 		btn.add_theme_font_size_override("font_size", 40)
 	
 	var categories = game["rounds"][game_state.current_round]["categories"]
 	var sz = get_viewport().get_size()
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
 	categories_slider.get_node("hbox").size = Vector2(sz.x * 5, sz.y)
+	print("hbox size is now ", Vector2(sz.x * 5, sz.y))
 	for cat_idx in range(len(categories)):
 		categories_slider.get_node("hbox").get_child(cat_idx).text = categories[cat_idx]["name"]
 	categories_slider.position = Vector2(sz.x, 0)
 
 func position_categories_slider(category_idx):
-	var sz = main_view.get_rect().size
+	var sz = get_viewport().get_size()
 	categories_slider.position = Vector2(-category_idx * sz.x, 0)
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
 
@@ -137,7 +138,7 @@ func pause_game():
 func reveal_category(previous_cat_idx, cat_idx):
 	if previous_cat_idx >= 0 and previous_cat_idx < 5:
 		get_category_button(previous_cat_idx).text = game["rounds"][game_state.current_round]["categories"][previous_cat_idx]["name"]
-	var sz = main_view.get_rect().size
+	var sz = get_viewport().get_size()
 	position_categories_slider(previous_cat_idx)
 	categories_slider.show()
 	var tween = create_tween()
