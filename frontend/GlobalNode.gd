@@ -21,6 +21,5 @@ func restore_game_state():
 	result.load(game_location + ".state")
 	return result
 
-
 func save_state() -> void:
 	game_state.save(game_location + ".state")

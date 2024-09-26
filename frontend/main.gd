@@ -87,8 +87,6 @@ func _ready() -> void:
 		for cat in range(5):
 			questions.add_child(create_question_button(cat, q))
 			
-	game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
-
 func create_category_button(cat):
 	var btn = Button.new()
 	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -97,9 +95,6 @@ func create_category_button(cat):
 	btn.disabled = true
 	btn.size_flags_stretch_ratio = 2
 	return btn	
-	
-func _on_game_state_loaded():
-	reset_question_buttons()
 	
 func get_category_button(cat):
 	return questions.get_child(cat)
@@ -196,7 +191,7 @@ func on_random_team_pressed() -> void:
 
 func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
-		game_state.mark_correct(current_question, team_idx)
+		game_state.mark_correct(team_idx, current_question)
 		disable_answer_grading_buttons()
 		# mark question completed but don't hide it from playerview
 		var btn = get_question_button(current_question)
@@ -221,7 +216,7 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
 		already_buzzed.append(team_idx)
 		print("already buzzed is now ", already_buzzed)
-		game_state.mark_wrong(current_question, team_idx)
+		game_state.mark_wrong(team_idx, current_question)
 		disable_answer_grading_buttons()
 		enable_buzzers_with_position(waiting_audio_position)
 		send_enable_disable_message([-1], already_buzzed)
@@ -285,7 +280,8 @@ func handle_buzzer(team_idx):
 	if not buzzers_enabled:
 		print("Team ", team_idx, " pressed buzzer early. Disabling for .5 seconds")
 		# TODO: also turn off buzzer light?
-		# Needs a timer to re-enable the buzzer
+		# Needs a timer to re-enable the buzzer light,
+		# We can do this in _Process
 		buzzer_locked_until[team_idx] = Time.get_ticks_msec() + 500
 		return
 	

@@ -1,11 +1,8 @@
 extends HBoxContainer
 
-#TODO: rename to game
-var data
-var game_state: GameState
+var game = GlobalNode.game
+var game_state := GlobalNode.game_state
 
-#TODO: get team names from data?
-var teams
 var current_team = -1
 
 var current_scores = [0,0,0]

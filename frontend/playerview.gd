@@ -59,7 +59,7 @@ func _ready() -> void:
 		if q.round == game_state.current_round:
 			get_question_label(q).text = ""
 
-	$AnimationPlayer.animation_finished.connect(Callable(self, "on_animation_finished"))
+	$AnimationPlayer.animation_finished.connect(on_animation_finished)
 	
 func _process(_delta: float) -> void:
 	pass
@@ -71,9 +71,8 @@ func on_animation_finished(anim_name):
 		views[next_view].show()
 		$AnimationPlayer.play("fade_in")
 
-#TODO: rename to fade_to_view or transition_to_view
-func show_view(view_name: String):
-	print("starting fade out, preparing transition to", view_name)
+func transition_to_view(view_name: String):
+	print("starting fade out, preparing transition to ", view_name)
 	next_view = view_name
 	$AnimationPlayer.play("fade_out")
 	
@@ -98,12 +97,12 @@ func position_categories_slider(category_idx):
 
 func on_round_finished():
 	# TODO: pass round number. if this was the last round, go to the next viww (halfway or final)
-	show_view("halfway_screen")
+	transition_to_view("halfway_screen")
 	question_holder.hide()
 	
-func start_round(round_idx):
+func start_round(_round_idx):
 	print("start round")
-	show_view("round_screen")
+	transition_to_view("round_screen")
 	hide_question()
 	init_category_buttons()
 	init_categories_slider()
@@ -117,7 +116,7 @@ func start_round(round_idx):
 		get_question_label(q).text = ""
 		
 func pause_game():	
-	show_view("intro_screen")
+	transition_to_view("intro_screen")
 	# TODO: why this?
 	question_holder.hide()
 		
@@ -263,4 +262,4 @@ func select_random_team():
 	scoreboard.select_random_team()
 
 func on_game_over():
-	show_view("gameover_screen")
+	transition_to_view("gameover_screen")

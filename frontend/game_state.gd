@@ -17,18 +17,15 @@ func _init(_scores: Array[int] = [0,0,0], _questions: Array[QuestionId] = [], _c
 	self.score_times = [0,0,0]
 	self.questions = _questions
 	self.current_round = _current_round
-	
-# TODO: make team_id the first argument for consistency
-func mark_correct(question_id: QuestionId, team_idx: int):
+
+func mark_correct(team_idx: int, question_id: QuestionId):
 	update_score(team_idx, question_values[question_id.question])
 
-# TODO: make team_id the first argument for consistency
-func mark_wrong(question_id: QuestionId, team_idx: int):
+func mark_wrong(team_idx: int, question_id: QuestionId):
 	update_score(team_idx, -question_values[question_id.question])
 
 func mark_question_complete(question_id: QuestionId):
-	# TODO: this if isn't working. Check is_equal_approx. Is that even right?
-	# TODO: make questions a set?
+	# TODO: this if isn't working, identical questions_ids can occur multiple times. how to implement equals in Godot?
 	if question_id not in questions:
 		questions.append(question_id)
 
