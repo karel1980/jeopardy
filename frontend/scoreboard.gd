@@ -29,7 +29,7 @@ func _ready() -> void:
 	score_negative_style = score_neutral_style.duplicate()
 	score_negative_style.border_color = Color(1,.2,.2)
 	
-	get_tree().get_current_scene().buzzer_accepted.connect(_buzzer_animation)
+	GlobalNode.buzzer_accepted.connect(_buzzer_animation)
 	
 func _process(_delta: float) -> void:
 	for team_idx in range(len(current_scores)):

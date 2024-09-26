@@ -50,13 +50,12 @@ func _ready() -> void:
 
 	pause_game()
 	
-	var hostview = get_tree().root.get_child(0)
-	hostview.round_started.connect(Callable(self, "start_round"))
-	hostview.round_finished.connect(Callable(self, "on_round_finished"))
-	hostview.category_revealed.connect(Callable(self, "reveal_category"))
-	hostview.question_selected.connect(Callable(self, "show_question"))
-	hostview.game_paused.connect(Callable(self, "pause_game"))
-	hostview.game_over.connect(Callable(self, "on_game_over"))
+	GlobalNode.round_started.connect(Callable(self, "start_round"))
+	GlobalNode.round_finished.connect(Callable(self, "on_round_finished"))
+	GlobalNode.category_revealed.connect(Callable(self, "reveal_category"))
+	GlobalNode.question_selected.connect(Callable(self, "show_question"))
+	GlobalNode.game_paused.connect(Callable(self, "pause_game"))
+	GlobalNode.game_over.connect(Callable(self, "on_game_over"))
 
 	scoreboard.init_game(game, game_state)
 	halfway_screen.init_game(game, game_state)
@@ -70,7 +69,7 @@ func _process(_delta: float) -> void:
 func on_animation_finished(anim_name):
 	if anim_name == "fade_out":
 		for view in views.values():
-			view.hide()		
+			view.hide()
 		views[next_view].show()
 		$AnimationPlayer.play("fade_in")
 

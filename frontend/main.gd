@@ -1,6 +1,5 @@
 extends Panel
 
-var game_is_paused = true
 var playerview_scene = preload('res://scenes/playerview.tscn')
 var playerview
 
@@ -13,16 +12,6 @@ var current_revealed_category = -1
 var buzzers_enabled = false
 
 var waiting_audio_position = null
-
-#TODO: still used?
-signal game_paused
-signal game_over
-signal round_started(round_number)
-signal round_finished
-signal category_revealed
-signal question_selected
-signal question_deselected
-signal buzzer_accepted
 
 @onready var correct_buttons = [
 	$question_card/score_buttons/team_1_correct,
@@ -64,18 +53,15 @@ signal buzzer_accepted
 	preload("res://assets/audio/sfx_buzzer_9.ogg"),
 	preload("res://assets/audio/sfx_buzzer_10.ogg"),
 ]
-var game_location = "../jeopardy.json"
-var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())
-var game_state: GameState = GameState.new()
-var categories = game["rounds"][0]["categories"]
+
+var game = GlobalNode.game
+var game_state = GlobalNode.game_state
 
 func _ready() -> void:
 	var win = get_window()
 	win.gui_embed_subwindows = false
 	question_card.hide()
 	questions.hide()
-	
-	var state_file_location = game_location + ".state"
 	
 	var playerwin = Window.new()
 	playerwin.size = get_tree().root.size
@@ -104,7 +90,6 @@ func _ready() -> void:
 			questions.add_child(create_question_button(cat, q))
 			
 	game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
-	game_state.load(state_file_location)		
 
 func create_category_button(cat):
 	var btn = Button.new()
@@ -147,20 +132,20 @@ func show_question(cat_idx, question_idx):
 		hide_question()
 		questions.show()
 	else:
-		question_selected.emit(QuestionId.new(game_state.current_round, cat_idx, question_idx))
+		GlobalNode.question_selected.emit(QuestionId.new(game_state.current_round, cat_idx, question_idx))
 		question_card.show()
 		questions.hide()
 		disable_buzzers()
 		already_buzzed = []
 		buzzer_locked_until = [0, 0, 0]
 		question_done.disabled = false
-		question_category.text = categories[cat_idx]["name"]
+		question_category.text = game.rounds[game_state.current_round].categories[cat_idx]["name"]
 		current_question = QuestionId.new(game_state.current_round, cat_idx, question_idx)
-		var question = categories[cat_idx]["questions"][question_idx]
+		var question = game.rounds[game_state.current_round].categories[cat_idx]["questions"][question_idx]
 		question_value.text = str(points[question_idx])
 		question_label.text = question["q"]
 		answer.text = question["a"]
-		if "n" in categories[cat_idx]["questions"][question_idx]:
+		if "n" in game.rounds[game_state.current_round].categories[cat_idx]["questions"][question_idx]:
 			note.text = question["n"]
 		else:
 			note.text = "---"
@@ -177,7 +162,7 @@ func hide_question():
 	
 	question_card.hide()
 	questions.show()
-	question_deselected.emit()	
+	GlobalNode.question_deselected.emit()	
 
 func _process(_delta: float) -> void:
 	pass
@@ -186,7 +171,7 @@ func on_show_intro_pressed() -> void:
 	disable_reveal_category_buttons()
 	for btn in questions.get_children():
 		btn.disabled = true
-	game_paused.emit()
+	GlobalNode.game_paused.emit()
 	
 func all_categories_revealed():
 	return current_revealed_category == 5
@@ -194,7 +179,7 @@ func all_categories_revealed():
 func on_reveal_next_category_pressed() -> void:
 	if current_revealed_category < 5:
 		current_revealed_category += 1
-		category_revealed.emit(current_revealed_category - 1, current_revealed_category)
+		GlobalNode.category_revealed.emit(current_revealed_category - 1, current_revealed_category)
 		if current_revealed_category == 5:
 			for btn in questions.get_children():
 				btn.disabled = false
@@ -204,7 +189,7 @@ func on_reveal_previous_category_pressed() -> void:
 	if current_revealed_category <= -1:
 		return
 	current_revealed_category -= 1
-	category_revealed.emit(current_revealed_category + 1, current_revealed_category)
+	GlobalNode.category_revealed.emit(current_revealed_category + 1, current_revealed_category)
 	for btn in questions.get_children():
 		btn.disabled = true
 		
@@ -254,7 +239,7 @@ func _on_manual_score_decrease(team_idx: int) -> void:
 	persist_state()
 
 func persist_state():
-	game_state.save(game_location + ".state")
+	GlobalNode.save_state()
 
 # button press
 func enable_buzzers():
@@ -310,7 +295,7 @@ func handle_buzzer(team_idx):
 		print("Team ", team_idx, " buzzer is still locked out")
 		return
 
-	buzzer_accepted.emit(team_idx)
+	GlobalNode.buzzer_accepted.emit(team_idx)
 	waiting_audio_position = $buzzer_wait_music.get_playback_position()
 	disable_buzzers()
 	send_enable_disable_message([team_idx], [0,1,2].filter(func(i):return i != team_idx))
@@ -342,13 +327,11 @@ func start_round(round_number: int) -> void:
 		var btn = get_category_button(cat)
 		btn.text = str(game["rounds"][game_state.current_round]["categories"][cat]["name"])
 	print("starting round ", round_number)
-	round_started.emit(round_number)
+	GlobalNode.round_started.emit(round_number)
 	enable_reveal_category_buttons()
 	reset_question_buttons()
 	question_card.hide()
 	questions.show()
-	categories = game["rounds"][round_number]["categories"]
-
 
 func enable_reveal_category_buttons():
 	for btn in reveal_category_buttons.get_children():
@@ -360,10 +343,10 @@ func disable_reveal_category_buttons():
 
 func on_halfway_pressed() -> void:
 	print("emitting round_finished")
-	round_finished.emit()
+	GlobalNode.round_finished.emit()
 
 func on_gameover_pressed() -> void:
-	game_over.emit()
+	GlobalNode.game_over.emit()
 
 func show_answer() -> void:
 	playerview.show_answer(current_question)
