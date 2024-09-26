@@ -11,11 +11,15 @@ signal buzzer_accepted
 
 var game_location = "../jeopardy.json"
 var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())
-var game_state: GameState = GameState.new()
+var game_state: GameState = restore_game_state()
 
 func _ready() -> void:
-	var state_file_location = game_location + ".state"
-	game_state.load(state_file_location)		
+	pass
+	
+func restore_game_state():
+	var result = GameState.new()
+	result.load(game_location + ".state")
+	return result
 
 
 func save_state() -> void:

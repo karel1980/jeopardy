@@ -68,8 +68,6 @@ func _ready() -> void:
 	
 	playerview = playerview_scene.instantiate()
 	playerview.name = "playerview"
-	# todo: signal
-	playerview.init_game(game, game_state)
 	
 	playerwin.content_scale_aspect = win.content_scale_aspect
 	playerwin.content_scale_mode = win.content_scale_mode

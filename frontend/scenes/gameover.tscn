@@ -35,7 +35,7 @@ offset_right = 1147.0
 offset_bottom = 638.0
 
 [node name="name" type="RichTextLabel" parent="winner"]
-custom_minimum_size = Vector2(500, 100)
+custom_minimum_size = Vector2(900, 100)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10

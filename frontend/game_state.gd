@@ -2,7 +2,6 @@ extends Object
 
 class_name GameState
 
-signal game_state_loaded
 signal scores_updated
 
 static var question_values = [ 100, 200, 300, 400, 500 ]
@@ -57,8 +56,6 @@ func load(path: String):
 			questions.append(QuestionId.new(int(d[0]), int(d[1]), int(d[2])))
 
 		current_round = int(data["round"])
-
-	game_state_loaded.emit()
 
 func save(path: String):
 	var game_state_file = FileAccess.open(path, FileAccess.WRITE)

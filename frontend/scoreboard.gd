@@ -30,6 +30,8 @@ func _ready() -> void:
 	score_negative_style.border_color = Color(1,.2,.2)
 	
 	GlobalNode.buzzer_accepted.connect(_buzzer_animation)
+	GlobalNode.game_state.scores_updated.connect(update_scores)
+
 	
 func _process(_delta: float) -> void:
 	for team_idx in range(len(current_scores)):
@@ -100,14 +102,6 @@ func unselect_team():
 	widgets[0].modulate = mod_color_none
 	widgets[1].modulate = mod_color_none
 	widgets[2].modulate = mod_color_none
-
-func init_game(_game_data, _game_state):
-	data = _game_data
-	self.game_state = _game_state
-	teams = data["teams"]
-	
-	self.game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
-	self.game_state.connect("scores_updated", Callable(self, "update_scores"))
 	
 func set_current_team(team_idx):
 	# TODO: add some code to avoid running 2 tweens in parallel (basically disable the button until done)
@@ -116,12 +110,6 @@ func set_current_team(team_idx):
 		t.tween_property(widgets[current_team], "modulate", mod_color_none, 0.2)
 		current_team = team_idx
 		t.tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
-	
-func _on_game_state_loaded():
-	$"team 1/name".text = data["teams"][0]
-	$"team 2/name".text = data["teams"][1]
-	$"team 3/name".text = data["teams"][2]
-	update_scores(game_state.scores, game_state.score_times)
 	
 func update_scores(scores, _score_times):
 	target_scores = scores

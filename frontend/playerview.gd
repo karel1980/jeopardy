@@ -19,8 +19,8 @@ extends Node2D
 
 var normal_font = load("res://assets/fonts/LilitaOne-Regular.ttf")
 
-var game
-var game_state
+var game = GlobalNode.game
+var game_state = GlobalNode.game_state
 
 var next_view: String
 
@@ -40,27 +40,25 @@ var cat_tween2 = null
 var cat_button = null
 
 func _ready() -> void:
-	$FadePanel.modulate = Color(1,1,1)
+	$FadePanel.modulate = Color(0,0,0,0)
 	for v in views.values():
 		v.hide()
 	intro_screen.show()
 
 	init_category_buttons()
 	init_question_buttons()
-
-	pause_game()
 	
-	GlobalNode.round_started.connect(Callable(self, "start_round"))
-	GlobalNode.round_finished.connect(Callable(self, "on_round_finished"))
-	GlobalNode.category_revealed.connect(Callable(self, "reveal_category"))
-	GlobalNode.question_selected.connect(Callable(self, "show_question"))
-	GlobalNode.game_paused.connect(Callable(self, "pause_game"))
-	GlobalNode.game_over.connect(Callable(self, "on_game_over"))
-
-	scoreboard.init_game(game, game_state)
-	halfway_screen.init_game(game, game_state)
-	gameover_screen.init_game(game, game_state)
+	GlobalNode.round_started.connect(start_round)
+	GlobalNode.round_finished.connect(on_round_finished)
+	GlobalNode.category_revealed.connect(reveal_category)
+	GlobalNode.question_selected.connect(show_question)
+	GlobalNode.game_paused.connect(pause_game)
+	GlobalNode.game_over.connect(on_game_over)
 	
+	for q in game_state.questions:
+		if q.round == game_state.current_round:
+			get_question_label(q).text = ""
+
 	$AnimationPlayer.animation_finished.connect(Callable(self, "on_animation_finished"))
 	
 func _process(_delta: float) -> void:
@@ -79,17 +77,6 @@ func show_view(view_name: String):
 	next_view = view_name
 	$AnimationPlayer.play("fade_out")
 	
-func init_game(game_data, _game_state):
-	game = game_data
-	game_state = _game_state
-	
-	game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
-	
-func _on_game_state_loaded():
-	for q in game_state.questions:
-		if q.round == game_state.current_round:
-			get_question_label(q).text = ""
-
 func init_categories_slider():
 	for btn in categories_slider.get_node("hbox").get_children():
 		print("setting font size for cat labels to 40")

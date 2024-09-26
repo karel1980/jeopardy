@@ -1,21 +1,12 @@
 extends Node2D
 
-var game
-var game_state
+var game = GlobalNode.game
+var game_state = GlobalNode.game_state
 
 func _ready() -> void:
-	pass
-	
-func init_game(_game, _game_state):
-	self.game = _game
-	self.game_state = _game_state
-	
-	self.game_state.connect("game_state_loaded", Callable(self, "_on_game_state_loaded"))
-	self.game_state.connect("scores_updated", Callable(self, "update_scores"))
-
-func _on_game_state_loaded():
+	GlobalNode.game_state.scores_updated.connect(update_scores)
 	update_winner()
-	
+
 func update_scores(_scores, _score_times):
 	update_winner()
 	
