@@ -26,7 +26,9 @@ func _ready() -> void:
 	score_negative_style = score_neutral_style.duplicate()
 	score_negative_style.border_color = Color(1,.2,.2)
 	
-	GlobalNode.buzzer_accepted.connect(_buzzer_animation)
+	GlobalNode.random_team_selection_requested.connect(select_random_team)
+	GlobalNode.buzzer_accepted.connect(_on_buzzer_accepted)
+	GlobalNode.team_deselected.connect(deselect_team)
 	GlobalNode.game_state.scores_updated.connect(update_scores)
 	
 	target_scores = game_state.scores.duplicate()
@@ -91,6 +93,10 @@ func select_random_team():
 		t.tween_property(widgets[1], "modulate", mod_color_none, 0.2)
 		t.parallel().tween_property(widgets[2], "modulate", highlight_color, 0.2)
 		
+func _on_buzzer_accepted(team_idx):
+	_buzzer_animation(team_idx)
+	highlight_team(team_idx)
+
 func highlight_team(team_idx):
 	var t = create_tween()
 
@@ -101,7 +107,7 @@ func highlight_team(team_idx):
 	else:
 		t.tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
 
-func unselect_team():
+func deselect_team():
 	current_team = -1
 	widgets[0].modulate = mod_color_none
 	widgets[1].modulate = mod_color_none

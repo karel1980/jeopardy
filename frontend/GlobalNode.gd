@@ -3,11 +3,16 @@ extends Node
 signal game_paused
 signal game_over
 signal round_started(round_number)
+signal random_team_selection_requested
 signal round_finished
 signal category_revealed
 signal question_selected
+signal answer_revealed
+signal question_answered_correctly
 signal question_deselected
+signal question_completed
 signal buzzer_accepted
+signal team_deselected
 
 var game_location = "../jeopardy.json"
 var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())

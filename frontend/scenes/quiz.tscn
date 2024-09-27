@@ -1,0 +1,550 @@
+[gd_scene load_steps=12 format=3 uid="uid://oo0sx0i77w3"]
+
+[ext_resource type="Theme" uid="uid://ddioxswmi2st5" path="res://base_theme.tres" id="1_js2fc"]
+[ext_resource type="Script" path="res://scenes/quiz.gd" id="1_tj3u1"]
+[ext_resource type="StyleBox" uid="uid://beccef2ljkx4v" path="res://category_label_style.tres" id="2_gdiy3"]
+[ext_resource type="FontFile" uid="uid://kmhudoaqab3v" path="res://assets/fonts/PressStart2P-Regular.ttf" id="3_id86e"]
+[ext_resource type="StyleBox" uid="uid://bdj2ax7kcy7ge" path="res://question_label_style.tres" id="4_73kob"]
+[ext_resource type="StyleBox" uid="uid://c1j57dsn8j80y" path="res://question_label_style_bottom.tres" id="5_aqxqo"]
+[ext_resource type="PackedScene" uid="uid://oqn6pb732n5a" path="res://scenes/scoreboard.tscn" id="6_eb1u5"]
+[ext_resource type="FontFile" uid="uid://blxlusd64fl4c" path="res://assets/fonts/LilitaOne-Regular.ttf" id="7_yj5xb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_038wa"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_setbx"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3qdc"]
+bg_color = Color(0, 0, 1, 1)
+border_width_left = 50
+border_width_top = 50
+border_width_right = 50
+border_width_bottom = 50
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 80
+corner_radius_top_right = 80
+corner_radius_bottom_right = 80
+corner_radius_bottom_left = 80
+
+[node name="round_screen" type="Panel"]
+offset_right = 1152.0
+offset_bottom = 619.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_038wa")
+script = ExtResource("1_tj3u1")
+
+[node name="main_view" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 614.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="questionboard" type="HBoxContainer" parent="main_view"]
+custom_minimum_size = Vector2(1150, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="cat0" type="VBoxContainer" parent="main_view/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="main_view/questionboard/cat0"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Label" parent="main_view/questionboard/cat0/MarginContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_js2fc")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_gdiy3")
+text = "Category"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Label" parent="main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button2" type="Label" parent="main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button3" type="Label" parent="main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button4" type="Label" parent="main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button5" type="Label" parent="main_view/questionboard/cat0"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("5_aqxqo")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="cat1" type="VBoxContainer" parent="main_view/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="main_view/questionboard/cat1"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Label" parent="main_view/questionboard/cat1/MarginContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_js2fc")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_gdiy3")
+text = "Category"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Label" parent="main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button2" type="Label" parent="main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button3" type="Label" parent="main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button4" type="Label" parent="main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button5" type="Label" parent="main_view/questionboard/cat1"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("5_aqxqo")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="cat2" type="VBoxContainer" parent="main_view/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="main_view/questionboard/cat2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Label" parent="main_view/questionboard/cat2/MarginContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_js2fc")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_gdiy3")
+text = "Category"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Label" parent="main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button2" type="Label" parent="main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button3" type="Label" parent="main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button4" type="Label" parent="main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button5" type="Label" parent="main_view/questionboard/cat2"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("5_aqxqo")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="cat3" type="VBoxContainer" parent="main_view/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="main_view/questionboard/cat3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Label" parent="main_view/questionboard/cat3/MarginContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_js2fc")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_gdiy3")
+text = "Category"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Label" parent="main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button2" type="Label" parent="main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button3" type="Label" parent="main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button4" type="Label" parent="main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button5" type="Label" parent="main_view/questionboard/cat3"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("5_aqxqo")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="cat4" type="VBoxContainer" parent="main_view/questionboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="main_view/questionboard/cat4"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Label" parent="main_view/questionboard/cat4/MarginContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_js2fc")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("2_gdiy3")
+text = "Category"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Label" parent="main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button2" type="Label" parent="main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button3" type="Label" parent="main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button4" type="Label" parent="main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_73kob")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button5" type="Label" parent="main_view/questionboard/cat4"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.583333, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_id86e")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("5_aqxqo")
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="question_holder" type="Node2D" parent="main_view"]
+
+[node name="scoreboard" parent="main_view" instance=ExtResource("6_eb1u5")]
+layout_mode = 2
+
+[node name="categories_slider" type="Panel" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+offset_top = -400.0
+offset_right = 839.0
+offset_bottom = -122.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_setbx")
+
+[node name="hbox" type="HBoxContainer" parent="categories_slider"]
+layout_mode = 0
+offset_right = 942.0
+offset_bottom = 179.0
+theme_override_constants/separation = 0
+
+[node name="cat0" type="Label" parent="categories_slider/hbox"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("7_yj5xb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
+text = "cat 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="cat1" type="Label" parent="categories_slider/hbox"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("7_yj5xb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
+text = "cat 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="cat2" type="Label" parent="categories_slider/hbox"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("7_yj5xb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
+text = "cat 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="cat3" type="Label" parent="categories_slider/hbox"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("7_yj5xb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
+text = "cat 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="cat4" type="Label" parent="categories_slider/hbox"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("7_yj5xb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o3qdc")
+text = "cat 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

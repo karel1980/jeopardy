@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckioe6o5udbxa"]
+
+[ext_resource type="Texture2D" uid="uid://cr827ys3nn2od" path="res://jeopardy.jpg" id="1_u1vlp"]
+
+[node name="intro_screen" type="TextureRect"]
+offset_right = 1152.0
+offset_bottom = 768.0
+texture = ExtResource("1_u1vlp")
+expand_mode = 5
+stretch_mode = 4

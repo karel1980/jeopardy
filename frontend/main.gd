@@ -152,7 +152,6 @@ func hide_question():
 	disable_answer_grading_buttons()
 
 	# ui	
-	playerview.hide_question()
 	question_done.disabled = true
 	
 	question_card.hide()
@@ -189,7 +188,7 @@ func on_reveal_previous_category_pressed() -> void:
 		btn.disabled = true
 		
 func on_random_team_pressed() -> void:
-	playerview.select_random_team()
+	GlobalNode.random_team_selection_requested.emit()
 
 func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
@@ -198,7 +197,7 @@ func _on_team_correct_pressed(team_idx: int) -> void:
 		# mark question completed but don't hide it from playerview
 		var btn = get_question_button(current_question)
 		btn.text = "---"
-		show_answer()
+		GlobalNode.question_answered_correctly.emit(current_question)
 		persist_state()
 	
 func mark_question_completed():
@@ -206,7 +205,7 @@ func mark_question_completed():
 		game_state.mark_question_complete(current_question)
 		var btn = get_question_button(current_question)
 		btn.text = "---"
-		playerview.mark_question_completed(current_question)
+		GlobalNode.question_completed.emit(current_question)
 		persist_state()
 		hide_question()
 		current_question = null
@@ -245,7 +244,7 @@ func enable_buzzers_with_position(pos):
 	buzzers_enabled = true
 	disable_buzzers_btn.disabled = false
 	enable_buzzers_btn.disabled = true
-	playerview.scoreboard.unselect_team()
+	GlobalNode.team_deselected.emit()
 	disable_answer_grading_buttons()
 	if pos:
 		$buzzer_wait_music.play(pos)
@@ -301,7 +300,6 @@ func handle_buzzer(team_idx):
 	var rand_index:int = randi() % sounds.size()
 	$buzzer_beep.stream = sounds[rand_index]
 	$buzzer_beep.play()
-	playerview.scoreboard.highlight_team(team_idx)
 	enable_answer_grading_buttons(team_idx)
 	
 func enable_answer_grading_buttons(team_idx: int):
@@ -345,9 +343,9 @@ func on_halfway_pressed() -> void:
 
 func on_gameover_pressed() -> void:
 	GlobalNode.game_over.emit()
-
+	
 func show_answer() -> void:
-	playerview.show_answer(current_question)
+	GlobalNode.answer_revealed.emit(current_question)
 
 func enable_disable_message(enable, disable) -> String:
 	var data = {}
