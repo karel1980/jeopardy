@@ -5,8 +5,8 @@ var game_state := GlobalNode.game_state
 
 var current_team = -1
 
-var current_scores = [0,0,0]
-var target_scores = [0,0,0]
+var current_scores: Array[int] = [0,0,0]
+var target_scores: Array[int] = [0,0,0]
 
 var score_positive_style: StyleBoxFlat
 var score_neutral_style: StyleBoxFlat
@@ -28,7 +28,11 @@ func _ready() -> void:
 	
 	GlobalNode.buzzer_accepted.connect(_buzzer_animation)
 	GlobalNode.game_state.scores_updated.connect(update_scores)
-
+	
+	target_scores = game_state.scores.duplicate()
+	current_scores = game_state.scores.duplicate()
+	for team_idx in range(len(current_scores)):
+		update_score_label(team_idx)
 	
 func _process(_delta: float) -> void:
 	for team_idx in range(len(current_scores)):
@@ -36,8 +40,11 @@ func _process(_delta: float) -> void:
 		if score_diff == 0:
 			continue
 		current_scores[team_idx] += sign(score_diff) * 2
-		score_labels[team_idx].text = str(current_scores[team_idx])
-		update_score_color(team_idx, current_scores[team_idx])
+		update_score_label(team_idx)
+
+func update_score_label(team_idx):
+	score_labels[team_idx].text = str(current_scores[team_idx])
+	update_score_color(team_idx, current_scores[team_idx])
 
 func _buzzer_animation(idx):
 	var rect = teams_ui[idx].get_node("name").get_global_rect()

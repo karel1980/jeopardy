@@ -217,11 +217,12 @@ func get_question_button(question_id: QuestionId):
 func _on_team_wrong_pressed(team_idx: int) -> void:
 	if current_question:
 		already_buzzed.append(team_idx)
-		print("already buzzed is now ", already_buzzed)
 		game_state.mark_wrong(team_idx, current_question)
 		disable_answer_grading_buttons()
-		enable_buzzers_with_position(waiting_audio_position)
-		send_enable_disable_message([-1], already_buzzed)
+		if len(already_buzzed) < 3:
+			enable_buzzers_with_position(waiting_audio_position)
+		else:
+			send_enable_disable_message([-1], already_buzzed)
 		persist_state()
 
 func _on_manual_score_increase(team_idx: int) -> void:
@@ -236,7 +237,6 @@ func _on_manual_score_decrease(team_idx: int) -> void:
 func persist_state():
 	GlobalNode.save_state()
 
-# button press
 func enable_buzzers():
 	enable_buzzers_with_position(null)
 	send_enable_disable_message([-1], already_buzzed)

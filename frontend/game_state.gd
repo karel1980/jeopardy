@@ -38,6 +38,7 @@ func decrement_score(team_idx: int, score: int):
 func update_score(team_idx: int, score: int):
 	scores[team_idx] += score
 	score_times[team_idx] = score_times.max() + 1
+	print("emitting new scores", scores)
 	scores_updated.emit(scores, score_times)
 	
 func load(path: String):
