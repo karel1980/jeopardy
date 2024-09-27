@@ -356,4 +356,4 @@ func enable_disable_message(enable, disable) -> String:
 	return JSON.stringify(data)
 	
 func send_enable_disable_message(enable, disable):
-	$SerialControl.sendLine(enable_disable_message(enable, disable))
+	$SerialControl.SendLine(enable_disable_message(enable, disable))

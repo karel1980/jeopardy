@@ -8,7 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text.Json;
 
-public partial class SerialControl : Node
+public partial class SerialControl : Node2D
 {
 	private SerialPort port;
 	private ConcurrentQueue<string> messageQueue = new ConcurrentQueue<string>();
@@ -174,5 +174,5 @@ public partial class SerialControl : Node
 		StartSerialConnection();
 	}
 
-	private void OnButton2Pressed() { SendEnableDisableMessage(new int[] { 0, 1 }, new int[] { 2, 3 }); }
+	private void _on_button2_pressed() { SendEnableDisableMessage(new int[] { 0, 1 }, new int[] { 2, 3 }); }
 }
