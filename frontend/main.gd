@@ -14,6 +14,7 @@ var current_revealed_category = -1
 var buzzers_enabled = false
 
 var waiting_audio_position = null
+var buzzer_wait_music_fadeout_tween = null
 
 @onready var correct_buttons = [
 	$question_card/score_buttons/team_1_correct,
@@ -117,8 +118,6 @@ func reset_question_buttons():
 			btn.text = str(points[question_idx])
 			btn.disabled = true
 			
-	# TODO: move this into the first for loop? Requires 'in questions' to work
-	# call reset_question_buttons when game_state is loaded instead of duplicated code
 	for q in game_state.get_current_round_questions():
 		get_question_button(q).text = "---"
 	
@@ -149,6 +148,10 @@ func hide_question():
 	# state
 	current_question = null
 	disable_buzzers()
+	#$buzzer_wait_music.stop()
+	
+	fade_out_wait_music()
+	
 	disable_answer_grading_buttons()
 
 	# ui	
@@ -156,7 +159,18 @@ func hide_question():
 	
 	question_card.hide()
 	questions.show()
-	GlobalNode.question_deselected.emit()	
+	GlobalNode.question_deselected.emit()
+	
+func fade_out_wait_music():
+	if buzzer_wait_music_fadeout_tween:
+		buzzer_wait_music_fadeout_tween.stop()
+	buzzer_wait_music_fadeout_tween = create_tween()
+	waiting_audio_position = $buzzer_wait_music.get_playback_position()
+	buzzer_wait_music_fadeout_tween.tween_property($buzzer_wait_music, "volume_db", -80, 5)
+	buzzer_wait_music_fadeout_tween.connect("tween_completed", _on_audio_faded_out)
+
+func _on_audio_faded_out():
+	$buzzer_wait_music.stop()
 
 func _process(_delta: float) -> void:
 	pass
@@ -246,17 +260,24 @@ func enable_buzzers_with_position(pos):
 	enable_buzzers_btn.disabled = true
 	GlobalNode.team_deselected.emit()
 	disable_answer_grading_buttons()
+	if buzzer_wait_music_fadeout_tween:
+		buzzer_wait_music_fadeout_tween.stop()
+	$buzzer_wait_music.volume_db = 0
 	if pos:
 		$buzzer_wait_music.play(pos)
 	else:
 		$buzzer_wait_music.play()
+		
+
+func _on_disable_buzzers():
+	fade_out_wait_music()
+	disable_buzzers()
 
 func disable_buzzers():
 	buzzers_enabled = false
 	disable_buzzers_btn.disabled = true
 	enable_buzzers_btn.disabled = false
 	disable_answer_grading_buttons()
-	$buzzer_wait_music.stop()
 	send_enable_disable_message([], [-1])
 
 func _on_serial_received(line: String):
@@ -294,6 +315,7 @@ func handle_buzzer(team_idx):
 
 	GlobalNode.buzzer_accepted.emit(team_idx)
 	waiting_audio_position = $buzzer_wait_music.get_playback_position()
+	$buzzer_wait_music.stop()
 	disable_buzzers()
 	send_enable_disable_message([team_idx], [0,1,2].filter(func(i):return i != team_idx))
 	
