@@ -11,6 +11,8 @@ func _ready() -> void:
 
 	GlobalNode.game_state.scores_updated.connect(update_scores)
 	update_scores(game_state.scores, game_state.score_times)
+
+	#$AudioStreamPlayer.play(0.0)
 	
 func update_scores(scores, _score_times):
 	$BoxContainer/TextureRect/team1_score/score.text = str(game_state.scores[0])

@@ -61,11 +61,25 @@ var game = GlobalNode.game
 var game_state = GlobalNode.game_state
 
 func _ready() -> void:
-	var win = get_window()
-	win.gui_embed_subwindows = false
 	question_card.hide()
 	questions.hide()
 	
+	add_player_window()
+	add_player_window()
+	
+	$SerialControl.SerialReceived.connect(_on_serial_received)
+
+	for cat in range(5):
+		questions.add_child(create_category_button(cat))
+
+	for q in range(5):
+		for cat in range(5):
+			questions.add_child(create_question_button(cat, q))
+		
+func add_player_window():
+	var win = get_window()
+	win.gui_embed_subwindows = false
+
 	var playerwin = Window.new()
 	playerwin.size = get_tree().root.size
 	
@@ -81,15 +95,6 @@ func _ready() -> void:
 	playerwin.add_child(playerview)
 	add_child(playerwin)
 	
-	$SerialControl.SerialReceived.connect(_on_serial_received)
-
-	for cat in range(5):
-		questions.add_child(create_category_button(cat))
-
-	for q in range(5):
-		for cat in range(5):
-			questions.add_child(create_question_button(cat, q))
-			
 func create_category_button(cat):
 	var btn = Button.new()
 	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -177,6 +182,7 @@ func _process(_delta: float) -> void:
 	
 func on_show_intro_pressed() -> void:
 	disable_reveal_category_buttons()
+	questions.hide()
 	for btn in questions.get_children():
 		btn.disabled = true
 	GlobalNode.game_paused.emit()
@@ -360,10 +366,13 @@ func disable_reveal_category_buttons():
 			btn.disabled = true
 
 func on_halfway_pressed() -> void:
-	print("emitting round_finished")
+	disable_reveal_category_buttons()
+	questions.hide()
 	GlobalNode.round_finished.emit()
 
 func on_gameover_pressed() -> void:
+	disable_reveal_category_buttons()
+	questions.hide()
 	GlobalNode.game_over.emit()
 	
 func show_answer() -> void:
