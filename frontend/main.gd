@@ -8,7 +8,7 @@ var playerview
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
 var current_question: QuestionId = null
 var already_buzzed = []
-var buzzer_locked_until = []
+var buzzer_locked_until = [0, 0, 0]
 
 var current_revealed_category = -1
 var buzzers_enabled = false
