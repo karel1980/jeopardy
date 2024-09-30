@@ -53,7 +53,7 @@ func init_categories_slider():
 		btn.add_theme_font_size_override("font_size", 40)
 	
 	var categories = game["rounds"][game_state.current_round]["categories"]
-	var sz = $main_view.size
+	var sz = main_view.size
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
 	categories_slider.get_node("hbox").size = Vector2(sz.x * 5, sz.y)
 	for cat_idx in range(len(categories)):
@@ -83,7 +83,7 @@ func reveal_category(previous_cat_idx, cat_idx):
 
 	if previous_cat_idx >= 0 and previous_cat_idx < 5:
 		get_category_button(previous_cat_idx).text = game["rounds"][game_state.current_round]["categories"][previous_cat_idx]["name"]
-	var sz = $main_view/questionboard.size
+	var sz = main_view.size
 	position_categories_slider(previous_cat_idx)
 	categories_slider.show()
 	var tween = create_tween()
