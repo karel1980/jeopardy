@@ -3,19 +3,27 @@
 
 #include <ArduinoJson.h> // Library dependency: ArduinoJson 7.2.0
 
-#define PLAYER_ID 3
+// On one of the boards I missoldered the connector, so all the pins are wrong and the pin next to GND needs to act as GND
+// Board 0
+// #define PLAYER_ID 0
+// #define GND_EXTRA_PIN 13
+// #define LED_PIN 12
+// #define BUTTON_PIN 14
 
+// Board 1
+// #define PLAYER_ID 1
 // #define LED_PIN 13
 // #define BUTTON_PIN 12
 
-// On one of the boards I missoldered the connector, so all the pins are wrong and the pin next to GND needs to act as GND
-//#define GND_EXTRA_PIN 13
-//#define LED_PIN 12
-//#define BUTTON_PIN 14
+// Board 2
+#define PLAYER_ID 2
+#define LED_PIN 13
+#define BUTTON_PIN 12
 
 // Backup board without led
-# define BUTTON_PIN 26
-# define LED_PIN 12
+// #define PLAYER_ID CHANGEME
+// # define BUTTON_PIN 26
+// # define LED_PIN 12
 
 
 uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
@@ -98,7 +106,7 @@ void setup() {
   // GPIO
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, HIGH); // Turn LED on just to test that it works
+  digitalWrite(LED_PIN, LOW);
 #ifdef GND_EXTRA_PIN
   pinMode(GND_EXTRA_PIN, OUTPUT);
   digitalWrite(GND_EXTRA_PIN, LOW);
@@ -109,6 +117,8 @@ unsigned long next_heartbeat = 0;
 void loop() {
   if (millis() > next_heartbeat) {
     Serial.println("heartbeat");
+    // Serial.printf("lastButtonState ");
+    // Serial.println(lastButtonState);
     next_heartbeat = millis() + 2000;
   }
   int reading = digitalRead(BUTTON_PIN);
