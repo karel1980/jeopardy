@@ -54,10 +54,8 @@ func init_categories_slider():
 	
 	var categories = game["rounds"][game_state.current_round]["categories"]
 	var sz = $main_view.size
-	print("viewport size: ", sz)
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
 	categories_slider.get_node("hbox").size = Vector2(sz.x * 5, sz.y)
-	print("hbox size is now ", Vector2(sz.x * 5, sz.y))
 	for cat_idx in range(len(categories)):
 		categories_slider.get_node("hbox").get_child(cat_idx).text = categories[cat_idx]["name"]
 	categories_slider.position = Vector2(sz.x, 0)
