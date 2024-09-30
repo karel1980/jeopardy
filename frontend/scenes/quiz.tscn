@@ -29,7 +29,7 @@ corner_radius_bottom_left = 80
 
 [node name="round_screen" type="Panel"]
 offset_right = 1152.0
-offset_bottom = 619.0
+offset_bottom = 648.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_038wa")
 script = ExtResource("1_tj3u1")
 
@@ -41,7 +41,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="questionboard" type="HBoxContainer" parent="main_view"]
-custom_minimum_size = Vector2(1150, 500)
+custom_minimum_size = Vector2(1150, 530)
 layout_mode = 2
 size_flags_vertical = 3
 

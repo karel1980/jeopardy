@@ -62,10 +62,10 @@ func replace_view(_next_view):
 	current_screen.add_child(views[_next_view].instantiate())
 
 func transition_to_view(view_name: String):
-	print("starting fade out, preparing transition to ", view_name)
 	if next_view == view_name:
 		return
 	next_view = view_name
+	print("Starting transition to ", view_name)
 	$AnimationPlayer.play("fade_out")
 
 # TODO: what signal is this bound to

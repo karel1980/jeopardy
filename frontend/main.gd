@@ -65,7 +65,7 @@ func _ready() -> void:
 	questions.hide()
 	
 	add_player_window()
-	add_player_window()
+	#add_player_window()
 	
 	$SerialControl.SerialReceived.connect(_on_serial_received)
 
@@ -193,6 +193,7 @@ func all_categories_revealed():
 func on_reveal_next_category_pressed() -> void:
 	if current_revealed_category < 5:
 		current_revealed_category += 1
+		print("emitting category_revealed")
 		GlobalNode.category_revealed.emit(current_revealed_category - 1, current_revealed_category)
 		if current_revealed_category == 5:
 			for btn in questions.get_children():

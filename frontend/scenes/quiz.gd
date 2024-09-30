@@ -49,16 +49,12 @@ func _ready() -> void:
 			get_question_label(q).text = ""
 
 func init_categories_slider():
-	if get_viewport() == null:
-		# If the view is detached we don't want to do this
-		return
-
 	for btn in categories_slider.get_node("hbox").get_children():
-		print("setting font size for cat labels to 40")
 		btn.add_theme_font_size_override("font_size", 40)
 	
 	var categories = game["rounds"][game_state.current_round]["categories"]
-	var sz = get_viewport().get_size()
+	var sz = $main_view.size
+	print("viewport size: ", sz)
 	categories_slider.size = Vector2(sz.x * 5, sz.y)
 	categories_slider.get_node("hbox").size = Vector2(sz.x * 5, sz.y)
 	print("hbox size is now ", Vector2(sz.x * 5, sz.y))
@@ -85,14 +81,11 @@ func start_round(_round_idx):
 		get_question_label(q).text = ""
 
 func reveal_category(previous_cat_idx, cat_idx):
-	if get_viewport() == null:
-		# We're not in the node tree, nothing to do
-		return
 	init_categories_slider()
 
 	if previous_cat_idx >= 0 and previous_cat_idx < 5:
 		get_category_button(previous_cat_idx).text = game["rounds"][game_state.current_round]["categories"][previous_cat_idx]["name"]
-	var sz = get_viewport().get_size()
+	var sz = $main_view/questionboard.size
 	position_categories_slider(previous_cat_idx)
 	categories_slider.show()
 	var tween = create_tween()
@@ -200,7 +193,6 @@ func show_question(question_id: QuestionId):
 	tween.tween_callback(set_question_text)
 	
 func show_answer(question_id: QuestionId):
-	print("I SHOULD SHOW THE ANSWER NOW ", question_btn)
 	if question_btn:
 		if question_btn is TextureButton:
 			question_btn.free()
@@ -212,7 +204,6 @@ func show_answer(question_id: QuestionId):
 			question_btn.label_settings.font_size = 52
 			question_holder.get_children().clear()
 			question_holder.add_child(question_btn)
-		print("SSS Setting text")
 		question_btn.text = game.rounds[question_id.round]["categories"][question_id.category]["questions"][question_id.question]["a"]
 
 func mark_question_completed(question_id: QuestionId):
