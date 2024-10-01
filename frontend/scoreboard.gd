@@ -16,7 +16,7 @@ var highlight_color = Color(1, 1, 0.5, 1)
 var mod_color_none = Color(1,1,1,1)
 
 @onready var teams_ui = [ $"team 1", $"team 2", $"team 3"]
-@onready var widgets = [ $"team 1/name", $"team 2/name", $"team 3/name" ]
+@onready var team_names = [ $"team 1/name", $"team 2/name", $"team 3/name" ]
 @onready var score_labels = [ $"team 1/score", $"team 2/score", $"team 3/score" ]
 
 func _ready() -> void:
@@ -35,6 +35,9 @@ func _ready() -> void:
 	current_scores = game_state.scores.duplicate()
 	for team_idx in range(len(current_scores)):
 		update_score_label(team_idx)
+	
+	for i in range(3):
+		team_names[i].text = game.teams[i]
 	
 func _process(_delta: float) -> void:
 	for team_idx in range(len(current_scores)):
@@ -62,23 +65,23 @@ func select_random_team():
 	var t = create_tween()
 
 	if current_team == -1: # nobody selected, just highlight team 0
-		t.tween_property(widgets[0], "modulate", mod_color_none, 0.2)
+		t.tween_property(team_names[0], "modulate", mod_color_none, 0.2)
 	elif current_team == 0: # 0 already selected
 		pass
 	else:
-		t.tween_property(widgets[current_team], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(widgets[0], "modulate", highlight_color, 0.2)
+		t.tween_property(team_names[current_team], "modulate", mod_color_none, 0.2)
+		t.parallel().tween_property(team_names[0], "modulate", highlight_color, 0.2)
 
 	# TODO: play 'bloop bloop' sound
 	for i in range(3):
-		t.tween_property(widgets[0], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(widgets[1], "modulate", highlight_color, 0.2)
+		t.tween_property(team_names[0], "modulate", mod_color_none, 0.2)
+		t.parallel().tween_property(team_names[1], "modulate", highlight_color, 0.2)
 		
-		t.tween_property(widgets[1], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(widgets[2], "modulate", highlight_color, 0.2)
+		t.tween_property(team_names[1], "modulate", mod_color_none, 0.2)
+		t.parallel().tween_property(team_names[2], "modulate", highlight_color, 0.2)
 
-		t.tween_property(widgets[2], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(widgets[0], "modulate", highlight_color, 0.2)
+		t.tween_property(team_names[2], "modulate", mod_color_none, 0.2)
+		t.parallel().tween_property(team_names[0], "modulate", highlight_color, 0.2)
 		
 	# after 10 iterations team 0 is highlighted
 	# we must modulate a bit more until we hit the selected team
@@ -86,12 +89,12 @@ func select_random_team():
 	# TODO: for humorous effect, make the last transition after a longish delay
 	
 	if current_team > 0:
-		t.tween_property(widgets[0], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(widgets[1], "modulate", highlight_color, 0.2)
+		t.tween_property(team_names[0], "modulate", mod_color_none, 0.2)
+		t.parallel().tween_property(team_names[1], "modulate", highlight_color, 0.2)
 
 	if current_team > 1:
-		t.tween_property(widgets[1], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(widgets[2], "modulate", highlight_color, 0.2)
+		t.tween_property(team_names[1], "modulate", mod_color_none, 0.2)
+		t.parallel().tween_property(team_names[2], "modulate", highlight_color, 0.2)
 		
 func _on_buzzer_accepted(team_idx):
 	_buzzer_animation(team_idx)
@@ -101,25 +104,25 @@ func highlight_team(team_idx):
 	var t = create_tween()
 
 	if current_team != -1 and current_team != team_idx:
-		t.tween_property(widgets[current_team], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
+		t.tween_property(team_names[current_team], "modulate", mod_color_none, 0.2)
+		t.parallel().tween_property(team_names[team_idx], "modulate", highlight_color, 0.2)
 		current_team = team_idx
 	else:
-		t.tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
+		t.tween_property(team_names[team_idx], "modulate", highlight_color, 0.2)
 
 func deselect_team():
 	current_team = -1
-	widgets[0].modulate = mod_color_none
-	widgets[1].modulate = mod_color_none
-	widgets[2].modulate = mod_color_none
+	team_names[0].modulate = mod_color_none
+	team_names[1].modulate = mod_color_none
+	team_names[2].modulate = mod_color_none
 	
 func set_current_team(team_idx):
 	# TODO: add some code to avoid running 2 tweens in parallel (basically disable the button until done)
 	var t = create_tween()
 	if team_idx != current_team:
-		t.tween_property(widgets[current_team], "modulate", mod_color_none, 0.2)
+		t.tween_property(team_names[current_team], "modulate", mod_color_none, 0.2)
 		current_team = team_idx
-		t.tween_property(widgets[team_idx], "modulate", highlight_color, 0.2)
+		t.tween_property(team_names[team_idx], "modulate", highlight_color, 0.2)
 	
 func update_scores(scores, _score_times):
 	target_scores = scores
