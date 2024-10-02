@@ -11,14 +11,14 @@
 // #define BUTTON_PIN 14
 
 // Board 1
-// #define PLAYER_ID 1
-// #define LED_PIN 13
-// #define BUTTON_PIN 12
-
-// Board 2
-#define PLAYER_ID 2
+#define PLAYER_ID 1
 #define LED_PIN 13
 #define BUTTON_PIN 12
+
+// Board 2
+// #define PLAYER_ID 2
+// #define LED_PIN 13
+// #define BUTTON_PIN 12
 
 // Backup board without led
 // #define PLAYER_ID CHANGEME
@@ -42,9 +42,9 @@ unsigned long lastPressed = 0;
 // Callback function to handle ESP-NOW send status
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   if (status == ESP_NOW_SEND_SUCCESS) {
-    Serial.println("Message sent successfully");
+    Serial.println("sent");
   } else {
-    Serial.println("Message send failed");
+    Serial.println("send failed");
   }
 }
 
@@ -113,6 +113,7 @@ void setup() {
 #endif
 }
 
+int button_press_count = 0;
 unsigned long next_heartbeat = 0;
 void loop() {
   if (millis() > next_heartbeat) {
@@ -131,6 +132,7 @@ void loop() {
     if (reading != buttonState) {
       buttonState = reading;
       if (buttonState == LOW) {
+        button_press_count += 1;
         send_message();
       }
     }
@@ -144,7 +146,9 @@ void send_message() {
     doc["buzzer"] = PLAYER_ID;
     String jsonString;
     serializeJson(doc, jsonString);
-    Serial.println("sending buzzer message over espnow");
+    Serial.print("(");
+    Serial.print(button_press_count);
+    Serial.println(") sending buzzer message over espnow");
     Serial.println(jsonString);
     sendStringOverESPNOW(jsonString);
 }
