@@ -7,8 +7,8 @@ var playerview
 
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
 var current_question: QuestionId = null
-var already_buzzed = []
-var buzzer_locked_until = [0, 0, 0]
+var already_buzzed: Array[int] = []
+var buzzer_locked_until: Array[int] = [0, 0, 0]
 
 var current_revealed_category = -1
 var buzzers_enabled = false
@@ -157,6 +157,7 @@ func hide_question():
 	
 	fade_out_wait_music()
 	
+	send_enable_disable_message([], [-1])
 	disable_answer_grading_buttons()
 
 	# ui	
@@ -240,9 +241,10 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 		game_state.mark_wrong(team_idx, current_question)
 		disable_answer_grading_buttons()
 		if len(already_buzzed) < 3:
+			send_enable_disable_message([-1], already_buzzed)
 			enable_buzzers_with_position(waiting_audio_position)
 		else:
-			send_enable_disable_message([-1], already_buzzed)
+			send_enable_disable_message([], [-1])
 		persist_state()
 
 func _on_manual_score_increase(team_idx: int) -> void:
@@ -290,7 +292,7 @@ func disable_buzzers():
 func _on_serial_received(line: String):
 	var json_data = JSON.parse_string(line)
 	if json_data and ("buzzer" in json_data):
-		handle_buzzer(json_data["buzzer"])
+		handle_buzzer(int(json_data["buzzer"]))
 		return
 		
 	
@@ -304,7 +306,16 @@ func _input(event):
 			handle_buzzer(2)
 			
 func handle_buzzer(team_idx):
-	if team_idx in already_buzzed:
+	print("AAA already buzzed ", already_buzzed)
+	print("BBB", team_idx)
+	print("CCC", already_buzzed)
+	print("DDD", team_idx in already_buzzed)
+	print("EEE", already_buzzed.has(team_idx))
+	print("FFF", typeof(team_idx))
+	if already_buzzed:
+		print("---")
+		print("GGG", typeof(already_buzzed[0]))
+	if already_buzzed.has(team_idx):
 		print("Team ", team_idx, " already buzzed. Ignoring.")
 		return
 
@@ -377,6 +388,7 @@ func on_gameover_pressed() -> void:
 	GlobalNode.game_over.emit()
 	
 func show_answer() -> void:
+	send_enable_disable_message([], [-1])
 	GlobalNode.answer_revealed.emit(current_question)
 
 func enable_disable_message(enable, disable) -> String:
@@ -387,3 +399,9 @@ func enable_disable_message(enable, disable) -> String:
 	
 func send_enable_disable_message(enable, disable):
 	$SerialControl.SendLine(enable_disable_message(enable, disable))
+
+
+func _on_enable_buzzers() -> void:
+	already_buzzed = []
+	send_enable_disable_message([-1], [])
+	enable_buzzers_with_position(0)

@@ -325,7 +325,7 @@ libraries = {
 [connection signal="pressed" from="question_card/hide_question" to="." method="hide_question"]
 [connection signal="pressed" from="question_card/question_done" to="." method="mark_question_completed"]
 [connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="_on_disable_buzzers"]
-[connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="enable_buzzers"]
+[connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="_on_enable_buzzers"]
 [connection signal="pressed" from="question_card/show_answer" to="." method="show_answer"]
 [connection signal="pressed" from="question_card/score_buttons/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
 [connection signal="pressed" from="question_card/score_buttons/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]

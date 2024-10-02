@@ -17,7 +17,8 @@ public partial class SerialControl : Node2D
 	private Int64 nextPortConnectionAttempt = 0;
 	private Int64 receivedCount = 0;
 	private Int64 errorCount = 0;
-	private String deviceId = "4F21AFA545C91";
+	//private String deviceId = "4F21AFA545C91";
+	private String deviceId = "2101";
 
 	[Signal]
 	public delegate void SerialReceivedEventHandler(string line);
