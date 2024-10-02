@@ -116,7 +116,7 @@ func reveal_category(previous_cat_idx, cat_idx):
 
 	if previous_cat_idx >= 0 and previous_cat_idx < 5:
 		get_category_button(previous_cat_idx).text = game["rounds"][game_state.current_round]["categories"][previous_cat_idx]["name"]
-	var sz = main_view.size
+	var sz = size
 	position_categories_slider(previous_cat_idx)
 	categories_slider.show()
 	var tween = create_tween()

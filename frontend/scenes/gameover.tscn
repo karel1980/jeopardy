@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0hsfsrmnuljl"]
+[gd_scene load_steps=9 format=3 uid="uid://b0hsfsrmnuljl"]
 
 [ext_resource type="Script" path="res://gameover.gd" id="1_5yvyo"]
 [ext_resource type="FontFile" uid="uid://blxlusd64fl4c" path="res://assets/fonts/LilitaOne-Regular.ttf" id="2_pwygu"]
+[ext_resource type="AudioStream" uid="uid://dicrgd55sf3p8" path="res://assets/audio/gameover.ogg" id="3_e73c3"]
+[ext_resource type="AudioStream" uid="uid://dpkvrgx72vco1" path="res://assets/audio/winner.ogg" id="4_kxmib"]
 
 [sub_resource type="Gradient" id="Gradient_ik85g"]
 offsets = PackedFloat32Array(0, 0.222892, 0.25, 0.307229, 1)
@@ -22,10 +24,10 @@ colors = PackedColorArray(0.95, 1, 0, 1, 1, 0.1, 0.1, 1)
 script = ExtResource("1_5yvyo")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(10, 100)
-offset_right = 1147.0
-offset_bottom = 642.0
+offset_right = 1152.0
+offset_bottom = 652.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = SubResource("GradientTexture2D_13pcy")
 expand_mode = 1
 
@@ -92,3 +94,11 @@ scale_amount_curve = SubResource("Curve_54xh1")
 color_ramp = SubResource("Gradient_vuykt")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_e73c3")
+autoplay = true
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kxmib")
+autoplay = true
