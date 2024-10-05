@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if ! which yq > /dev/null; then
+  echo "Missing `yq`. Install it with brew or whatever"
+  exit 1
+fi
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <yaml-file>"
+  exit 1
+fi
+
+yq "$1" -oj
