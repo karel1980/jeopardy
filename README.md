@@ -2,6 +2,10 @@
 
 This software will allow you to become the host of a jeopardy game.
 
+- todo sound effect when selecting teams
+- todo sound effect on wrong or correct evaluation
+- Bugfix: pressing multiple times too early extends your lockout period
+
 - IMPROVEMENT: when third team answered wrong, don't re-enable buzzers
 - TODO: sound effect for correct and wrong answers
 

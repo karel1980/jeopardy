@@ -65,7 +65,7 @@ func _ready() -> void:
 	questions.hide()
 	
 	add_player_window()
-	#add_player_window()
+	add_player_window()
 	
 	$SerialControl.SerialReceived.connect(_on_serial_received)
 
