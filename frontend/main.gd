@@ -65,7 +65,7 @@ func _ready() -> void:
 	questions.hide()
 	
 	add_player_window()
-	add_player_window()
+	#add_player_window()
 	
 	$SerialControl.SerialReceived.connect(_on_serial_received)
 
@@ -220,6 +220,7 @@ func _on_team_correct_pressed(team_idx: int) -> void:
 		var btn = get_question_button(current_question)
 		btn.text = "---"
 		GlobalNode.question_answered_correctly.emit(current_question)
+		$buzzer_correct.play()
 		persist_state()
 	
 func mark_question_completed():
@@ -245,6 +246,7 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 			enable_buzzers_with_position(waiting_audio_position)
 		else:
 			send_enable_disable_message([], [-1])
+		$buzzer_wrong.play()
 		persist_state()
 
 func _on_manual_score_increase(team_idx: int) -> void:

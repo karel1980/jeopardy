@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi11vo3hhahvd"]
+[gd_scene load_steps=9 format=3 uid="uid://bi11vo3hhahvd"]
 
 [ext_resource type="Theme" uid="uid://ddioxswmi2st5" path="res://base_theme.tres" id="1_e6dyr"]
 [ext_resource type="Script" path="res://main.gd" id="2_c4q6c"]
 [ext_resource type="AudioStream" uid="uid://bv7x7eg3edq0l" path="res://assets/audio/portal_waiting.ogg" id="3_5h3xq"]
 [ext_resource type="Script" path="res://SerialControl.cs" id="4_7oq38"]
+[ext_resource type="AudioStream" uid="uid://blrpe41enasq" path="res://assets/audio/correct.ogg" id="4_d7kk0"]
+[ext_resource type="AudioStream" uid="uid://bkb7yrpr0j01q" path="res://assets/audio/wrong.ogg" id="5_grxyv"]
 
 [sub_resource type="Animation" id="Animation_l3jom"]
 resource_name = "audio_fade_out"
@@ -271,6 +273,12 @@ text = "-100"
 stream = ExtResource("3_5h3xq")
 
 [node name="buzzer_beep" type="AudioStreamPlayer" parent="."]
+
+[node name="buzzer_correct" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_d7kk0")
+
+[node name="buzzer_wrong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_grxyv")
 
 [node name="SerialControl" type="Node2D" parent="."]
 visible = false
