@@ -7,6 +7,7 @@ signal random_team_selection_requested
 signal round_finished
 signal category_revealed
 signal question_selected
+signal buzzers_enabled
 signal answer_revealed
 signal question_answered_correctly
 signal question_deselected

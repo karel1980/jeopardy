@@ -404,6 +404,7 @@ func send_enable_disable_message(enable, disable):
 
 
 func _on_enable_buzzers() -> void:
+	GlobalNode.buzzers_enabled.emit(current_question)
 	already_buzzed = []
 	send_enable_disable_message([-1], [])
 	enable_buzzers_with_position(0)

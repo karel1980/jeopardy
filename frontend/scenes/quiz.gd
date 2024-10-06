@@ -47,11 +47,12 @@ func _ready() -> void:
 
 	GlobalNode.round_started.connect(start_round)
 	GlobalNode.category_revealed.connect(reveal_category)
-	GlobalNode.question_selected.connect(show_question)
+	GlobalNode.question_selected.connect(zoom_question)
 	GlobalNode.question_deselected.connect(hide_question)
 	GlobalNode.question_completed.connect(hide_and_clear_question)
 	GlobalNode.question_answered_correctly.connect(show_answer)
 	GlobalNode.answer_revealed.connect(show_answer)
+	GlobalNode.buzzers_enabled.connect(reveal_question)
 	
 	for q in game_state.questions:
 		if q.round == game_state.current_round:
@@ -156,14 +157,13 @@ func fixate_button_color(btn, color):
 
 func hide_question():
 	if question_btn:
-		var free_when_done = func():
-			if question_btn:
-				question_btn.queue_free()
-				question_btn = null
+		var remove_when_done = func():
+			question_btn.queue_free()
+			question_holder.get_children().clear()
 		var t = create_tween()
 		t.tween_property(question_btn, "scale", Vector2(orig_question_btn.get_global_rect().size.x / question_btn.size.x, orig_question_btn.get_global_rect().size.y / question_btn.size.y), 0.7)
 		t.parallel().tween_property(question_btn, "position", orig_question_btn.get_global_position(), 0.7)
-		t.tween_callback(free_when_done)
+		t.tween_callback(remove_when_done)
 	
 func create_category_buttons():
 	var result = []
@@ -238,10 +238,8 @@ func hide_and_clear_question(question_id: QuestionId):
 	hide_question()
 	get_question_label(question_id).text = ""
 		
-func show_question(question_id: QuestionId):
-	if question_btn:
-		question_btn.free()
-		question_btn = null
+func zoom_question(question_id: QuestionId):
+	question_holder.get_children().clear()
 	
 	var points_idx = question_id.question
 	var cat_idx = question_id.category
@@ -249,62 +247,77 @@ func show_question(question_id: QuestionId):
 	var question = categories[cat_idx]["questions"][points_idx]
 	var orig_btn = get_question_label(question_id)
 	var btn
-	if "image" in question:
-		btn = TextureButton.new()
-		btn.ignore_texture_size = true
-		btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
-		btn.size_flags_horizontal = Control.SIZE_EXPAND
-		btn.size_flags_vertical = Control.SIZE_EXPAND
-		btn.texture_normal = ImageTexture.create_from_image(Image.load_from_file("../" + question["image"]))
-		
-		var color_rect = ColorRect.new()
-		color_rect.color = Color(1, 1, 1, .8)  # Set to your desired background color (e.g., red)
-		color_rect.size = questionboard.get_global_rect().size
-		color_rect.show_behind_parent = true
-		btn.add_child(color_rect)
-	else:
-		btn = orig_btn.duplicate()
-		btn.autowrap_mode = TextServer.AUTOWRAP_WORD
-		btn.text = str(question_points[points_idx])
-		btn.label_settings = LabelSettings.new()
-		btn.label_settings.font_size = 52
 
-	question_btn = btn
-	orig_question_btn = orig_btn
-	shown_question = [cat_idx, points_idx]
+	btn = orig_btn.duplicate()
+	btn.autowrap_mode = TextServer.AUTOWRAP_WORD
+	btn.text = str(question_points[points_idx])
+	btn.label_settings = LabelSettings.new()
+	btn.label_settings.font_size = 52
 	fixate_button_color(btn, Color(1,1,1))
+
+	var ls = LabelSettings.new()
+	ls.font_size = 60
+	ls.font = pixel_font
+	btn.label_settings = ls
+	shown_question = [cat_idx, points_idx]
 	btn.position = orig_btn.get_global_position()
 	btn.size = questionboard.size
 	btn.scale = Vector2(orig_btn.get_global_rect().size.x / btn.size.x, orig_btn.get_global_rect().size.y / btn.size.y)
 	
-	var set_question_text = func():
-		if "image" not in question:
-			if btn:
-				btn.text = question["q"]
-				btn.label_settings.font = normal_font
-
 	question_holder.add_child(btn)
 	
 	var tween = create_tween()
 	tween.tween_property(btn, "position", Vector2(1,1), 0.7)
 	tween.parallel().tween_property(btn, "scale", Vector2(1,1), 0.7)
 	tween.tween_interval(1)
-	tween.tween_callback(set_question_text)
+	question_btn = btn
+	orig_question_btn = orig_btn
+
+func reveal_question(question_id):
+	if not question_btn:
+		return
+		
+	var question = get_question(question_id)
 	
+	if "image" in question:
+		question_btn.queue_free()
+		var btn  = TextureRect.new()
+		btn.ignore_texture_size = true
+		btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+		btn.size_flags_horizontal = Control.SIZE_EXPAND
+		btn.size_flags_vertical = Control.SIZE_EXPAND
+		btn.texture = ImageTexture.create_from_image(Image.load_from_file("../" + question["image"]))
+		btn.size = questionboard.get_global_rect().size
+		
+		var color_rect = ColorRect.new()
+		color_rect.color = Color(1, 1, 1, .8)
+		color_rect.size = questionboard.get_global_rect().size
+		color_rect.show_behind_parent = true
+		btn.add_child(color_rect)
+
+		question_holder.get_children().clear()
+		question_holder.add_child(btn)
+		question_btn = btn
+	else:
+		question_btn.label_settings.font = normal_font
+		question_btn.text = question["q"]
+
 func show_answer(question_id: QuestionId):
 	if question_btn:
-		if question_btn is TextureButton:
-			question_btn.free()
-			question_btn = get_question_label(question_id).duplicate()
-			question_btn.position = Vector2(0, 0)
-			question_btn.size = questionboard.get_rect().size
-			question_btn.label_settings = LabelSettings.new()
-			question_btn.label_settings.font = normal_font
-			question_btn.label_settings.font_size = 52
-			question_holder.get_children().clear()
-			question_holder.add_child(question_btn)
-		question_btn.text = game.rounds[question_id.round]["categories"][question_id.category]["questions"][question_id.question]["a"]
+		question_btn.queue_free()
+		question_btn = get_question_label(question_id).duplicate()
+		question_btn.position = Vector2(0, 0)
+		question_btn.size = questionboard.get_rect().size
+		question_btn.label_settings = LabelSettings.new()
+		question_btn.label_settings.font = normal_font
+		question_btn.label_settings.font_size = 52
+		question_btn.text = get_question(question_id)["a"]
+		question_holder.get_children().clear()
+		question_holder.add_child(question_btn)
 
+func get_question(question_id: QuestionId):
+	return game.rounds[question_id.round]["categories"][question_id.category]["questions"][question_id.question]
+	
 func mark_question_completed(question_id: QuestionId):
 	get_question_label(question_id).text = ""
 	
