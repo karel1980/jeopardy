@@ -16,25 +16,7 @@ var gameover_screen = preload("res://scenes/gameover.tscn")
 
 var normal_font = load("res://assets/fonts/LilitaOne-Regular.ttf")
 
-var game = GlobalNode.game
-var game_state = GlobalNode.game_state
-
 var next_view: String = "intro_screen"
-
-var scores = [ 0, 0, 0 ]
-var category_buttons = []
-
-var shown_question = []
-var question_btn
-var orig_question_btn
-
-var margin = 10
-
-var question_points = [ 100, 200, 300, 400, 500 ]
-
-var cat_tween = null
-var cat_tween2 = null
-var cat_button = null
 
 func _ready() -> void:
 	$FadePanel.modulate = Color(0,0,0,0)
@@ -79,9 +61,5 @@ func start_round(_round_idx):
 func pause_game():	
 	transition_to_view("intro_screen")
 	
-func update_score(team_idx, score):
-	scores[team_idx] += score
-	get_node('scoreboard/team 1 score').text = "{score}".format({"score": scores[team_idx]})
-
 func on_game_over():
 	transition_to_view("gameover_screen")
