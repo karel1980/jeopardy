@@ -1,2 +1,4 @@
 .DS_Store
 jeopardy.json.state
+jeopardy-*.yaml
+jeopardy-*.json
