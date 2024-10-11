@@ -15,6 +15,8 @@ var score_negative_style: StyleBoxFlat
 var highlight_color = Color(1, 1, 0.5, 1)
 var mod_color_none = Color(1,1,1,1)
 
+var rotate_delay = 0.1
+
 @onready var teams_ui = [ $"team 1", $"team 2", $"team 3"]
 @onready var team_names = [ $"team 1/name", $"team 2/name", $"team 3/name" ]
 @onready var score_labels = [ $"team 1/score", $"team 2/score", $"team 3/score" ]
@@ -63,38 +65,21 @@ func select_random_team():
 	print("randomly chosen team: ", current_team)
 
 	var t = create_tween()
-
+	
 	if current_team == -1: # nobody selected, just highlight team 0
-		t.tween_property(team_names[0], "modulate", mod_color_none, 0.2)
+		t.tween_property(team_names[0], "modulate", mod_color_none, rotate_delay)
+		t.tween_callback(func(): $AudioStreamPlayer.play())
 	elif current_team == 0: # 0 already selected
 		pass
 	else:
-		t.tween_property(team_names[current_team], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(team_names[0], "modulate", highlight_color, 0.2)
+		bip(t, current_team, 0)
 
-	# TODO: play 'bloop bloop' sound
-	for i in range(3):
-		t.tween_property(team_names[0], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(team_names[1], "modulate", highlight_color, 0.2)
+	var transitions = 10 * 3 + current_team
+	for i in range(transitions - 1):
+		bip(t, i%3, (i+1)%3)
 		
-		t.tween_property(team_names[1], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(team_names[2], "modulate", highlight_color, 0.2)
-
-		t.tween_property(team_names[2], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(team_names[0], "modulate", highlight_color, 0.2)
-		
-	# after 10 iterations team 0 is highlighted
-	# we must modulate a bit more until we hit the selected team
-	
-	# TODO: for humorous effect, make the last transition after a longish delay
-	
-	if current_team > 0:
-		t.tween_property(team_names[0], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(team_names[1], "modulate", highlight_color, 0.2)
-
-	if current_team > 1:
-		t.tween_property(team_names[1], "modulate", mod_color_none, 0.2)
-		t.parallel().tween_property(team_names[2], "modulate", highlight_color, 0.2)
+	t.tween_interval(2)
+	bip(t, (transitions+2)%3, transitions%3)
 		
 func _on_buzzer_accepted(team_idx):
 	_buzzer_animation(team_idx)
@@ -109,6 +94,11 @@ func highlight_team(team_idx):
 		current_team = team_idx
 	else:
 		t.tween_property(team_names[team_idx], "modulate", highlight_color, 0.2)
+
+func bip(tween, from_idx, to_idx):
+	tween.tween_property(team_names[from_idx], "modulate", mod_color_none, rotate_delay)
+	tween.parallel().tween_property(team_names[to_idx], "modulate", highlight_color, rotate_delay)
+	tween.tween_callback(func(): $AudioStreamPlayer.play())
 
 func deselect_team():
 	current_team = -1

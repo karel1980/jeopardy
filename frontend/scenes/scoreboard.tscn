@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://oqn6pb732n5a"]
+[gd_scene load_steps=8 format=3 uid="uid://oqn6pb732n5a"]
 
 [ext_resource type="Script" path="res://scoreboard.gd" id="1_7f0bc"]
 [ext_resource type="FontFile" uid="uid://kmhudoaqab3v" path="res://assets/fonts/PressStart2P-Regular.ttf" id="2_5h0nq"]
+[ext_resource type="AudioStream" uid="uid://dson2s51bys0c" path="res://assets/audio/pop.ogg" id="3_ywvot"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4bp6"]
 bg_color = Color(1, 1, 1, 1)
@@ -139,3 +140,6 @@ scale_amount_curve = SubResource("Curve_imcs0")
 color = Color(1, 1, 1, 0.815686)
 hue_variation_max = 1.0
 hue_variation_curve = SubResource("Curve_a547r")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ywvot")
