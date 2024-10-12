@@ -5,28 +5,18 @@ var game_is_paused = true
 var playerview_scene = preload('res://scenes/playerview.tscn')
 var playerview
 
+@onready var score_buttons = $question_card/score_buttons
+
 var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
 var current_question: QuestionId = null
 var already_buzzed: Array[int] = []
-var buzzer_locked_until: Array[int] = [0, 0, 0]
+var buzzer_locked_until: Array[int]
 
 var current_revealed_category = -1
 var buzzers_enabled = false
 
 var waiting_audio_position = null
 var buzzer_wait_music_fadeout_tween = null
-
-@onready var correct_buttons = [
-	$question_card/score_buttons/team_1_correct,
-	$question_card/score_buttons/team_2_correct,
-	$question_card/score_buttons/team_3_correct
-]
-
-@onready var wrong_buttons = [
-	$question_card/score_buttons/team_1_wrong,
-	$question_card/score_buttons/team_2_wrong,
-	$question_card/score_buttons/team_3_wrong
-]
 
 @onready var questions := $questions
 
@@ -63,6 +53,32 @@ var game_state = GlobalNode.game_state
 func _ready() -> void:
 	question_card.hide()
 	questions.hide()
+	
+	buzzer_locked_until = zeros(len(game.teams))
+	
+	for i in range(len(game.teams)):
+		var b = Button.new()
+		b.text = "correct"
+		score_buttons.add_child(b)
+		b.pressed.connect(func(): _on_team_correct_pressed(i))
+
+	for i in range(len(game.teams)):
+		var b = Button.new()
+		b.text = "wrong"
+		score_buttons.add_child(b)
+		b.pressed.connect(func(): _on_team_wrong_pressed(i))
+		
+	for i in range(len(game.teams)):
+		var b = Button.new()
+		b.text = "+100"
+		$score_adjustments.add_child(b)
+		b.pressed.connect(func(): _on_manual_score_increase(i))
+	
+	for i in range(len(game.teams)):
+		var b = Button.new()
+		b.text = "-100"
+		$score_adjustments.add_child(b)
+		b.pressed.connect(func(): _on_manual_score_decrease(i))
 	
 	add_player_window()
 	#add_player_window()
@@ -136,7 +152,7 @@ func show_question(cat_idx, question_idx):
 		questions.hide()
 		disable_buzzers()
 		already_buzzed = []
-		buzzer_locked_until = [0, 0, 0]
+		buzzer_locked_until = zeros(len(game.teams))
 		question_done.disabled = false
 		question_category.text = game.rounds[game_state.current_round].categories[cat_idx]["name"]
 		current_question = QuestionId.new(game_state.current_round, cat_idx, question_idx)
@@ -148,6 +164,12 @@ func show_question(cat_idx, question_idx):
 			note.text = question["n"]
 		else:
 			note.text = "---"
+	
+func zeros(n):
+	var result: Array[int] = []
+	result.resize(n)
+	result.fill(0)
+	return result
 	
 func hide_question():
 	# state
@@ -241,7 +263,7 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 		already_buzzed.append(team_idx)
 		game_state.mark_wrong(team_idx, current_question)
 		disable_answer_grading_buttons()
-		if len(already_buzzed) < 3:
+		if len(already_buzzed) < len(game.teams):
 			send_enable_disable_message([-1], already_buzzed)
 			enable_buzzers_with_position(waiting_audio_position)
 		else:
@@ -309,14 +331,8 @@ func _input(event):
 			
 func handle_buzzer(team_idx):
 	print("AAA already buzzed ", already_buzzed)
-	print("BBB", team_idx)
-	print("CCC", already_buzzed)
-	print("DDD", team_idx in already_buzzed)
-	print("EEE", already_buzzed.has(team_idx))
-	print("FFF", typeof(team_idx))
 	if already_buzzed:
 		print("---")
-		print("GGG", typeof(already_buzzed[0]))
 	if already_buzzed.has(team_idx):
 		print("Team ", team_idx, " already buzzed. Ignoring.")
 		return
@@ -345,16 +361,19 @@ func handle_buzzer(team_idx):
 	enable_answer_grading_buttons(team_idx)
 	
 func enable_answer_grading_buttons(team_idx: int):
-	correct_buttons[team_idx].disabled = false
-	wrong_buttons[team_idx].disabled = false
+	get_correct_button(team_idx).disabled = false
+	get_wrong_button(team_idx).disabled = false
+
+func get_correct_button(i):
+	return $question_card/score_buttons.get_child(i)
+	
+func get_wrong_button(i):
+	return $question_card/score_buttons.get_child(i + len(game.teams))
 	
 func disable_answer_grading_buttons():
-	$question_card/score_buttons/team_1_correct.disabled = true
-	$question_card/score_buttons/team_2_correct.disabled = true
-	$question_card/score_buttons/team_3_correct.disabled = true
-	$question_card/score_buttons/team_1_wrong.disabled = true
-	$question_card/score_buttons/team_2_wrong.disabled = true
-	$question_card/score_buttons/team_3_wrong.disabled = true
+	for i in range(len(game.teams)):
+		get_correct_button(i).disabled = true
+		get_wrong_button(i).disabled = true
 
 func start_round(round_number: int) -> void:
 	current_revealed_category = -1

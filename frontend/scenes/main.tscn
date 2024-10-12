@@ -138,10 +138,10 @@ autowrap_mode = 3
 
 [node name="note" type="Label" parent="question_card"]
 layout_mode = 0
-offset_left = 544.0
-offset_top = 498.0
-offset_right = 1148.0
-offset_bottom = 643.0
+offset_left = 645.0
+offset_top = 490.0
+offset_right = 1135.0
+offset_bottom = 635.0
 text = "Note"
 autowrap_mode = 3
 
@@ -195,36 +195,6 @@ offset_right = 518.0
 offset_bottom = 556.0
 columns = 3
 
-[node name="team_1_correct" type="Button" parent="question_card/score_buttons"]
-layout_mode = 2
-disabled = true
-text = "Team one CORRECT"
-
-[node name="team_2_correct" type="Button" parent="question_card/score_buttons"]
-layout_mode = 2
-disabled = true
-text = "Team two CORRECT"
-
-[node name="team_3_correct" type="Button" parent="question_card/score_buttons"]
-layout_mode = 2
-disabled = true
-text = "Team three CORRECT"
-
-[node name="team_1_wrong" type="Button" parent="question_card/score_buttons"]
-layout_mode = 2
-disabled = true
-text = "Team one WRONG"
-
-[node name="team_2_wrong" type="Button" parent="question_card/score_buttons"]
-layout_mode = 2
-disabled = true
-text = "Team two WRONG"
-
-[node name="team_3_wrong" type="Button" parent="question_card/score_buttons"]
-layout_mode = 2
-disabled = true
-text = "Team three WRONG"
-
 [node name="score_adjustments" type="GridContainer" parent="."]
 layout_mode = 0
 offset_left = 17.0
@@ -232,42 +202,6 @@ offset_top = 566.0
 offset_right = 521.0
 offset_bottom = 632.0
 columns = 3
-
-[node name="team_1_plus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "+100"
-
-[node name="team_2_plus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "+100"
-
-[node name="team_3_plus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "+100"
-
-[node name="team_1_minus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "-100"
-
-[node name="team_2_minus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "-100"
-
-[node name="team_3_minus_100" type="Button" parent="score_adjustments"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "-100"
 
 [node name="buzzer_wait_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_5h3xq")
@@ -335,16 +269,4 @@ libraries = {
 [connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="_on_disable_buzzers"]
 [connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="_on_enable_buzzers"]
 [connection signal="pressed" from="question_card/show_answer" to="." method="show_answer"]
-[connection signal="pressed" from="question_card/score_buttons/team_1_correct" to="." method="_on_team_correct_pressed" binds= [0]]
-[connection signal="pressed" from="question_card/score_buttons/team_2_correct" to="." method="_on_team_correct_pressed" binds= [1]]
-[connection signal="pressed" from="question_card/score_buttons/team_3_correct" to="." method="_on_team_correct_pressed" binds= [2]]
-[connection signal="pressed" from="question_card/score_buttons/team_1_wrong" to="." method="_on_team_wrong_pressed" binds= [0]]
-[connection signal="pressed" from="question_card/score_buttons/team_2_wrong" to="." method="_on_team_wrong_pressed" binds= [1]]
-[connection signal="pressed" from="question_card/score_buttons/team_3_wrong" to="." method="_on_team_wrong_pressed" binds= [2]]
-[connection signal="pressed" from="score_adjustments/team_1_plus_100" to="." method="_on_manual_score_increase" binds= [0]]
-[connection signal="pressed" from="score_adjustments/team_2_plus_100" to="." method="_on_manual_score_increase" binds= [1]]
-[connection signal="pressed" from="score_adjustments/team_3_plus_100" to="." method="_on_manual_score_increase" binds= [2]]
-[connection signal="pressed" from="score_adjustments/team_1_minus_100" to="." method="_on_manual_score_decrease" binds= [0]]
-[connection signal="pressed" from="score_adjustments/team_2_minus_100" to="." method="_on_manual_score_decrease" binds= [1]]
-[connection signal="pressed" from="score_adjustments/team_3_minus_100" to="." method="_on_manual_score_decrease" binds= [2]]
 [connection signal="pressed" from="SerialControl/FakeSerialEvent" to="SerialControl" method="_on_fake_serial_event_pressed"]
