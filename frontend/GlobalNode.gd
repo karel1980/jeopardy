@@ -23,9 +23,17 @@ func _ready() -> void:
 	pass
 	
 func restore_game_state():
-	var result = GameState.new()
+	var result = GameState.new(zeros(len(game.teams)), [])
 	result.load(game_location + ".state")
 	return result
+
+
+func zeros(n):
+	var result: Array[int] = []
+	result.resize(n)
+	result.fill(0)
+	return result
+
 
 func save_state() -> void:
 	game_state.save(game_location + ".state")

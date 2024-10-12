@@ -6,17 +6,23 @@ signal scores_updated
 
 static var question_values = [ 100, 200, 300, 400, 500 ]
 
-var scores: Array[int] = [ 0, 0, 0 ]
-var score_times: Array[int] = [ 0, 0, 0]
+var scores: Array[int]
+var score_times: Array[int]
 
 var questions: Array[QuestionId] = []
 var current_round: int = 0
 
-func _init(_scores: Array[int] = [0,0,0], _questions: Array[QuestionId] = [], _current_round: int = 0):
+func _init(_scores: Array[int], _questions: Array[QuestionId], _current_round: int = 0):
 	self.scores = _scores
-	self.score_times = [0,0,0]
+	self.score_times = zeros(len(_scores))
 	self.questions = _questions
 	self.current_round = _current_round
+
+func zeros(n):
+	var result: Array[int] = []
+	result.resize(n)
+	result.fill(0)
+	return result
 
 func mark_correct(team_idx: int, question_id: QuestionId):
 	update_score(team_idx, question_values[question_id.question])

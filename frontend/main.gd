@@ -54,6 +54,9 @@ func _ready() -> void:
 	question_card.hide()
 	questions.hide()
 	
+	$question_card/score_buttons.columns = len(game.teams)
+	$score_adjustments.columns = len(game.teams)
+	
 	buzzer_locked_until = zeros(len(game.teams))
 	
 	for i in range(len(game.teams)):
@@ -328,6 +331,8 @@ func _input(event):
 			handle_buzzer(1)
 		elif event.keycode == KEY_C:
 			handle_buzzer(2)
+		elif event.keycode == KEY_D:
+			handle_buzzer(3)
 			
 func handle_buzzer(team_idx):
 	print("AAA already buzzed ", already_buzzed)
