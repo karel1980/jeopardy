@@ -8,6 +8,7 @@ rounds:
       questions:
       - q: A
         a: What is the first letter of the alphabet?
+        image: socrates-images/bixby.jpg
       - q: Q
         a: A
       - q: Q
