@@ -1,135 +1,143 @@
 {
   "teams": [
-    "Team one",
-    "Team two",
-    "Team three"
+    "one",
+    "two",
+    "three"
   ],
   "rounds": [
     {
       "categories": [
         {
-          "name": "Category 1",
+          "name": "Bits and bytes",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?",
-              "image": "socrates-images/bixby.jpg"
+              "q": "The thing that follows 'foo'.",
+              "a": "What is bar?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The protocol that keeps computer date and time synchronized.",
+              "a": "What is NTP?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "This is the term for a sequence of 4 bits, which can represent values from 0 to 15 in hexadecimal notation.",
+              "a": "What is a nibble?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "Java's magic word. Every class file starts with these 8 bytes.",
+              "a": "What is 0xCAFEBABE?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The number of signal changes or symbols transmitted per second.",
+              "a": "What is baudrate?"
             }
           ]
         },
         {
-          "name": "Category 2",
+          "name": "Programmers",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?"
+              "q": "This influential figure in the world of programming is known for developing the Python programming language.",
+              "a": "Who is Guido van Rossum?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "One of the creators of the C programming language.",
+              "a": "Who is Dennis Ritchie / Ken Thompson?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The child of a famous poet and English mathematician whom many historians consider the first programmer.",
+              "a": "Who is Ada Lovelace?",
+              "n": "The programming language ADA is named after her."
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "This pioneering computer scientist and U.S. Navy rear admiral is known for creating the first compiler and her work on the development of COBOL.",
+              "a": "Who is Grace Hopper?",
+              "image": "socrates-images/gracehopper.jpeg",
+              "n": "She had to get an exception to be commisioned because her weight-to-height ratio was too low. Introduced the term debugging"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A belgian computer scientist who collaborated with Tim Berners-Lee at CERN to help develop the World Wide Web.",
+              "a": "Who is Robert Cailliau?"
             }
           ]
         },
         {
-          "name": "Category 3",
+          "name": "Mascots",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?"
+              "q": "The Linux mascot.",
+              "a": "What is Tux?",
+              "image": "socrates-images/tux.jpg"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The the BSD mascot.",
+              "a": "What is Beastie?",
+              "image": "socrates-images/beastie.png"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The the Java mascot.",
+              "a": "What is Duke?",
+              "image": "socrates-images/duke.png"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The SUSE Linux mascot.",
+              "a": "What is Geeko?",
+              "image": "socrates-images/geeko.png"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The Wordpress mascot.",
+              "a": "What is Wapuu?",
+              "image": "socrates-images/wapuu.png"
             }
           ]
         },
         {
-          "name": "Category 4",
+          "name": "On the command line",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?"
+              "q": "This command is used to display the contents of a text file in the terminal, one screen at a time.",
+              "a": "What is less / more?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "This command displays an animation of a steam locomotive moving across the terminal screen.",
+              "a": "What is a sl?",
+              "n": "This is a humorous command that aims to teach the user not to misspell 'ls'."
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "This command locates an executable file in your shell's search path.",
+              "a": "What is which?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A command to securely copy files between hosts over SSH.",
+              "a": "What is scp?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "This command is used to display the contents of a file in reverse order, showing the last line first.",
+              "a": "What is tac?"
             }
           ]
         },
         {
-          "name": "Category 5",
+          "name": "Programming Languages",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?"
+              "q": "A programming language developed by Apple for iOS and macOS app development, introduced in 2014?",
+              "a": "What is Swift?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A language designed for statistical computing and graphics, widely used among statisticians and data miners.",
+              "a": "What is R?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A language used for system programming, known for its performance and memory safety features, that was created by Mozilla.",
+              "a": "What is Rust?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A language, developed in the early 1970s by Ken Thompson and Dennis Ritchie, served as a precursor to C.",
+              "a": "What is B?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A language developed in the 1950s, known for its use in scientific and engineering applications that is still in use today.",
+              "a": "What is Fortran?"
             }
           ]
         }
@@ -138,127 +146,140 @@
     {
       "categories": [
         {
-          "name": "Category 6",
+          "name": "Voice Assistants",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?"
+              "q": "The voice assistant with this logo.",
+              "a": "What is Siri?",
+              "image": "socrates-images/siri-2.png"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The voice assistant with this logo.",
+              "a": "What is Alexa?",
+              "image": "socrates-images/alexa.png"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The voice assistant with this logo.",
+              "a": "What is Cortana?",
+              "image": "socrates-images/cortana.png"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The voice assistant with this logo.",
+              "a": "What is Mycroft?",
+              "image": "socrates-images/mycroft.png"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The voice assistant with this logo.",
+              "a": "What is Bixby?",
+              "image": "socrates-images/bixby.jpg"
             }
           ]
         },
         {
-          "name": "Category 7",
+          "name": "Virus",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?"
+              "q": "The use of bogus emails and websites to trick you into supplying confidential or personal information.",
+              "a": "What is phishing?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A worm that spread via email in 2000, causing widespread damage.",
+              "a": "What is ILOVEYOU?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The virus that causes COVID-19",
+              "a": "What is SARS-CoV-2 / Severe acute respiratory syndrome coronavirus 2?",
+              "n": "If abbreviation is used, ask for full name, no bonus points"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A sophisticated worm discovered in 2010, that caused massive damage to Iran's nuclear program.",
+              "a": "What is Stuxnet?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "One of the oldest computer worms distributed via the Internet, and the first to gain significant mainstream media attention",
+              "a": "What is the Morris Worm?",
+              "n": "The father of the author, was the Chief Scientist at NSA."
             }
           ]
         },
         {
-          "name": "Category 8",
+          "name": "Hackerman",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?"
+              "q": "A 1995 cult classic that follows a group of young hackers who uncover a conspiracy and must use their skills to expose the truth.",
+              "a": "What is Hackers?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The classic 1983 movie about AI ethics and nuclear threats. It features the quote \"The only winning move is not to play.\"",
+              "a": "What is WarGames?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The full name of NEO, the fictional hacker from the Matrix movie frenchise.",
+              "a": "Who is Thomas Anderson?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A 2001 action thriller starring John Travolta, Hale Berry and Hugh Jackman, about a computer hacker recruited for a bank robbery.",
+              "a": "What is Swordfish?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The computer programmer and hacker who becomes embroiled in a computer-based conspiracy in the 1995 movie \"The Net\"",
+              "a": "Who is Angela Bennett?",
+              "n": "Portrayed by? Sandra Bullock of course"
             }
           ]
         },
         {
-          "name": "Category 9",
+          "name": "More mascots",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?"
+              "q": "The GO programming language mascot",
+              "a": "What is the Go Gopher?",
+              "image": "socrates-images/go-gopher.jpg"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The mascot of a distributed data processing framework.",
+              "a": "What is Hadoop?",
+              "image": "socrates-images/hadoop.jpg"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The mascot of Docker.",
+              "a": "What is Moby Dock?",
+              "image": "socrates-images/moby-dock.png"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The mascot of GIMP, the open source image editor",
+              "a": "What is Wilber?",
+              "image": "socrates-images/wilber.png"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "The MySQL mascot",
+              "a": "What is Sakila?",
+              "image": "socrates-images/sakila.png"
             }
           ]
         },
         {
-          "name": "Category 10",
+          "name": "Scaling Agile",
           "questions": [
             {
-              "q": "A",
-              "a": "What is the first letter of the alphabet?"
+              "q": "A secure lockable box used for securing valuable objects against theft or damage",
+              "a": "What is (a) SAFe?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A method to manage and improve work across human systems. It means 'billboard'.",
+              "a": "What is 看板? (Kanban)"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "An agile approach that uses terms like squads, tribes, chapters and guilds",
+              "a": "What is the Spotify model?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "Scrum applied to many teams working together on one product, aka large scale scrum",
+              "a": "What is LeSS?"
             },
             {
-              "q": "Q",
-              "a": "A"
+              "q": "A people-first, learning-oriented hybrid agile approach by the Project Management Institute",
+              "a": "What is DAD / Disciplined Agile Delivery?"
             }
           ]
         }
