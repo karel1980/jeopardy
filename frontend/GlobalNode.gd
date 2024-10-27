@@ -15,16 +15,23 @@ signal question_completed
 signal buzzer_accepted
 signal team_deselected
 
-var game_location = "../jeopardy.json"
-var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())
-var game_state: GameState = restore_game_state()
+var base_dir: String
+var game
+var game_state: GameState
+var state_path: String
+
+func load_game(base_dir, game_json_path, state_json_path):
+	self.base_dir = base_dir
+	state_path = state_json_path
+	game = JSON.parse_string(FileAccess.open(self.base_dir + '/' + game_json_path, FileAccess.READ).get_as_text())
+	game_state = restore_game_state(state_json_path)
 
 func _ready() -> void:
 	pass
 	
-func restore_game_state():
+func restore_game_state(path):
 	var result = GameState.new(zeros(len(game.teams)), [])
-	result.load(game_location + ".state")
+	result.load(path)
 	return result
 
 
@@ -36,4 +43,4 @@ func zeros(n):
 
 
 func save_state() -> void:
-	game_state.save(game_location + ".state")
+	game_state.save(state_path + ".state")

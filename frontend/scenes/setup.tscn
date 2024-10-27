@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://u3hc74a04l38"]
+
+[ext_resource type="Script" path="res://scenes/setup.gd" id="1_uw46p"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_uw46p")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1149.0
+offset_bottom = 650.0
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 241.0
+offset_right = 187.0
+offset_bottom = 268.0
+text = "Start game"
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 19.0
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
