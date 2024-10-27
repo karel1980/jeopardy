@@ -11,9 +11,9 @@
 // #define BUTTON_PIN 14
 
 // Board 1
-#define PLAYER_ID 1
-#define LED_PIN 13
-#define BUTTON_PIN 12
+// #define PLAYER_ID 1
+// #define LED_PIN 13
+// #define BUTTON_PIN 12
 
 // Board 2
 // #define PLAYER_ID 2
@@ -21,9 +21,9 @@
 // #define BUTTON_PIN 12
 
 // Backup board without led
-// #define PLAYER_ID CHANGEME
-// # define BUTTON_PIN 26
-// # define LED_PIN 12
+#define PLAYER_ID 0
+#define BUTTON_PIN 26
+#define LED_PIN 12
 
 
 uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
