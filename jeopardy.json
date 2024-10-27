@@ -1,0 +1,268 @@
+{
+  "teams": [
+    "Team one",
+    "Team two",
+    "Team three"
+  ],
+  "rounds": [
+    {
+      "categories": [
+        {
+          "name": "Category 1",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?",
+              "image": "socrates-images/bixby.jpg"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        },
+        {
+          "name": "Category 2",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        },
+        {
+          "name": "Category 3",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        },
+        {
+          "name": "Category 4",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        },
+        {
+          "name": "Category 5",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categories": [
+        {
+          "name": "Category 6",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        },
+        {
+          "name": "Category 7",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        },
+        {
+          "name": "Category 8",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        },
+        {
+          "name": "Category 9",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        },
+        {
+          "name": "Category 10",
+          "questions": [
+            {
+              "q": "A",
+              "a": "What is the first letter of the alphabet?"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            },
+            {
+              "q": "Q",
+              "a": "A"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

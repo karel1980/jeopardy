@@ -21,10 +21,10 @@ var game_state: GameState
 var state_path: String
 
 func load_game(base_dir, game_json_path, state_json_path):
-	self.base_dir = base_dir
-	state_path = state_json_path
-	game = JSON.parse_string(FileAccess.open(self.base_dir + '/' + game_json_path, FileAccess.READ).get_as_text())
-	game_state = restore_game_state(state_json_path)
+	game_json_path = base_dir + '/' + game_json_path
+	state_path = game_json_path + '.state'
+	game = JSON.parse_string(FileAccess.open(game_json_path, FileAccess.READ).get_as_text())
+	game_state = restore_game_state(state_path)
 
 func _ready() -> void:
 	pass
@@ -43,4 +43,5 @@ func zeros(n):
 
 
 func save_state() -> void:
-	game_state.save(state_path + ".state")
+	print("saving to ", state_path)
+	game_state.save(state_path)
