@@ -335,6 +335,10 @@ func _input(event):
 			handle_buzzer(3)
 			
 func handle_buzzer(team_idx):
+	if team_idx >= len(GlobalNode.game.teams):
+		print("Not a valid team number: ", team_idx)
+		return
+		
 	print("AAA already buzzed ", already_buzzed)
 	if already_buzzed:
 		print("---")
@@ -358,7 +362,7 @@ func handle_buzzer(team_idx):
 	waiting_audio_position = $buzzer_wait_music.get_playback_position()
 	$buzzer_wait_music.stop()
 	disable_buzzers()
-	send_enable_disable_message([team_idx], [0,1,2].filter(func(i):return i != team_idx))
+	send_enable_disable_message([team_idx], [0,1,2].filter(func(i):return i != team_idx), game.teams[team_idx])
 	
 	var rand_index:int = randi() % sounds.size()
 	$buzzer_beep.stream = sounds[rand_index]
@@ -417,18 +421,21 @@ func show_answer() -> void:
 	send_enable_disable_message([], [-1])
 	GlobalNode.answer_revealed.emit(current_question)
 
-func enable_disable_message(enable, disable) -> String:
+func enable_disable_message(enable, disable, display_text = null) -> String:
 	var data = {}
 	data["enable"] = enable
 	data["disable"] = disable
+	if display_text:
+		data["display"] = display_text
+
 	return JSON.stringify(data)
 	
-func send_enable_disable_message(enable, disable):
-	$SerialControl.SendLine(enable_disable_message(enable, disable))
+func send_enable_disable_message(enable, disable, display_text = null):
+	$SerialControl.SendLine(enable_disable_message(enable, disable, display_text))
 
 
 func _on_enable_buzzers() -> void:
 	GlobalNode.buzzers_enabled.emit(current_question)
 	already_buzzed = []
-	send_enable_disable_message([-1], [])
+	#send_enable_disable_message([-1], [], "...")
 	enable_buzzers_with_position(0)
