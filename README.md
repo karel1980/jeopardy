@@ -2,26 +2,36 @@
 
 This software will allow you to become the host of a jeopardy game.
 
-- todo sound effect when selecting teams
-- todo sound effect on wrong or correct evaluation
+What you'll need: 
+
+- a laptop or computer. Ideally with a second screen
+- questions (some examples are provided, but that's mostly for documenting the file format)
+- hardware buttons (This project does not use off the shelf buzzers, you will need to build them yourself, build and flash firmware to microcontrollers, etc.)
+
+## Getting familiar with the GUI
+
+- Run `./yaml2json jeopardy-example-questions.yaml > jeopardy.json`
+- Run the `frontend` project using the [https://godotengine.org/download/macos/](Godot Engine - .NET edition))
+- Play around with the GUI until you're comfortable with it. If you don't have the hardware buzzers at this time you can press 'a','b','c','d' on the keyboard to simulate them.
+
+## Preparing
+
+- Way beforehand:
+  - Create the hardware buzzers
+  - Create questions
+- Last minute:
+  - Create teams, set up the team names in jeopardy.json
+
+## Ideas / poor man's issue tracker
+
+- TODO: add photos of buzzers
+
+- TODO: Send additional info about game state to receiver (selected team name, 'buzzers enabled')
 - Bugfix: pressing multiple times too early extends your lockout period
 
-- IMPROVEMENT: when third team answered wrong, don't re-enable buzzers
-- TODO: sound effect for correct and wrong answers
+- TODO: Improvement: when last team answered wrong, don't re-enable buzzers
+- TODO: Allow managing and selecting quiz questions using GUI
 
-- TODO: fallback mode in case buzzers don't work?
-- TODO: implement 'double jeopardy' questions? (i.e. only current contestant can play, wagers some amount, double or nothing)
-
-- TODO: prepare quiz questions (in progress - see google drive)
-- TODO: do a dry run (family game questions)
-
+- WONTDO: implement 'double jeopardy' questions. (i.e. only current contestant can play, wagers some amount, double or nothing)
 - WONTDO: final jeopardy (one question, everyone writes answer down beforehand)
 
-## Preparation
-
-Prepare your questions and team names in the file named `jeopardy.json`.
-TODO: create a nice gui to edit these
-
-## Running the game
-
-Run the 'main' scene to get started.
