@@ -27,7 +27,7 @@ var sep = 5
 var row_drop_delay = .3
 var item_drop_delay = .3
 
-var question_points = [ 100, 200, 300, 400, 500 ]
+var question_points = [ 200, 400, 600, 800, 1000 ]
 
 var cat_tween = null
 var cat_tween2 = null

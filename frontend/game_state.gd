@@ -4,7 +4,7 @@ class_name GameState
 
 signal scores_updated
 
-static var question_values = [ 100, 200, 300, 400, 500 ]
+static var question_values = [ 200, 400, 600, 800, 1000 ]
 
 var scores: Array[int]
 var score_times: Array[int]

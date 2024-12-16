@@ -7,7 +7,7 @@ var playerview
 
 @onready var score_buttons = $question_card/score_buttons
 
-var points = [ 100, 200, 300, 400, 500 ] # duplicated in playerview.gd
+var points = [ 200, 400, 600, 800, 1000 ] # duplicated in playerview.gd
 var current_question: QuestionId = null
 var already_buzzed: Array[int] = []
 var buzzer_locked_until: Array[int]
