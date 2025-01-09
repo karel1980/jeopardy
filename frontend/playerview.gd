@@ -1,6 +1,6 @@
 extends Node2D
 
-var intro_screen = preload("res://scenes/intro.tscn")
+var intro_screen = preload("res://scenes/intro_dutch.tscn")
 var halfway_screen = preload("res://scenes/halfway.tscn")
 var round_screen = preload("res://scenes/quiz.tscn")
 var gameover_screen = preload("res://scenes/gameover.tscn")
