@@ -39,7 +39,8 @@ func _ready() -> void:
 	GlobalNode.buzzer_accepted.connect(_on_buzzer_accepted)
 	GlobalNode.team_deselected.connect(deselect_team)
 	GlobalNode.game_state.scores_updated.connect(update_scores)
-	
+	GlobalNode.team_selected.connect(_on_team_selected)
+
 	target_scores = game_state.scores.duplicate()
 	current_scores = game_state.scores.duplicate()
 	for team_idx in range(len(current_scores)):
@@ -82,9 +83,12 @@ func _buzzer_animation(idx):
 	splode.position = rect.get_center()
 	splode.emission_rect_extents = rect.size / 2
 	splode.emitting = true
+func _on_team_selected():
+	print("on team in scoreboard selected")
+	highlight_team(game_state.current_team_idx)
 	
 func select_random_team():
-	current_team = randi_range(0, 2)
+	current_team = randi_range(0, len(game.teams)-1)
 	print("randomly chosen team: ", current_team)
 
 	var t = create_tween()
@@ -97,18 +101,22 @@ func select_random_team():
 	else:
 		bip(t, current_team, 0)
 
+	game_state.current_team_idx = current_team
+	GlobalNode.team_selected.emit()
 	var transitions = 10 * len(game.teams) + current_team
 	for i in range(transitions - 1):
 		bip(t, i%len(game.teams), (i+1)%len(game.teams))
 		
-	t.tween_interval(2)
+	t.tween_interval(1.2)
 	bip(t, (transitions+len(game.teams)-1)%len(game.teams), transitions%len(game.teams))
+	
 		
 func _on_buzzer_accepted(team_idx):
 	_buzzer_animation(team_idx)
 	highlight_team(team_idx)
 
 func highlight_team(team_idx):
+	print("highlighting team ", team_idx)
 	var t = create_tween()
 
 	if current_team != -1 and current_team != team_idx:

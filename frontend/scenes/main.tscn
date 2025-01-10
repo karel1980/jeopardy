@@ -32,10 +32,10 @@ text = "This is the gamemaster view. Don't share this screen with the players"
 
 [node name="top_controls" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 40.0
-offset_right = 721.0
-offset_bottom = 117.0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 798.0
+offset_bottom = 125.0
 
 [node name="show_intro" type="Button" parent="top_controls"]
 layout_mode = 2
@@ -87,6 +87,20 @@ text = "Round 2"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Game over"
+
+[node name="current_team_grid" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 110.0
+offset_right = 147.0
+offset_bottom = 150.0
+
+[node name="lbl_current_team_name" type="Label" parent="current_team_grid"]
+layout_mode = 2
+text = "Current Team:"
+
+[node name="current_team_name" type="Label" parent="current_team_grid"]
+layout_mode = 2
 
 [node name="questions" type="GridContainer" parent="."]
 layout_mode = 0
@@ -145,29 +159,28 @@ offset_bottom = 635.0
 text = "Note"
 autowrap_mode = 3
 
-[node name="hide_question" type="Button" parent="question_card"]
+[node name="question_controls" type="HBoxContainer" parent="question_card"]
 layout_mode = 0
-offset_left = 138.0
-offset_top = 157.0
-offset_right = 267.0
-offset_bottom = 240.0
+offset_left = 50.0
+offset_top = 150.0
+offset_right = 269.0
+offset_bottom = 225.0
+
+[node name="hide_question" type="Button" parent="question_card/question_controls"]
+layout_mode = 2
 text = "Hide question"
 
-[node name="question_done" type="Button" parent="question_card"]
-layout_mode = 0
-offset_left = 297.0
-offset_top = 157.0
-offset_right = 426.0
-offset_bottom = 240.0
+[node name="question_done" type="Button" parent="question_card/question_controls"]
+layout_mode = 2
 disabled = true
 text = "Question DONE"
 
 [node name="buzzer_toggle" type="HBoxContainer" parent="question_card"]
 layout_mode = 0
-offset_left = 136.0
+offset_left = 50.0
 offset_top = 261.0
-offset_right = 393.0
-offset_bottom = 353.0
+offset_right = 307.0
+offset_bottom = 336.0
 
 [node name="disable" type="Button" parent="question_card/buzzer_toggle"]
 layout_mode = 2
@@ -181,10 +194,10 @@ text = "Enable buzzers"
 
 [node name="question_control" type="HBoxContainer" parent="question_card"]
 layout_mode = 0
-offset_left = 150.0
-offset_top = 400.0
-offset_right = 370.0
-offset_bottom = 440.0
+offset_left = 50.0
+offset_top = 350.0
+offset_right = 364.0
+offset_bottom = 425.0
 
 [node name="show_points" type="Button" parent="question_card/question_control"]
 layout_mode = 2
@@ -201,17 +214,17 @@ text = "Show ANSWER"
 
 [node name="score_buttons" type="GridContainer" parent="question_card"]
 layout_mode = 0
-offset_left = 17.0
-offset_top = 488.0
-offset_right = 518.0
-offset_bottom = 556.0
+offset_left = 50.0
+offset_top = 450.0
+offset_right = 551.0
+offset_bottom = 525.0
 columns = 3
 
 [node name="score_adjustments" type="GridContainer" parent="."]
 layout_mode = 0
-offset_left = 17.0
+offset_left = 50.0
 offset_top = 566.0
-offset_right = 521.0
+offset_right = 554.0
 offset_bottom = 632.0
 columns = 3
 
@@ -276,8 +289,8 @@ libraries = {
 [connection signal="pressed" from="top_controls/show_halfway" to="." method="on_halfway_pressed"]
 [connection signal="pressed" from="top_controls/round 2" to="." method="start_round" binds= [1]]
 [connection signal="pressed" from="top_controls/gameover" to="." method="on_gameover_pressed"]
-[connection signal="pressed" from="question_card/hide_question" to="." method="hide_question"]
-[connection signal="pressed" from="question_card/question_done" to="." method="mark_question_completed"]
+[connection signal="pressed" from="question_card/question_controls/hide_question" to="." method="hide_question"]
+[connection signal="pressed" from="question_card/question_controls/question_done" to="." method="mark_question_completed"]
 [connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="_on_disable_buzzers"]
 [connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="_on_enable_buzzers"]
 [connection signal="pressed" from="question_card/question_control/show_points" to="." method="_on_show_points_pressed"]

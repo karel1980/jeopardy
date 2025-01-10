@@ -12,11 +12,14 @@ var score_times: Array[int]
 var questions: Array[QuestionId] = []
 var current_round: int = 0
 
+var current_team_idx: int = -1
+
 func _init(_scores: Array[int], _questions: Array[QuestionId], _current_round: int = 0):
 	self.scores = _scores
 	self.score_times = zeros(len(_scores))
 	self.questions = _questions
 	self.current_round = _current_round
+	self.current_team_idx = -1
 
 func zeros(n):
 	var result: Array[int] = []
@@ -26,6 +29,10 @@ func zeros(n):
 
 func mark_correct(team_idx: int, question_id: QuestionId):
 	update_score(team_idx, question_values[question_id.question])
+	current_team_idx = team_idx
+	print("selected team for correctness ", team_idx)
+	GlobalNode.team_selected.emit()
+	
 
 func mark_wrong(team_idx: int, question_id: QuestionId):
 	update_score(team_idx, -question_values[question_id.question])
@@ -60,6 +67,8 @@ func load(path: String):
 			questions.append(QuestionId.new(int(d[0]), int(d[1]), int(d[2])))
 
 		current_round = int(data["round"])
+		if "current_team_index" in data:
+			current_team_idx = data["current_team_index"]
 
 func save(path: String):
 	var game_state_file = FileAccess.open(path, FileAccess.WRITE)
@@ -71,7 +80,8 @@ func save(path: String):
 		"scores": scores,
 		"score_times": score_times,
 		"questions": questions_serialized,
-		"round": current_round
+		"round": current_round,
+		"current_team_index": current_team_idx
 	}))
 	game_state_file.close()
 

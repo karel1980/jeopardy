@@ -14,6 +14,7 @@ signal question_deselected
 signal question_completed
 signal buzzer_accepted
 signal team_deselected
+signal team_selected
 
 var game_location = "../jeopardy.json"
 var game = JSON.parse_string(FileAccess.open(game_location, FileAccess.READ).get_as_text())

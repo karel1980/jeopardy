@@ -29,12 +29,13 @@ var buzzer_wait_music_fadeout_tween = null
 @onready var question_label := $question_card/question
 @onready var note := $question_card/note
 @onready var answer := $question_card/answer
-@onready var question_done := $question_card/question_done
+@onready var question_done := $question_card/question_controls/question_done
 @onready var enable_buzzers_btn := $question_card/buzzer_toggle/enable
 @onready var disable_buzzers_btn := $question_card/buzzer_toggle/disable
 @onready var show_points_btn := $question_card/question_control/show_points
 @onready var show_question_btn := $question_card/question_control/show_question
 @onready var show_awnser_btn := $question_card/question_control/show_answer
+@onready var current_team_name_lbl := $current_team_grid/current_team_name
 
 @onready var sounds = [
 	preload("res://assets/audio/sfx_buzzer_0.ogg"),
@@ -63,6 +64,12 @@ func _ready() -> void:
 	buzzer_locked_until = zeros(len(game.teams))
 	
 	for i in range(len(game.teams)):
+		var label = Label.new()
+		var game = GlobalNode.game
+		label.text = game["teams"][i]
+		score_buttons.add_child(label)
+		
+	for i in range(len(game.teams)):
 		var b = Button.new()
 		b.text = "correct"
 		score_buttons.add_child(b)
@@ -76,20 +83,23 @@ func _ready() -> void:
 		
 	for i in range(len(game.teams)):
 		var b = Button.new()
-		b.text = "+100"
-		$score_adjustments.add_child(b)
-		b.pressed.connect(func(): _on_manual_score_increase(i))
+		var adjustment = 100
+		b.text = "+" + str(adjustment)
+		
+		score_buttons.add_child(b)
+		b.pressed.connect(func(): _on_manual_score_adjust(i,adjustment))
 	
 	for i in range(len(game.teams)):
 		var b = Button.new()
-		b.text = "-100"
-		$score_adjustments.add_child(b)
-		b.pressed.connect(func(): _on_manual_score_decrease(i))
+		var adjustment = -100
+		b.text = str(adjustment)
+		score_buttons.add_child(b)
+		b.pressed.connect(func():  _on_manual_score_adjust(i, adjustment))
 	
 	add_player_window()
-	#add_player_window()
 	
 	$SerialControl.SerialReceived.connect(_on_serial_received)
+	GlobalNode.team_selected.connect(_on_team_selected)
 
 	for cat in range(5):
 		questions.add_child(create_category_button(cat))
@@ -97,7 +107,10 @@ func _ready() -> void:
 	for q in range(5):
 		for cat in range(5):
 			questions.add_child(create_question_button(cat, q))
-		
+func _on_team_selected():
+	print("selected team updated in main")
+	current_team_name_lbl.text = game.teams[game_state.current_team_idx]
+	
 func add_player_window():
 	var win = get_window()
 	win.gui_embed_subwindows = false
@@ -241,6 +254,7 @@ func on_random_team_pressed() -> void:
 func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
 		game_state.mark_correct(team_idx, current_question)
+		
 		disable_answer_grading_buttons()
 		# mark question completed but don't hide it from playerview
 		var btn = get_question_button(current_question)
@@ -277,13 +291,9 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 		$buzzer_wrong.play()
 		persist_state()
 
-func _on_manual_score_increase(team_idx: int) -> void:
+func _on_manual_score_adjust(team_idx: int, amount) -> void:
 	print("manually incrementing score for team ", team_idx)
-	game_state.increment_score(team_idx, 100)
-	persist_state()
-
-func _on_manual_score_decrease(team_idx: int) -> void:
-	game_state.decrement_score(team_idx, 100)
+	game_state.increment_score(team_idx, amount)
 	persist_state()
 
 func persist_state():
@@ -375,10 +385,10 @@ func enable_answer_grading_buttons(team_idx: int):
 	get_wrong_button(team_idx).disabled = false
 
 func get_correct_button(i):
-	return $question_card/score_buttons.get_child(i)
+	return $question_card/score_buttons.get_child(i+ len(game.teams))
 	
 func get_wrong_button(i):
-	return $question_card/score_buttons.get_child(i + len(game.teams))
+	return $question_card/score_buttons.get_child(i + 2* len(game.teams))
 	
 func disable_answer_grading_buttons():
 	for i in range(len(game.teams)):
