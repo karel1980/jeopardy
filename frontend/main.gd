@@ -67,7 +67,7 @@ func _ready() -> void:
 		var label = Label.new()
 		var game = GlobalNode.game
 		label.text = game["teams"][i]
-		score_buttons.add_child(label)
+		#score_buttons.add_child(label)
 		
 	for i in range(len(game.teams)):
 		var b = Button.new()
@@ -351,7 +351,7 @@ func _input(event):
 			handle_buzzer(3)
 			
 func handle_buzzer(team_idx):
-	if team_idx >= len(game.teams):
+	if team_idx >= len(game.teams)-1:
 		return
 		
 	print("AAA already buzzed ", already_buzzed)
@@ -389,10 +389,10 @@ func enable_answer_grading_buttons(team_idx: int):
 	get_wrong_button(team_idx).disabled = false
 
 func get_correct_button(i):
-	return $question_card/score_buttons.get_child(i+ len(game.teams))
+	return $question_card/score_buttons.get_child(i)#+ len(game.teams))
 	
 func get_wrong_button(i):
-	return $question_card/score_buttons.get_child(i + 2* len(game.teams))
+	return $question_card/score_buttons.get_child(i + len(game.teams))
 	
 func disable_answer_grading_buttons():
 	for i in range(len(game.teams)):
