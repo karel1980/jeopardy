@@ -32,6 +32,9 @@ var buzzer_wait_music_fadeout_tween = null
 @onready var question_done := $question_card/question_done
 @onready var enable_buzzers_btn := $question_card/buzzer_toggle/enable
 @onready var disable_buzzers_btn := $question_card/buzzer_toggle/disable
+@onready var show_points_btn := $question_card/question_control/show_points
+@onready var show_question_btn := $question_card/question_control/show_question
+@onready var show_awnser_btn := $question_card/question_control/show_answer
 
 @onready var sounds = [
 	preload("res://assets/audio/sfx_buzzer_0.ogg"),
@@ -151,9 +154,9 @@ func show_question(cat_idx, question_idx):
 		questions.show()
 	else:
 		GlobalNode.question_selected.emit(QuestionId.new(game_state.current_round, cat_idx, question_idx))
+		enable_fysical_buzzers()
 		question_card.show()
 		questions.hide()
-		disable_buzzers()
 		already_buzzed = []
 		buzzer_locked_until = zeros(len(game.teams))
 		question_done.disabled = false
@@ -179,9 +182,7 @@ func hide_question():
 	current_question = null
 	disable_buzzers()
 	#$buzzer_wait_music.stop()
-	
-	fade_out_wait_music()
-	
+		
 	send_enable_disable_message([], [-1])
 	disable_answer_grading_buttons()
 
@@ -268,7 +269,9 @@ func _on_team_wrong_pressed(team_idx: int) -> void:
 		disable_answer_grading_buttons()
 		if len(already_buzzed) < len(game.teams):
 			send_enable_disable_message([-1], already_buzzed)
-			enable_buzzers_with_position(waiting_audio_position)
+			enable_buzzers_with_position()
+			if waiting_audio_position:
+				start_music_on_position(waiting_audio_position)
 		else:
 			send_enable_disable_message([], [-1])
 		$buzzer_wrong.play()
@@ -287,15 +290,18 @@ func persist_state():
 	GlobalNode.save_state()
 
 func enable_buzzers():
-	enable_buzzers_with_position(null)
+	enable_buzzers_with_position()
 	send_enable_disable_message([-1], already_buzzed)
 
-func enable_buzzers_with_position(pos):
+func enable_buzzers_with_position():
 	buzzers_enabled = true
 	disable_buzzers_btn.disabled = false
 	enable_buzzers_btn.disabled = true
+	show_question_btn.disabled = false
 	GlobalNode.team_deselected.emit()
 	disable_answer_grading_buttons()
+		
+func start_music_on_position(pos):
 	if buzzer_wait_music_fadeout_tween:
 		buzzer_wait_music_fadeout_tween.stop()
 	$buzzer_wait_music.volume_db = 0
@@ -303,7 +309,6 @@ func enable_buzzers_with_position(pos):
 		$buzzer_wait_music.play(pos)
 	else:
 		$buzzer_wait_music.play()
-		
 
 func _on_disable_buzzers():
 	fade_out_wait_music()
@@ -413,9 +418,7 @@ func on_gameover_pressed() -> void:
 	questions.hide()
 	GlobalNode.game_over.emit()
 	
-func show_answer() -> void:
-	send_enable_disable_message([], [-1])
-	GlobalNode.answer_revealed.emit(current_question)
+
 
 func enable_disable_message(enable, disable) -> String:
 	var data = {}
@@ -428,7 +431,38 @@ func send_enable_disable_message(enable, disable):
 
 
 func _on_enable_buzzers() -> void:
-	GlobalNode.buzzers_enabled.emit(current_question)
+	enable_fysical_buzzers()
+	
+func enable_fysical_buzzers() -> void:
 	already_buzzed = []
 	send_enable_disable_message([-1], [])
-	enable_buzzers_with_position(0)
+	enable_buzzers_with_position()
+
+func _on_show_answer_pressed() -> void:
+	send_enable_disable_message([], [-1])
+	fade_out_wait_music()
+	GlobalNode.answer_revealed.emit(current_question)
+	
+	enable_buzzers_btn.disabled = false
+	disable_buzzers_btn.disabled = true
+	
+	show_points_btn.disabled = false
+	show_question_btn.disabled = false
+	show_awnser_btn.disabled=true
+	
+func _on_show_question_pressed() -> void:
+	GlobalNode.buzzers_enabled.emit(current_question)
+	
+	start_music_on_position(null)
+	
+	show_points_btn.disabled = false
+	show_question_btn.disabled = true
+	show_awnser_btn.disabled=false
+
+
+func _on_show_points_pressed() -> void:
+	GlobalNode.question_selected.emit(current_question)
+	
+	show_points_btn.disabled = true
+	show_question_btn.disabled = false
+	show_awnser_btn.disabled=false

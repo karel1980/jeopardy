@@ -102,7 +102,7 @@ theme = ExtResource("1_e6dyr")
 
 [node name="question_category" type="Label" parent="question_card"]
 layout_mode = 0
-offset_left = 464.0
+offset_left = 502.0
 offset_top = 159.0
 offset_right = 1129.0
 offset_bottom = 218.0
@@ -111,7 +111,7 @@ autowrap_mode = 3
 
 [node name="question_value" type="Label" parent="question_card"]
 layout_mode = 0
-offset_left = 467.0
+offset_left = 502.0
 offset_top = 227.0
 offset_right = 1128.0
 offset_bottom = 256.0
@@ -120,7 +120,7 @@ autowrap_mode = 3
 
 [node name="question" type="Label" parent="question_card"]
 layout_mode = 0
-offset_left = 468.0
+offset_left = 500.0
 offset_top = 270.0
 offset_right = 1127.0
 offset_bottom = 416.0
@@ -129,7 +129,7 @@ autowrap_mode = 3
 
 [node name="answer" type="Label" parent="question_card"]
 layout_mode = 0
-offset_left = 466.0
+offset_left = 500.0
 offset_top = 418.0
 offset_right = 1148.0
 offset_bottom = 492.0
@@ -179,12 +179,24 @@ layout_mode = 2
 disabled = true
 text = "Enable buzzers"
 
-[node name="show_answer" type="Button" parent="question_card"]
+[node name="question_control" type="HBoxContainer" parent="question_card"]
 layout_mode = 0
-offset_left = 137.0
-offset_top = 375.0
-offset_right = 266.0
-offset_bottom = 458.0
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 370.0
+offset_bottom = 440.0
+
+[node name="show_points" type="Button" parent="question_card/question_control"]
+layout_mode = 2
+disabled = true
+text = "show points"
+
+[node name="show_question" type="Button" parent="question_card/question_control"]
+layout_mode = 2
+text = "show question"
+
+[node name="show_answer" type="Button" parent="question_card/question_control"]
+layout_mode = 2
 text = "Show ANSWER"
 
 [node name="score_buttons" type="GridContainer" parent="question_card"]
@@ -268,5 +280,7 @@ libraries = {
 [connection signal="pressed" from="question_card/question_done" to="." method="mark_question_completed"]
 [connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="_on_disable_buzzers"]
 [connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="_on_enable_buzzers"]
-[connection signal="pressed" from="question_card/show_answer" to="." method="show_answer"]
+[connection signal="pressed" from="question_card/question_control/show_points" to="." method="_on_show_points_pressed"]
+[connection signal="pressed" from="question_card/question_control/show_question" to="." method="_on_show_question_pressed"]
+[connection signal="pressed" from="question_card/question_control/show_answer" to="." method="_on_show_answer_pressed"]
 [connection signal="pressed" from="SerialControl/FakeSerialEvent" to="SerialControl" method="_on_fake_serial_event_pressed"]
