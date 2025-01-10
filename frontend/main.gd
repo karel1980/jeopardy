@@ -269,6 +269,7 @@ func mark_question_completed():
 		var btn = get_question_button(current_question)
 		btn.text = "---"
 		GlobalNode.question_completed.emit(current_question)
+		GlobalNode.team_selected.emit()
 		persist_state()
 		hide_question()
 		current_question = null
@@ -350,6 +351,9 @@ func _input(event):
 			handle_buzzer(3)
 			
 func handle_buzzer(team_idx):
+	if team_idx >= len(game.teams):
+		return
+		
 	print("AAA already buzzed ", already_buzzed)
 	if already_buzzed:
 		print("---")

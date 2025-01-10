@@ -41,6 +41,7 @@ func _ready() -> void:
 	GlobalNode.game_state.scores_updated.connect(update_scores)
 	GlobalNode.team_selected.connect(_on_team_selected)
 
+
 	target_scores = game_state.scores.duplicate()
 	current_scores = game_state.scores.duplicate()
 	for team_idx in range(len(current_scores)):
@@ -54,7 +55,10 @@ func _teams_ui(i):
 	return get_child(i+3)
 	
 func _team_name(i):
-	return get_child(i+3).get_child(0)
+	var node = get_child(i+3).get_child(0)
+	print("Got team name node: ", node)  # Debug print
+	return node
+
 	
 func _team_score(i):
 	return get_child(i+3).get_child(1)
@@ -84,7 +88,6 @@ func _buzzer_animation(idx):
 	splode.emission_rect_extents = rect.size / 2
 	splode.emitting = true
 func _on_team_selected():
-	print("on team in scoreboard selected")
 	highlight_team(game_state.current_team_idx)
 	
 func select_random_team():
@@ -116,22 +119,27 @@ func _on_buzzer_accepted(team_idx):
 	highlight_team(team_idx)
 
 func highlight_team(team_idx):
-	print("highlighting team ", team_idx)
+	print("Highlighting team: ", team_idx)  # Debug print
 	var t = create_tween()
-
+	
 	if current_team != -1 and current_team != team_idx:
+		print("Switching from team ", current_team, " to team ", team_idx)  # Debug
 		t.tween_property(_team_name(current_team), "modulate", mod_color_none, 0.2)
 		t.parallel().tween_property(_team_name(team_idx), "modulate", highlight_color, 0.2)
 		current_team = team_idx
 	else:
-		t.tween_property(_team_name(current_team), "modulate", highlight_color, 0.2)
+		print("Highlighting current team: ", team_idx)  # Debug
+		t.tween_property(_team_name(team_idx), "modulate", highlight_color, 0.2)
+		current_team = team_idx  # Make sure to set current_team here too
 
+		
 func bip(tween, from_idx, to_idx):
 	tween.tween_property(_team_name(from_idx), "modulate", mod_color_none, rotate_delay)
 	tween.parallel().tween_property(_team_name(to_idx), "modulate", highlight_color, rotate_delay)
 	tween.tween_callback(func(): $AudioStreamPlayer.play())
 
 func deselect_team():
+	print("team deselected?")
 	current_team = -1
 	for i in range(len(game.teams)):
 		_team_name(i).modulate = mod_color_none
