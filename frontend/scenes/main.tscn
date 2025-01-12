@@ -26,16 +26,22 @@ script = ExtResource("2_c4q6c")
 
 [node name="warning label" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = 480.0
+offset_bottom = 33.0
+theme_override_font_sizes/font_size = 32
 text = "This is the gamemaster view. Don't share this screen with the players"
+uppercase = true
 
 [node name="top_controls" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 50.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
 offset_top = 50.0
-offset_right = 798.0
-offset_bottom = 125.0
+offset_bottom = 115.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
 
 [node name="show_intro" type="Button" parent="top_controls"]
 layout_mode = 2
@@ -47,11 +53,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Round 1"
 
-[node name="reveal_category_buttons" type="HBoxContainer" parent="top_controls"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="reveal_previous" type="Button" parent="top_controls/reveal_category_buttons"]
+[node name="reveal_previous" type="Button" parent="top_controls"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -59,8 +61,9 @@ disabled = true
 text = "Reveal
 previous
 category"
+metadata/category = "reveal"
 
-[node name="reveal_next" type="Button" parent="top_controls/reveal_category_buttons"]
+[node name="reveal_next" type="Button" parent="top_controls"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -68,6 +71,7 @@ disabled = true
 text = "Reveal
 next
 category"
+metadata/category = "reveal"
 
 [node name="random_team" type="Button" parent="top_controls"]
 layout_mode = 2
@@ -88,137 +92,142 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Game over"
 
-[node name="current_team_grid" type="HBoxContainer" parent="."]
+[node name="question_view" type="Panel" parent="."]
 layout_mode = 0
 offset_left = 50.0
-offset_top = 110.0
-offset_right = 147.0
-offset_bottom = 150.0
+offset_top = 150.0
+offset_right = 353.0
+offset_bottom = 418.0
 
-[node name="lbl_current_team_name" type="Label" parent="current_team_grid"]
+[node name="question_control" type="GridContainer" parent="question_view"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+offset_right = 400.0
+offset_bottom = 400.0
+theme = ExtResource("1_e6dyr")
+theme_override_constants/v_separation = 75
+
+[node name="question_controls" type="HBoxContainer" parent="question_view/question_control"]
+layout_mode = 2
+
+[node name="hide_question" type="Button" parent="question_view/question_control/question_controls"]
+layout_mode = 2
+text = "Hide question"
+
+[node name="question_done" type="Button" parent="question_view/question_control/question_controls"]
+layout_mode = 2
+disabled = true
+text = "Question DONE"
+
+[node name="buzzer_toggle" type="HBoxContainer" parent="question_view/question_control"]
+layout_mode = 2
+
+[node name="disable" type="Button" parent="question_view/question_control/buzzer_toggle"]
+layout_mode = 2
+disabled = true
+text = "Disable buzzers"
+
+[node name="enable" type="Button" parent="question_view/question_control/buzzer_toggle"]
+layout_mode = 2
+disabled = true
+text = "Enable buzzers"
+
+[node name="question_control" type="HBoxContainer" parent="question_view/question_control"]
+layout_mode = 2
+
+[node name="show_points" type="Button" parent="question_view/question_control/question_control"]
+layout_mode = 2
+disabled = true
+text = "show points"
+
+[node name="show_question" type="Button" parent="question_view/question_control/question_control"]
+layout_mode = 2
+text = "show question"
+
+[node name="show_answer" type="Button" parent="question_view/question_control/question_control"]
+layout_mode = 2
+text = "Show ANSWER"
+
+[node name="score_buttons" type="GridContainer" parent="question_view/question_control"]
+layout_mode = 2
+columns = 3
+
+[node name="game_state_values" type="GridContainer" parent="question_view"]
+layout_mode = 2
+offset_left = 500.0
+offset_right = 1000.0
+offset_bottom = 400.0
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="lbl_current_team_name" type="Label" parent="question_view/game_state_values"]
 layout_mode = 2
 text = "Current Team:"
 
-[node name="current_team_name" type="Label" parent="current_team_grid"]
+[node name="current_team_name" type="Label" parent="question_view/game_state_values"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="lbl_current_category" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+text = "Current Category:"
+
+[node name="question_category" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Question category"
+
+[node name="lbl_question_value" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+text = "points:"
+
+[node name="question_value" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Question value"
+
+[node name="lbl_question" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+text = "question:"
+
+[node name="question" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Question"
+autowrap_mode = 3
+
+[node name="lbl_answer" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+text = "answer:"
+
+[node name="answer" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Answer"
+
+[node name="lbl_note" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+text = "note:"
+
+[node name="note" type="Label" parent="question_view/game_state_values"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Note"
 
 [node name="questions" type="GridContainer" parent="."]
 layout_mode = 0
 offset_left = 45.0
 offset_top = 150.0
-offset_right = 569.0
-offset_bottom = 464.0
+offset_right = 1114.0
+offset_bottom = 612.0
 columns = 5
-
-[node name="question_card" type="Panel" parent="."]
-layout_mode = 0
-theme = ExtResource("1_e6dyr")
-
-[node name="question_category" type="Label" parent="question_card"]
-layout_mode = 0
-offset_left = 502.0
-offset_top = 159.0
-offset_right = 1129.0
-offset_bottom = 218.0
-text = "Question category"
-autowrap_mode = 3
-
-[node name="question_value" type="Label" parent="question_card"]
-layout_mode = 0
-offset_left = 502.0
-offset_top = 227.0
-offset_right = 1128.0
-offset_bottom = 256.0
-text = "Question value"
-autowrap_mode = 3
-
-[node name="question" type="Label" parent="question_card"]
-layout_mode = 0
-offset_left = 500.0
-offset_top = 270.0
-offset_right = 1127.0
-offset_bottom = 416.0
-text = "Question"
-autowrap_mode = 3
-
-[node name="answer" type="Label" parent="question_card"]
-layout_mode = 0
-offset_left = 500.0
-offset_top = 418.0
-offset_right = 1148.0
-offset_bottom = 492.0
-text = "Answer"
-autowrap_mode = 3
-
-[node name="note" type="Label" parent="question_card"]
-layout_mode = 0
-offset_left = 645.0
-offset_top = 490.0
-offset_right = 1135.0
-offset_bottom = 635.0
-text = "Note"
-autowrap_mode = 3
-
-[node name="question_controls" type="HBoxContainer" parent="question_card"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 150.0
-offset_right = 269.0
-offset_bottom = 225.0
-
-[node name="hide_question" type="Button" parent="question_card/question_controls"]
-layout_mode = 2
-text = "Hide question"
-
-[node name="question_done" type="Button" parent="question_card/question_controls"]
-layout_mode = 2
-disabled = true
-text = "Question DONE"
-
-[node name="buzzer_toggle" type="HBoxContainer" parent="question_card"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 261.0
-offset_right = 307.0
-offset_bottom = 336.0
-
-[node name="disable" type="Button" parent="question_card/buzzer_toggle"]
-layout_mode = 2
-disabled = true
-text = "Disable buzzers"
-
-[node name="enable" type="Button" parent="question_card/buzzer_toggle"]
-layout_mode = 2
-disabled = true
-text = "Enable buzzers"
-
-[node name="question_control" type="HBoxContainer" parent="question_card"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 350.0
-offset_right = 364.0
-offset_bottom = 425.0
-
-[node name="show_points" type="Button" parent="question_card/question_control"]
-layout_mode = 2
-disabled = true
-text = "show points"
-
-[node name="show_question" type="Button" parent="question_card/question_control"]
-layout_mode = 2
-text = "show question"
-
-[node name="show_answer" type="Button" parent="question_card/question_control"]
-layout_mode = 2
-text = "Show ANSWER"
-
-[node name="score_buttons" type="GridContainer" parent="question_card"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 450.0
-offset_right = 551.0
-offset_bottom = 525.0
-columns = 3
 
 [node name="buzzer_wait_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_5h3xq")
@@ -275,17 +284,17 @@ libraries = {
 
 [connection signal="pressed" from="top_controls/show_intro" to="." method="on_show_intro_pressed"]
 [connection signal="pressed" from="top_controls/round 1" to="." method="start_round" binds= [0]]
-[connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
-[connection signal="pressed" from="top_controls/reveal_category_buttons/reveal_next" to="." method="on_reveal_next_category_pressed"]
+[connection signal="pressed" from="top_controls/reveal_previous" to="." method="on_reveal_previous_category_pressed"]
+[connection signal="pressed" from="top_controls/reveal_next" to="." method="on_reveal_next_category_pressed"]
 [connection signal="pressed" from="top_controls/random_team" to="." method="on_random_team_pressed"]
 [connection signal="pressed" from="top_controls/show_halfway" to="." method="on_halfway_pressed"]
 [connection signal="pressed" from="top_controls/round 2" to="." method="start_round" binds= [1]]
 [connection signal="pressed" from="top_controls/gameover" to="." method="on_gameover_pressed"]
-[connection signal="pressed" from="question_card/question_controls/hide_question" to="." method="hide_question"]
-[connection signal="pressed" from="question_card/question_controls/question_done" to="." method="mark_question_completed"]
-[connection signal="pressed" from="question_card/buzzer_toggle/disable" to="." method="_on_disable_buzzers"]
-[connection signal="pressed" from="question_card/buzzer_toggle/enable" to="." method="_on_enable_buzzers"]
-[connection signal="pressed" from="question_card/question_control/show_points" to="." method="_on_show_points_pressed"]
-[connection signal="pressed" from="question_card/question_control/show_question" to="." method="_on_show_question_pressed"]
-[connection signal="pressed" from="question_card/question_control/show_answer" to="." method="_on_show_answer_pressed"]
+[connection signal="pressed" from="question_view/question_control/question_controls/hide_question" to="." method="hide_question"]
+[connection signal="pressed" from="question_view/question_control/question_controls/question_done" to="." method="mark_question_completed"]
+[connection signal="pressed" from="question_view/question_control/buzzer_toggle/disable" to="." method="_on_disable_buzzers"]
+[connection signal="pressed" from="question_view/question_control/buzzer_toggle/enable" to="." method="_on_enable_buzzers"]
+[connection signal="pressed" from="question_view/question_control/question_control/show_points" to="." method="_on_show_points_pressed"]
+[connection signal="pressed" from="question_view/question_control/question_control/show_question" to="." method="_on_show_question_pressed"]
+[connection signal="pressed" from="question_view/question_control/question_control/show_answer" to="." method="_on_show_answer_pressed"]
 [connection signal="pressed" from="SerialControl/FakeSerialEvent" to="SerialControl" method="_on_fake_serial_event_pressed"]

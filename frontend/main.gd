@@ -5,8 +5,6 @@ var game_is_paused = true
 var playerview_scene = preload('res://scenes/playerview.tscn')
 var playerview
 
-@onready var score_buttons = $question_card/score_buttons
-
 var current_question: QuestionId = null
 var already_buzzed: Array[int] = []
 
@@ -19,21 +17,21 @@ var buzzer_wait_music_fadeout_tween = null
 @onready var questions := $questions
 
 @onready var toggle_intro_screen := $top_controls/show_intro
-@onready var reveal_category_buttons := $top_controls/reveal_category_buttons
 
-@onready var question_card = $question_card
-@onready var question_category := $question_card/question_category
-@onready var question_value := $question_card/question_value
-@onready var question_label := $question_card/question
-@onready var note := $question_card/note
-@onready var answer := $question_card/answer
-@onready var question_done := $question_card/question_controls/question_done
-@onready var enable_buzzers_btn := $question_card/buzzer_toggle/enable
-@onready var disable_buzzers_btn := $question_card/buzzer_toggle/disable
-@onready var show_points_btn := $question_card/question_control/show_points
-@onready var show_question_btn := $question_card/question_control/show_question
-@onready var show_awnser_btn := $question_card/question_control/show_answer
-@onready var current_team_name_lbl := $current_team_grid/current_team_name
+
+@onready var question_control = $question_view
+@onready var question_category := $question_view/game_state_values/question_category
+@onready var question_value := $question_view/game_state_values/question_value
+@onready var question_label := $question_view/game_state_values/question
+@onready var note := $question_view/game_state_values/note
+@onready var answer := $question_view/game_state_values/answer
+@onready var question_done := $question_view/question_control/question_controls/question_done
+@onready var enable_buzzers_btn := $question_view/question_control/buzzer_toggle/enable
+@onready var disable_buzzers_btn := $question_view/question_control/buzzer_toggle/disable
+@onready var show_points_btn := $question_view/question_control/question_control/show_points
+@onready var show_question_btn := $question_view/question_control/question_control/show_question
+@onready var show_awnser_btn := $question_view/question_control/question_control/show_answer
+@onready var current_team_name_lbl := $question_view/game_state_values/current_team_name
 
 @onready var sounds = [
 	preload("res://assets/audio/sfx_buzzer_0.ogg"),
@@ -53,10 +51,10 @@ var game = GlobalNode.game
 var game_state = GlobalNode.game_state
 
 func _ready() -> void:
-	question_card.hide()
+	question_control.hide()
 	questions.hide()
 	
-	$question_card/score_buttons.columns = len(game.teams)
+	$question_view/question_control/score_buttons.columns = len(game.teams)
 	
 	
 	
@@ -101,7 +99,7 @@ func _ready() -> void:
 		deduct_points_button.pressed.connect(func():  _on_manual_score_adjust(i, -GameState.score_increments))
 		item_list.add_child(deduct_points_button)
 		
-		$question_card/score_buttons.add_child(item_list)
+		$question_view/question_control/score_buttons.add_child(item_list)
 	
 	add_player_window()
 	
@@ -175,7 +173,7 @@ func show_question(cat_idx, question_idx):
 	else:
 		GlobalNode.question_selected.emit(QuestionId.new(game_state.current_round, cat_idx, question_idx))
 		enable_fysical_buzzers()
-		question_card.show()
+		question_control.show()
 		questions.hide()
 		already_buzzed = []
 		question_done.disabled = false
@@ -208,7 +206,7 @@ func hide_question():
 	# ui	
 	question_done.disabled = true
 	
-	question_card.hide()
+	question_control.hide()
 	questions.show()
 	GlobalNode.question_deselected.emit()
 	
@@ -379,7 +377,7 @@ func handle_buzzer(team_idx):
 	enable_answer_grading_buttons(team_idx)
 	
 func enable_answer_grading_buttons(team_idx: int):
-	for container in $question_card/score_buttons.get_children():
+	for container in $question_view/question_control/score_buttons.get_children():
 		for child in container.get_children():
 			if child.get_meta("action") == "grade"  and  child.get_meta("team_id") == team_idx:
 				child.disabled = false
@@ -388,7 +386,7 @@ func enable_answer_grading_buttons(team_idx: int):
 
 	
 func disable_answer_grading_buttons():
-	for container in $question_card/score_buttons.get_children():
+	for container in $question_view/question_control/score_buttons.get_children():
 		for child in container.get_children():
 			if child.get_meta("action") == "grade" :
 				child.disabled = true
@@ -406,17 +404,17 @@ func start_round(round_number: int) -> void:
 	GlobalNode.round_started.emit(round_number)
 	enable_reveal_category_buttons()
 	reset_question_buttons()
-	question_card.hide()
+	question_control.hide()
 	questions.show()
 
 func enable_reveal_category_buttons():
-	for btn in reveal_category_buttons.get_children():
-			btn.disabled = false
-			
+	change_reveal_buttons(false)
 func disable_reveal_category_buttons():
-	for btn in reveal_category_buttons.get_children():
-			btn.disabled = true
-
+	change_reveal_buttons(true)
+func change_reveal_buttons(disabled:bool):
+	for btn in $top_controls.get_children():
+		if btn.get_meta("category") == "reveal":
+			btn.disabled = disabled
 func on_halfway_pressed() -> void:
 	disable_reveal_category_buttons()
 	questions.hide()
