@@ -220,14 +220,6 @@ offset_right = 551.0
 offset_bottom = 525.0
 columns = 3
 
-[node name="score_adjustments" type="GridContainer" parent="."]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 566.0
-offset_right = 554.0
-offset_bottom = 632.0
-columns = 3
-
 [node name="buzzer_wait_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_5h3xq")
 

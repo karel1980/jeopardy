@@ -4,7 +4,10 @@ class_name GameState
 
 signal scores_updated
 
-static var question_values = [ 200, 400, 600, 800, 1000 ]
+static var score_increments = 200
+static var no_of_questions = 5
+static var question_values = range(score_increments,(no_of_questions+1)*score_increments,score_increments)
+
 
 var scores: Array[int]
 var score_times: Array[int]
@@ -42,6 +45,9 @@ func mark_question_complete(question_id: QuestionId):
 	if question_id not in questions:
 		questions.append(question_id)
 
+func is_question_answered_correctly(question_id: QuestionId):
+	return question_id in questions
+	
 func increment_score(team_idx: int, score: int):
 	update_score(team_idx, score)
 	

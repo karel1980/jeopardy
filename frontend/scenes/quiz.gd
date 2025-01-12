@@ -27,7 +27,6 @@ var sep = 5
 var row_drop_delay = .3
 var item_drop_delay = .3
 
-var question_points = [ 200, 400, 600, 800, 1000 ]
 
 var cat_tween = null
 var cat_tween2 = null
@@ -130,10 +129,10 @@ func init_category_buttons():
 		
 func init_question_buttons():
 	var categories = game["rounds"][game_state.current_round]["categories"]
-	for point_i in len(question_points):
+	for point_i in len(GameState.question_values):
 		for cat_i in len(categories):
 			var btn = get_question_label(QuestionId.new(game_state.current_round, cat_i, point_i))
-			btn.text = str(question_points[point_i])
+			btn.text = str(GameState.question_values[point_i])
 
 func get_category_button(cat_idx) -> Label:
 	return category_buttons[cat_idx]
@@ -222,7 +221,7 @@ func zoom_question(question_id: QuestionId):
 	var question_label = get_question_label(question_id)
 	var question = get_question(question_id)
 	
-	var ql = QuestionLabel.new(question, question_points[question_id.question], question_label.position, question_label.size, questionboard.get_rect().size)
+	var ql = QuestionLabel.new(question, GameState.question_values[question_id.question], question_label.position, question_label.size, questionboard.get_rect().size)
 	question_holder.add_child(ql)
 
 func get_question(question_id: QuestionId):

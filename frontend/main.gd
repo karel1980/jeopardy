@@ -7,10 +7,8 @@ var playerview
 
 @onready var score_buttons = $question_card/score_buttons
 
-var points = [ 200, 400, 600, 800, 1000 ] # duplicated in playerview.gd
 var current_question: QuestionId = null
 var already_buzzed: Array[int] = []
-var buzzer_locked_until: Array[int]
 
 var current_revealed_category = -1
 var buzzers_enabled = false
@@ -59,42 +57,51 @@ func _ready() -> void:
 	questions.hide()
 	
 	$question_card/score_buttons.columns = len(game.teams)
-	$score_adjustments.columns = len(game.teams)
 	
-	buzzer_locked_until = zeros(len(game.teams))
+	
 	
 	for i in range(len(game.teams)):
-		var label = Label.new()
-		var game = GlobalNode.game
-		label.text = game["teams"][i]
-		#score_buttons.add_child(label)
-		
-	for i in range(len(game.teams)):
-		var b = Button.new()
-		b.text = "correct"
-		score_buttons.add_child(b)
-		b.pressed.connect(func(): _on_team_correct_pressed(i))
+		var item_list = VBoxContainer.new()
+		item_list.custom_minimum_size = Vector2(150, 0)
+		item_list.add_theme_constant_override("margin_left", 50)
 
-	for i in range(len(game.teams)):
-		var b = Button.new()
-		b.text = "wrong"
-		score_buttons.add_child(b)
-		b.pressed.connect(func(): _on_team_wrong_pressed(i))
-		
-	for i in range(len(game.teams)):
-		var b = Button.new()
-		var adjustment = 100
-		b.text = "+" + str(adjustment)
-		
-		score_buttons.add_child(b)
-		b.pressed.connect(func(): _on_manual_score_adjust(i,adjustment))
+		var label = Label.new()
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.size_flags_horizontal = Control.SIZE_FILL
+		label.text = GlobalNode.game["teams"][i]
+		item_list.add_child(label)
 	
-	for i in range(len(game.teams)):
-		var b = Button.new()
-		var adjustment = -100
-		b.text = str(adjustment)
-		score_buttons.add_child(b)
-		b.pressed.connect(func():  _on_manual_score_adjust(i, adjustment))
+		var correct_button = Button.new()
+		correct_button.text = "correct"
+		correct_button.size_flags_horizontal = Control.SIZE_FILL
+		correct_button.pressed.connect(func(): _on_team_correct_pressed(i))
+		correct_button.name = "grading_correct_%d" % i 
+		correct_button.set_meta("team_id", i) 
+		correct_button.set_meta("action", "grade")
+		item_list.add_child(correct_button)
+	
+		var wrong_button = Button.new()
+		wrong_button.text = "wrong"
+		wrong_button.size_flags_horizontal = Control.SIZE_FILL
+		wrong_button.pressed.connect(func(): _on_team_wrong_pressed(i))
+		wrong_button.name = "grading_wrong_%d"% i 
+		wrong_button.set_meta("team_id", i) 
+		wrong_button.set_meta("action", "grade")
+		item_list.add_child(wrong_button)
+		
+		var add_points_button = Button.new()
+		add_points_button.size_flags_horizontal = Control.SIZE_FILL
+		add_points_button.text = "+" + str(GameState.score_increments)
+		add_points_button.pressed.connect(func(): _on_manual_score_adjust(i,GameState.score_increments))
+		item_list.add_child(add_points_button)
+		
+		var deduct_points_button = Button.new()
+		deduct_points_button.size_flags_horizontal = Control.SIZE_FILL
+		deduct_points_button.text = str(-GameState.score_increments)
+		deduct_points_button.pressed.connect(func():  _on_manual_score_adjust(i, -GameState.score_increments))
+		item_list.add_child(deduct_points_button)
+		
+		$question_card/score_buttons.add_child(item_list)
 	
 	add_player_window()
 	
@@ -146,7 +153,7 @@ func create_question_button(cat, q):
 	var btn = Button.new()
 	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	btn.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	btn.text = str(points[q])
+	btn.text = str(GameState.question_values[q])
 	btn.pressed.connect(Callable(self, "show_question").bind(cat, q))
 	btn.disabled = true
 	return btn
@@ -155,7 +162,7 @@ func reset_question_buttons():
 	for cat_idx in range(5):
 		for question_idx in range(5):
 			var btn = get_question_button(QuestionId.new(game_state.current_round, cat_idx, question_idx))
-			btn.text = str(points[question_idx])
+			btn.text = str(GameState.question_values[question_idx])
 			btn.disabled = true
 			
 	for q in game_state.get_current_round_questions():
@@ -171,12 +178,11 @@ func show_question(cat_idx, question_idx):
 		question_card.show()
 		questions.hide()
 		already_buzzed = []
-		buzzer_locked_until = zeros(len(game.teams))
 		question_done.disabled = false
 		question_category.text = game.rounds[game_state.current_round].categories[cat_idx]["name"]
 		current_question = QuestionId.new(game_state.current_round, cat_idx, question_idx)
 		var question = game.rounds[game_state.current_round].categories[cat_idx]["questions"][question_idx]
-		question_value.text = str(points[question_idx])
+		question_value.text = str(GameState.question_values[question_idx])
 		question_label.text = question["q"]
 		answer.text = question["a"]
 		if "n" in game.rounds[game_state.current_round].categories[cat_idx]["questions"][question_idx]:
@@ -254,7 +260,7 @@ func on_random_team_pressed() -> void:
 func _on_team_correct_pressed(team_idx: int) -> void:
 	if current_question:
 		game_state.mark_correct(team_idx, current_question)
-		
+		fade_out_wait_music()
 		disable_answer_grading_buttons()
 		# mark question completed but don't hide it from playerview
 		var btn = get_question_button(current_question)
@@ -350,10 +356,7 @@ func _input(event):
 		elif event.keycode == KEY_D:
 			handle_buzzer(3)
 			
-func handle_buzzer(team_idx):
-	if team_idx >= len(game.teams)-1:
-		return
-		
+func handle_buzzer(team_idx):		
 	print("AAA already buzzed ", already_buzzed)
 	if already_buzzed:
 		print("---")
@@ -361,17 +364,8 @@ func handle_buzzer(team_idx):
 		print("Team ", team_idx, " already buzzed. Ignoring.")
 		return
 
-	if not buzzers_enabled:
-		print("Team ", team_idx, " pressed buzzer early. Disabling for .5 seconds")
-		# TODO: also turn off buzzer light?
-		# Needs a timer to re-enable the buzzer light,
-		# We can do this in _Process
-		buzzer_locked_until[team_idx] = Time.get_ticks_msec() + 500
-		return
-	
-	if Time.get_ticks_msec() < buzzer_locked_until[team_idx]:
-		print("Team ", team_idx, " buzzer is still locked out")
-		return
+
+
 
 	GlobalNode.buzzer_accepted.emit(team_idx)
 	waiting_audio_position = $buzzer_wait_music.get_playback_position()
@@ -385,19 +379,20 @@ func handle_buzzer(team_idx):
 	enable_answer_grading_buttons(team_idx)
 	
 func enable_answer_grading_buttons(team_idx: int):
-	get_correct_button(team_idx).disabled = false
-	get_wrong_button(team_idx).disabled = false
+	for container in $question_card/score_buttons.get_children():
+		for child in container.get_children():
+			if child.get_meta("action") == "grade"  and  child.get_meta("team_id") == team_idx:
+				child.disabled = false
 
-func get_correct_button(i):
-	return $question_card/score_buttons.get_child(i)#+ len(game.teams))
 	
-func get_wrong_button(i):
-	return $question_card/score_buttons.get_child(i + len(game.teams))
+
 	
 func disable_answer_grading_buttons():
-	for i in range(len(game.teams)):
-		get_correct_button(i).disabled = true
-		get_wrong_button(i).disabled = true
+	for container in $question_card/score_buttons.get_children():
+		for child in container.get_children():
+			if child.get_meta("action") == "grade" :
+				child.disabled = true
+
 
 func start_round(round_number: int) -> void:
 	current_revealed_category = -1

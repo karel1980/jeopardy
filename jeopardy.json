@@ -1,10 +1,8 @@
 {
   "teams": [
-    "lucenbart",
-    "blauw",
-    "gel",
-
-
+    "quiz tovenaars",
+    "de jokers",
+    "team blauw",
   ],
   "rounds": [
     {
@@ -17,20 +15,20 @@
               "q": "Het moment waarop kinderen verhalen delen, spullen tonen en eigen belevenissen in de klas binnenbrengen. Dit is ook het vertrekpunt van projecten en onderzoeken."
             },
             {
-              "a": "wat is een dag- of weekplanning?",
-              "q": "In de klas is een duidelijke structuur. Door deze visuele routine weten kinderen wat er elke dag gebeurt en creëren we voorspelbaarheid."
-            },
-            {
               "a": "Wat is stille werktijd?",
               "q": "De tijd waarin kinderen zelfstandig instructies verwerken met behulp van een werkbrief. Waar nodig wordt er verlengde instructie gegeven. Hier wordt gedifferentieerd naar niveau en naar tempo."
             },
             {
-              "a": "Wat is \"een tekstenboek\"?",
+              "a": "Wat is een tekstenboek?",
               "q": "Een verzameling van werkjes, vrije teksten en onderzoekjes, vaak gecombineerd met een illustratietechniek, die een kind maakte doorheen verschillende jaren."
             },
             {
+              "a": "Wat is een dagplanning of wat is een weekplanning?",
+              "q": "In de klas is een duidelijke structuur. Door deze visuele routine weten kinderen wat er elke dag gebeurt en creëren we voorspelbaarheid."
+            },
+            {
               "a": "Wat is vrije werktijd?",
-              "q": "Met dit systeem plannen kinderen zelfstandig moetjes en magjes binnen een bepaalde termijn. Deze taken zijn verbonden aan de leerdoelen waar ze op dat moment aan werken. Via deze freinettechniek leren hun werk in eigen handen nemen en leren ze plannen."
+              "q": "Met dit systeem plannen kinderen zelfstandig moet- en magwerkjes binnen een bepaalde termijn. Deze taken zijn verbonden aan de leerdoelen waar ze op dat moment aan werken. Via deze freinettechniek leren ze hun werk in eigen handen nemen en leren ze plannen."
             }
           ]
         },
@@ -38,24 +36,24 @@
           "name": "OOK IN DE KLAS",
           "questions": [
             {
-              "a": "Wat is \"een begeleider\"?",
+              "a": "Wat is een begeleider?",
               "q": "Ze zijn gelijkwaardig aan de kinderen, begeleiden hun groeiproces en worden aangesproken met de voornaam."
             },
             {
-              "a": "Wat is \"een onderzoek\"?",
-              "q": "Hierbij zoeken kinderen een antwoord op hun vraag via verschillende bronnen. Dit start al in de kleuterklas. We spreken de natuurlijke nieuwsgierigheid van kinderen aan."
+              "a": "Wat is een onderzoek?",
+              "q": "Met deze freinettechniek zoeken kinderen een antwoord op hun vraag via verschillende bronnen. Dit start al in de kleuterklas. We spreken de natuurlijke nieuwsgierigheid van kinderen aan."
             },
             {
-              "a": "Wat is \"een vrije tekst\"?",
+              "a": "Wat is een vrije tekst?",
               "q": "Een neerslag door een kind van een gebeurtenis waarbij ze hun taal actief en betekenisvol gebruiken. Heel wat talige doelen worden via deze freinettechniek aangebracht."
             },
             {
-              "a": "Wat is \"kiestijd\"?",
-              "q": "Dit wordt voorbereid met kinderen: wat willen we doen, kunnen we iets leren aan anderen of zelf iets nieuws leren? Hun inspraak is groot. Dit wordt bijna altijd op vrijdag georganiseerd."
+              "a": "Wat is kiestijd?",
+              "q": "Dit wordt voorbereid met kinderen: wat willen we doen, kunnen we iets leren aan anderen of zelf iets nieuws leren? Hun inspraak is groot. Dit wordt bijna altijd op vrijdagnamiddag georganiseerd."
             },
             {
-              "a": "Wat is een \"kan ik het nogje / kan ik het al\"?",
-              "q": "Hiermee wordt getest of de leerstof gekend is of wat de voorkennis is. Het is eigenlijk een andere naam voor een toets."
+              "a": "Wat is een kan ik het nogje / kan ik het al?",
+              "q": "Hiermee wordt getest of de leerstof gekend is of wat de voorkennis is. Het is eigenlijk een andere naam voor een toets. Let op, dit is een dubbele vraag!"
             }
           ]
         },
@@ -63,23 +61,23 @@
           "name": "OP SCHOOL",
           "questions": [
             {
-              "a": "Wat is \"een forum\"?",
+              "a": "Wat is een forum?",
               "q": "Hier laten we aan elkaar en aan de ouders zien waarmee we inhoudelijk de afgelopen maand bezig zijn geweest. Soms is dit samen voor kleuter en lager, soms apart. Vergelijk dit vooral niet met een schoolfeest."
             },
             {
-              "a": "Wat is \"verzamelen\"?",
+              "a": "Wat is verzamelen?",
               "q": "Dit signaal vertelt je dat je naar je klas moet gaan. Vaak het eerste woord dat onze jongste kleuters thuis tot in den treure herhalen."
             },
             {
-              "a": "Wat is \"een atelier\"?",
+              "a": "Wat is een atelier?",
               "q": "Klasoverschrijdende activiteiten, soms met gemengde leeftijdsgroepen, waar kinderen vrij uit een aanbod kiezen. Er wordt al doende geleerd en ervaren. Dit kan gericht zijn op het bereiken van techniekdoelen of er kan een vrij aanbod zijn. We organiseren dit drie keer per jaar."
             },
             {
-              "a": "Wat is \"het kinderparlement\"?",
-              "q": "Maandelijkse vergadering met twee afgevaardigden van elke klas. Ze vertellen wat goed gaat in de school en doen voorstellen om het samenleven en samenwerken op school nog beter te maken."
+              "a": "Wat is het kinderparlement?",
+              "q": "Maandelijkse vergadering met twee afgevaardigden van elke klas. Ze vertellen waar ze mee bezig zijn in de klas, wat goed gaat in de school en doen voorstellen om het samenleven en samenwerken op school nog beter te maken."
             },
             {
-              "a": "Wat is \"het Sofiermomentje\"?",
+              "a": "Wat is het Sofiermomentje?",
               "q": "Elke donderdagmiddag om 13u30 in de arena, waar verjaardagen worden gevierd en successen worden gedeeld. Soms worden hier ook afspraken opnieuw herhaald."
             }
           ]
@@ -88,23 +86,23 @@
           "name": "GROTEMENSEN DINGEN",
           "questions": [
             {
-              "a": "Wie is \"de coördinator\"?",
+              "a": "Wat is de coördinator?",
               "q": "Deze persoon staat in voor het strategisch, onderwijskundig, personeels- en financieel beleid van de school. In andere scholen gebruiken ze daar een ander woordje voor."
             },
             {
-              "a": "Wat is \"een werkgroep\"?",
+              "a": "Wat is een werkgroep?",
               "q": "Je hebt beeld, financieel, ICT, kledij, kleur, OKT en verhuur als voorbeelden hiervan."
             },
             {
-              "a": "Wat is \"een oudergesprek\"?",
-              "q": "Tweemaal per jaar bespreekt men hierin de leefhouding, werkhouding en leervorderingen van elke tovenaar."
+              "a": "Wat is een oudergesprek?",
+              "q": "Tweemaal per jaar bespreekt men hier de leefhouding, werkhouding en leervorderingen van elke tovenaar."
             },
             {
-              "a": "Wat is \"een klasvergadering\"?",
+              "a": "Wat is een klasvergadering?",
               "q": "Twee- tot driemaal per jaar worden alle ouders van een klas hiervoor uitgenodigd door de klasbegeleider. Dit gaat dan specifiek over de eigen klaswerking en kan over verschillende thema’s gaan. Deze gaan altijd ‘s avonds door."
             },
             {
-              "a": "Wat is \"het vestigingsbestuur\"?",
+              "a": "Wat is het vestigingsbestuur?",
               "q": "Dit orgaan koestert de basispijlers en visie van de school en draagt die uit naar alle organen en ouders. Dit orgaan heeft verschillende bevoegdheden en ondersteunt mee het dagelijkse reilen en zeilen van DKT."
             }
           ]
@@ -113,23 +111,23 @@
           "name": "BUITEN",
           "questions": [
             {
-              "a": "Wat is \"een uitstap\"?",
-              "q": "Als je leert over bomen, ga je het bos in om de wereld te leren kennen. Daarom blijven we niet binnen, maar gaan we op …"
+              "a": "Wat is een uitstap?",
+              "q": "Als we leren over afval, dan gaan we naar het containerpark. We blijven dus niet binnen, maar we gaan op …"
             },
             {
-              "a": "Wat is \"een buiten(werk)dag\"?",
+              "a": "Wat is een buiten(werk)dag?",
               "q": "Hierbij trekken we naar 't Veld, Wallemote, het Rhodesgoed of het Merelbos. We zetten in op bewegend leren en verwerken wat we de voorbije weken leerden in de klas. Een waterdicht buitenpak komt op deze dag vaak van pas."
             },
             {
-              "a": "Wat is \"een meerdaagse\"?",
+              "a": "Wat is een meerdaagse?",
               "q": "Soms trekken we er voor meer dan één dag samen op uit. Verbinding, samenwerken en leren rekening houden met elkaar staan dan centraal."
             },
             {
-              "a": "Wat is \"een project\"?",
+              "a": "Wat is een project?",
               "q": "Vanuit de interesse van de kinderen leren, doen we via deze freinettechniek. Geen lesjes WERO, maar doelgericht ervaringsleren, vanuit hun interesse en beleving, aangespekt met de leerplandoelen. We leren, maken en doen."
             },
             {
-              "a": "Wat is \"de UITdag\"?",
+              "a": "Wat is de UITdag?",
               "q": "Deze dag wordt stilaan een traditie in DKT. Met de hele school trekken we er een hele dag op uit, sport staat centraal! We zouden dit eigenlijk ook wel een sportdag kunnen noemen."
             }
           ]
