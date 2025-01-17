@@ -72,31 +72,41 @@ func _on_question_completed():
 	
 func reveal_question(question_id):
 	if "image" in question:
-		var color_rect = ColorRect.new()
-		color_rect.color = Color(1, 1, 1, .8)
-		color_rect.size = max_size
-
-		var rect = TextureRect.new()
-		rect.texture = ImageTexture.create_from_image(Image.load_from_file("../" + question["image"]))
-		rect.ignore_texture_size = true
-		rect.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
-		rect.size_flags_horizontal = Control.SIZE_EXPAND
-		rect.size_flags_vertical = Control.SIZE_EXPAND
-		rect.size = max_size
-		
-		color_rect.add_child(rect)
-		add_child(color_rect)
+		add_image_child(question["image"])
 	else:
 		label_settings = question_settings
 		text = question["q"]
+
+func add_image_child(image_path):
+	remove_children()
+
+	var color_rect = ColorRect.new()
+	color_rect.color = Color(1, 1, 1, .8)
+	color_rect.size = max_size
+
+	var rect = TextureRect.new()
+	rect.texture = ImageTexture.create_from_image(Image.load_from_file("../" + image_path))
+	rect.ignore_texture_size = true
+	rect.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+	rect.size_flags_horizontal = Control.SIZE_EXPAND
+	rect.size_flags_vertical = Control.SIZE_EXPAND
+	rect.size = max_size
 	
+	color_rect.add_child(rect)
+	add_child(color_rect)
+	
+func remove_children():
+	for c in get_children():
+		c.queue_free()
+
 func show_answer(question_id: QuestionId):
-	if "image" in question:
-		for c in get_children():
-			c.queue_free()
-	
-	label_settings = answer_settings
-	text = question["a"]
+	remove_children()
+
+	if "a-image" in question:
+		add_image_child(question["a-image"])
+	else:
+		label_settings = answer_settings
+		text = question["a"]
 
 func disappear():
 	if disappearing:

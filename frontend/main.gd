@@ -172,7 +172,7 @@ func show_question(cat_idx, question_idx):
 		questions.show()
 	else:
 		GlobalNode.question_selected.emit(QuestionId.new(game_state.current_round, cat_idx, question_idx))
-		enable_fysical_buzzers()
+		enable_physical_buzzers()
 		question_control.show()
 		questions.hide()
 		already_buzzed = []
@@ -198,7 +198,7 @@ func hide_question():
 	# state
 	current_question = null
 	disable_buzzers()
-	#$buzzer_wait_music.stop()
+	fade_out_wait_music()
 		
 	send_enable_disable_message([], [-1])
 	disable_answer_grading_buttons()
@@ -345,25 +345,25 @@ func _on_serial_received(line: String):
 	
 func _input(event):
 	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_A:
-			handle_buzzer(0)
-		elif event.keycode == KEY_B:
-			handle_buzzer(1)
-		elif event.keycode == KEY_C:
-			handle_buzzer(2)
-		elif event.keycode == KEY_D:
-			handle_buzzer(3)
+		if event.keycode == KEY_SPACE:
+			handle_buzzer(0)	
+		#elif event.keycode == KEY_B:
+			#handle_buzzer(1)
+		#elif event.keycode == KEY_C:
+			#handle_buzzer(2)
+		#elif event.keycode == KEY_D:
+			#handle_buzzer(3)
 			
-func handle_buzzer(team_idx):		
+func handle_buzzer(team_idx):
+	if not buzzers_enabled:
+		print("buzzers not enabled")
+		return
 	print("AAA already buzzed ", already_buzzed)
 	if already_buzzed:
 		print("---")
 	if already_buzzed.has(team_idx):
 		print("Team ", team_idx, " already buzzed. Ignoring.")
 		return
-
-
-
 
 	GlobalNode.buzzer_accepted.emit(team_idx)
 	waiting_audio_position = $buzzer_wait_music.get_playback_position()
@@ -438,9 +438,9 @@ func send_enable_disable_message(enable, disable):
 
 
 func _on_enable_buzzers() -> void:
-	enable_fysical_buzzers()
+	enable_physical_buzzers()
 	
-func enable_fysical_buzzers() -> void:
+func enable_physical_buzzers() -> void:
 	already_buzzed = []
 	send_enable_disable_message([-1], [])
 	enable_buzzers_with_position()
