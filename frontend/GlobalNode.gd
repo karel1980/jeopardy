@@ -13,6 +13,7 @@ signal question_answered_correctly
 signal question_deselected
 signal question_completed
 signal buzzer_accepted
+signal wrong_answer_given
 signal team_deselected
 
 var base_dir: String

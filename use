@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [ -z "$1" ]; then
-  echo "Usage: $0 <yamlfile>"
-  exit 1
-fi
-
-./yaml2json "$1" > jeopardy.json

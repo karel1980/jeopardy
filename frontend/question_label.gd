@@ -14,8 +14,11 @@ var points_settings = LabelSettings.new()
 var question_settings = LabelSettings.new()	
 var answer_settings = LabelSettings.new()
 
+var audio
+
 var normal_font = load("res://assets/fonts/LilitaOne-Regular.ttf")
 var pixel_font = load("res://assets/fonts/PressStart2P-Regular.ttf")
+
 
 func _init(question, points, orig_pos: Vector2, orig_size: Vector2, max_size: Vector2):
 	self.question = question
@@ -41,6 +44,8 @@ func _init(question, points, orig_pos: Vector2, orig_size: Vector2, max_size: Ve
 	answer_settings.font_color = Color(1,1,1)
 	answer_settings.font_size = 52
 	
+	
+	
 func _ready() -> void:
 	position = orig_pos
 	size = max_size
@@ -59,6 +64,8 @@ func _ready() -> void:
 	GlobalNode.question_answered_correctly.connect(show_answer)
 	GlobalNode.answer_revealed.connect(show_answer)
 	GlobalNode.buzzers_enabled.connect(reveal_question)
+	GlobalNode.buzzer_accepted.connect(on_buzzer_accepted)
+	GlobalNode.wrong_answer_given.connect(on_wrong_answer_given)
 	
 	var tween = create_tween()
 	tween.tween_property(self, "position", Vector2(0,0), 0.7)
@@ -69,6 +76,29 @@ func _on_question_deselected():
 	
 func _on_question_completed():
 	disappear()
+	
+func on_buzzer_accepted(_team_idx):
+	if audio:
+		audio.stop()
+	
+func on_wrong_answer_given():
+	if "audio" in question:
+		start_audio(question["audio"])
+		
+func start_audio(file_path: String):
+	print("creating player")
+	audio = AudioStreamPlayer.new()
+	print("adding player")
+	self.add_child(audio)
+	print("loading stream from ", file_path)
+	var stream = AudioStreamOggVorbis.load_from_file("../" + file_path)
+	print("stream is ", stream)
+	print("setting stream")
+	audio.stream = stream
+	print("setting volume")
+	audio.volume_db = 0.0
+	print("playing")
+	audio.play()
 	
 func reveal_question(question_id):
 	if "image" in question:
@@ -89,22 +119,33 @@ func reveal_question(question_id):
 	else:
 		label_settings = question_settings
 		text = question["q"]
+		
+	if "audio" in question:
+		start_audio(question["audio"])
+		
+
+func stop_music():
+	if audio:
+		audio.stop()
 	
 func show_answer(question_id: QuestionId):
 	if "image" in question:
 		for c in get_children():
+			print("freeing children")
 			c.queue_free()
 	
 	label_settings = answer_settings
 	text = question["a"]
 
 func disappear():
+	stop_music()
 	if disappearing:
 		return
 
 	var tween = create_tween()
 	tween.tween_property(self, "position", orig_pos, 0.7)
 	tween.parallel().tween_property(self, "scale", small_scale, 0.7)
+	print("scheduling a free")
 	tween.tween_callback(queue_free)
 
 func _process(_delta: float) -> void:

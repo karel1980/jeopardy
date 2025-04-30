@@ -12,6 +12,8 @@ var pixel_font = load("res://assets/fonts/PressStart2P-Regular.ttf")
 var game = GlobalNode.game
 var game_state = GlobalNode.game_state
 
+var active_question = null
+
 var next_view: String
 
 var scores = [ 0, 0, 0 ]
@@ -221,7 +223,7 @@ func questionboard_label_size():
 func zoom_question(question_id: QuestionId):
 	var question_label = get_question_label(question_id)
 	var question = get_question(question_id)
-	
+	active_question = question
 	var ql = QuestionLabel.new(question, question_points[question_id.question], question_label.position, question_label.size, questionboard.get_rect().size)
 	question_holder.add_child(ql)
 

@@ -258,10 +258,15 @@ func mark_question_completed():
 		hide_question()
 		current_question = null
 	
+func get_question(question_id: QuestionId):
+	return game.rounds[question_id.round]["categories"][question_id.category]["questions"][question_id.question]
+
 func get_question_button(question_id: QuestionId):
 	return questions.get_child((1 + question_id.question) * 5 + question_id.category)
 	
 func _on_team_wrong_pressed(team_idx: int) -> void:
+	print("EMITTING WRONG ANSWER GIVEN")
+	GlobalNode.wrong_answer_given.emit()
 	if current_question:
 		already_buzzed.append(team_idx)
 		game_state.mark_wrong(team_idx, current_question)
@@ -299,10 +304,13 @@ func enable_buzzers_with_position(pos):
 	if buzzer_wait_music_fadeout_tween:
 		buzzer_wait_music_fadeout_tween.stop()
 	$buzzer_wait_music.volume_db = 0
-	if pos:
-		$buzzer_wait_music.play(pos)
-	else:
-		$buzzer_wait_music.play()
+	var q = get_question(current_question)
+	
+	if "audio" not in q:
+		if pos:
+			$buzzer_wait_music.play(pos)
+		else:
+			$buzzer_wait_music.play()
 		
 
 func _on_disable_buzzers():

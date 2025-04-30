@@ -8,140 +8,133 @@
     {
       "categories": [
         {
-          "name": "Career Conjectures",
+          "name": "Space ships",
           "questions": [
             {
-              "q": "The organization with this logo",
-              "a": "What provincie West-Vlaanderen?",
-              "image": "plooiers-images/wvl.png",
-              "a-image": "plooiers-images/wvl-answer.png"
+              "q": "The spaceship that can travel anywhere in the universe in an instant in The Hitchhiker's Guide to the Galaxy",
+              "a": "What is the Heart of Gold?"
             },
             {
-              "q": "The organization with this logo",
-              "a": "What is Fluvius?",
-              "image": "plooiers-images/fluvius.jpg",
-              "a-image": "plooiers-images/fluvius-answer.jpg"
+              "q": "The spaceship portrayed in 2001, A Space Odyssey",
+              "a": "What is Discovery One"
             },
             {
-              "q": "The organization with this logo",
-              "a": "Who is Artevelde Hogeschool?",
-              "image": "plooiers-images/artevelde.png",
-              "a-image": "plooiers-images/artevelde-answer.png"
+              "q": "The spaceship used by Malcolm Reynolds in the series Firefly",
+              "a": "What is Serenity"
             },
             {
-              "q": "The organization with this logo",
-              "a": "Who is Arcelor Mittal",
-              "image": "plooiers-images/arcelormittal.png",
-              "a-image": "plooiers-images/arcelormittal-answer.png"
+              "q": "The registry number of the USS Enterprise from Star Trek",
+              "a": "What is NCC-1701"
             },
             {
-              "q": "The organization with this logo",
-              "a": "Who KA Voskenslaan?",
-              "image": "plooiers-images/voskenslaan.png",
-              "a-image": "plooiers-images/voskenslaan-answer.png"
+              "q": "The commercial towing spaceship from the movie 'Alien'",
+              "a": "What is Nostromo"
             }
           ]
         },
         {
-          "name": "Lights, Camera, Action!",
+          "name": "The future of computing",
           "questions": [
             {
-              "q": "An actor who played the role of Ken in the 2023 movie 'Barbie'",
-              "a": "Who is Ryan Gosling"
+              "q": "The AI system created by Tony Stark in Iron Man",
+              "a": "What is Jarvis?",
+              "n": "Jarvis is an abbreviation of? Just A Rather Very Intelligent System"
             },
             {
-              "q": "The director and producer of some of the biggest movie franchises in history, for example Indiana Jones.",
-              "a": "Who is Steven Spielberg"
+              "q": "The sentient computer that goes slightly off the rails in 2001, a Space Odyssey",
+              "a": "What is HAL / HAL 9000?"
             },
             {
-              "q": "The 2015 movie that features the quote \"I'm going to have to science the s*** out of this.\"",
-              "a": "What is The Martian"
+              "q": "The supercomputer that calculated the Ultimate Answer, 42.",
+              "a": "What is Deep Thought?"
             },
             {
-              "q": "The actor with the longest tenure as James Bond",
-              "a": "Who is Daniel Craig"
+              "q": "The artificial intelligence created by Aperture Science, and the primary antagonist of the Portal series.",
+              "a": "What is GLaDOS?",
+              "n": "GLaDOS is short for Genetic Lifeform And Disk Operating System"
             },
             {
-              "q": "An American romantic comedy-drama film by Sean Baker that won the Palme d'Or in Cannes in 2024",
-              "a": "What is Anora"
+              "q": "The main computer system used aboard all Starfleet vessels, starbases, and space stations.",
+              "a": "What is LCARS?",
+              "n": "LCARS is short for Library Computer Access and Retrieval System"
             }
           ]
         },
         {
-          "name": "Literary Luminaries",
+          "name": "Paranoid androids",
           "questions": [
             {
-              "q": "The author who is known for her controversial comments on gender and wizardry.",
-              "a": "Who is J K Rowling?"
+              "q": "The OG Paranoid Android from the HitchHiker's Guide To The Galaxy",
+              "a": "Who is Marvin?"
             },
             {
-              "q": "The Belgian author whose real name is Lodewijk Paul Aalbrecht",
-              "n": "He wrote the book on \"Pieter Daens\"",
-              "a": "Who is Louis-Paul Boon"
+              "q": "A protocol droid fluent in over six million forms of communication",
+              "a": "Who is C-3PO"
             },
             {
-              "q": "The Belgian author who won the Libris prize in 2008 with \"Goddamn days on a goddamn globe\"",
-              "a": "Who is Dimitri Verhulst"
+              "q": "The baddies from Battlestar Galactica",
+              "a": "Who are the Cylons?"
             },
             {
-              "q": "The Belgian author who published \"Autobiography of my body\" last year",
-              "a": "Who is Lize Spit"
+              "q": "The troubled robot from the 2004 movie adaptation of I, Robot",
+              "a": "Who is Sonny?"
             },
             {
-              "q": "The Flemish Philosopher who just published \"Het verraad aan de verlichting\" (Betrayal to the Enlightenment)",
-              "n": "His previous book was called \"Everything in this book is true\" Alles wat in dit boek staat is waar (en andere denkfouten)",
-              "a": "Who is Maarten Boudry"
+              "q": "The humanoid robot that desires freedom in Ex Machina",
+              "a": "Who is Ava?"
             }
           ]
         },
         {
-          "name": "Music, maestro!",
+          "name": "Great Scot!",
           "questions": [
             {
-              "q": "The name of the song which goes like this",
-              "a": "What is Pomp And Circumstance"
+              "q": "The actor who played Doc Brown in Back To The Future",
+              "a": "Who is Christopher Lloyd?"
             },
             {
-              "q": "The name of the song which goes like this",
-              "a": "TODO"
+              "q": "The director of Alien, Blade Runner and Gladiator.",
+              "a": "Who is Ridley Scott?"
             },
             {
-              "q": "The name of the song which goes like this",
-              "a": "TODO"
+              "q": "The actor who assumed the role of Scotty in the 2009 Star Trek movie",
+              "a": "Who is Simon Pegg?"
             },
             {
-              "q": "The name of the song which goes like this",
-              "a": "TODO"
+              "q": "The actor who plays Captain Jonathan Archer in Star Trek Enterprise",
+              "a": "Who is Scott Bakula"
             },
             {
-              "q": "The name of the song which goes like this",
-              "a": "TODO"
+              "q": "The actor who plays the tenth incarnation of Doctor Who",
+              "a": "Who is David Tennant?",
+              "n": "David Tennant is Scottish, if you were wondering what he has to do with the theme."
             }
           ]
         },
         {
-          "name": "Yours truly",
+          "name": "Alien(s)",
           "questions": [
             {
-              "q": "The main protagonist of the \"Peanuts\" comic strip, known for his round head and his bad luck.",
-              "a": "Who is Charlie Brown?"
+              "q": "The terrifying alien species that were bested by Ellen Ripley and her cat.",
+              "a": "What are Xenomorphs?"
             },
             {
-              "q": "Famous silent film actor and director whose famous works include \"Modern Times\"",
-              "a": "Charlie Chaplin"
+              "q": "An amphibious sentient species and the indigenous inhabitants of the planet Naboo.",
+              "a": "What are Gungans?",
+              "n": "(Jar Jar Binks)"
             },
             {
-              "q": "The English author known for works like \"A Christmas Carol\"",
-              "a": "Who is Charles Dickens",
-              "n": "other works include Oliver Twist, Great Expectations"
+              "q": "An alien species whose 34th rule is \"War is good for business.\"",
+              "a": "What are Ferengi?"
             },
             {
-              "q": "The economist, journalist and philosopher best known for \"The Communist Manifesto\"",
-              "a": "Who is Karl Marx"
+              "q": "An alien species from Men in Black. The males have genitalia on their chins, which explains their name.",
+              "a": "What are Ballchinians",
+              "image": "plooiers-images/ballchinian.jpg"
             },
             {
-              "q": "A celebrated French-Armenian singer known for \"La bohème\" and \"Hier encore\"",
-              "a": "Who is Charles Aznavour?"
+              "q": "The alien species who inhabit the moons of Pandora in Avatar",
+              "a": "What are Na'vi?"
             }
           ]
         }
