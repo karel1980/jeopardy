@@ -162,7 +162,7 @@ func show_question(cat_idx, question_idx):
 		var question = game.rounds[game_state.current_round].categories[cat_idx]["questions"][question_idx]
 		question_value.text = str(points[question_idx])
 		question_label.text = question["q"]
-		answer.text = question["a"]
+		answer.text = str(question["a"])
 		if "n" in game.rounds[game_state.current_round].categories[cat_idx]["questions"][question_idx]:
 			note.text = question["n"]
 		else:

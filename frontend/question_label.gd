@@ -135,7 +135,7 @@ func show_answer(question_id: QuestionId):
 			c.queue_free()
 	
 	label_settings = answer_settings
-	text = question["a"]
+	text = str(question["a"])
 
 func disappear():
 	stop_music()
